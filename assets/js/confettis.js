@@ -72,6 +72,7 @@ function PrintConfetti() {
         } else {
             confettis = []
             canvas.remove()
+            refresh()
         }
     }
 

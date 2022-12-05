@@ -1,39 +1,39 @@
 let itemlist = [
-    {
-        "name": "Unlocked Task",
-        "check": true,
-        "expanded": false,
-        "lock": false,
-        "data": [
-            {"text": "0",
-            "check": true},
-            {"text": "1",
-            "check": true},
-            {"text": "2",
-            "check": true},
-            {"text": "3",
-            "check": true},
-            {"text": "4",
-            "check": true}
-        ]
-    },
-    {
-        "name": "Locked Task",
-        "check": false,
-        "expanded": false,
-        "lock": true,
-        "data": [
-            {"text": "0",
-            "check": true},
-            {"text": "1",
-            "check": false},
-            {"text": "2",
-            "check": false},
-            {"text": "3",
-            "check": false},
-            {"text": "4",
-            "check": false}]
-    }
+    // {
+    //     "name": "Unlocked Task",
+    //     "check": true,
+    //     "expanded": false,
+    //     "lock": false,
+    //     "data": [
+    //         {"text": "0",
+    //         "check": true},
+    //         {"text": "1",
+    //         "check": true},
+    //         {"text": "2",
+    //         "check": true},
+    //         {"text": "3",
+    //         "check": true},
+    //         {"text": "4",
+    //         "check": true}
+    //     ]
+    // },
+    // {
+    //     "name": "Locked Task",
+    //     "check": false,
+    //     "expanded": false,
+    //     "lock": true,
+    //     "data": [
+    //         {"text": "0",
+    //         "check": true},
+    //         {"text": "1",
+    //         "check": false},
+    //         {"text": "2",
+    //         "check": false},
+    //         {"text": "3",
+    //         "check": false},
+    //         {"text": "4",
+    //         "check": false}]
+    // }
 ]
 
 let i = -1
@@ -83,7 +83,7 @@ const setInput = () => {
 
 const handlerAddTask = (array) => {
     if (array === undefined) {
-        if ($('.input-data').val() !== "") addTask({"name": $('.input-data').val(), "check": false, "expanded": false})
+        if ($('.input-data').val() !== "") addTask({"name": $('.input-data').val(), "check": false, "expanded": false, "lock": true})
     } else {
         Object.keys(array).map((key) => {
             return addTask(array[key])
@@ -119,7 +119,7 @@ const addTask = (task) => {
         })
     }
     
-    itemlist[il] = {name: task.name, check: task.check, expanded: task.expanded, lock: (task.lock !== undefined )? task.lock : false, data:[]}
+    itemlist[il] = {name: task.name, check: task.check, expanded: task.expanded, lock: (task.lock !== undefined ) ? task.lock : true, data:[]}
 
     let $task = $(`
         <div class="task">
@@ -156,7 +156,9 @@ const addTask = (task) => {
     taskCheck.hover(
         () => { taskCheck.removeClass("fa-square").addClass("fa-square-check")},
         () => {
-            if(!itemlist[il].check) taskCheck.addClass("fa-square")
+            if (!itemlist[il]?.check) {
+                taskCheck.addClass("fa-square")
+            }
         },
     )
 
@@ -174,23 +176,26 @@ const addTask = (task) => {
         itemlist[il].check = !itemlist[il].check
 
         if (itemlist[il].check) {
-            taskCheck.removeClass("fa-square fa-regular").addClass("fa-solid fa-square-check")
+            taskCheck
+                .removeClass("fa-square fa-regular")
+                .addClass("fa-solid fa-square-check")
 
-            subCheck.removeClass("fa-regular fa-square").addClass("fa-solid fa-square-check")
+            subCheck
+                .removeClass("fa-regular fa-square")
+                .addClass("fa-solid fa-square-check")
 
             percent = "100%"
 
-            body.prepend($canvas)
+            body.append($canvas)
             PrintConfetti()
-
-            if (!itemlist[il].lock) {
-                itemlist.splice(il, 1)
-                refresh()
-            }
         } else {
-            taskCheck.addClass("fa-regular fa-square").removeClass("fa-solid fa-square-check")
+            taskCheck
+                .addClass("fa-regular fa-square")
+                .removeClass("fa-solid fa-square-check")
 
-            subCheck.addClass("fa-regular fa-square").removeClass("fa-solid fa-square-check")
+            subCheck
+                .addClass("fa-regular fa-square")
+                .removeClass("fa-solid fa-square-check")
 
             percent = "0%"
         }
@@ -201,6 +206,11 @@ const addTask = (task) => {
         Object.values(itemlist[il].data).map((e) => {
             e.check = itemlist[il].check
         })
+
+        if (itemlist[il].check && !itemlist[il].lock) {
+            itemlist.splice(il, 1)
+            $task[0].classList.add("unlockedTask")
+        }
     })
 
     const addSubTask = (subtask) => {
@@ -222,8 +232,10 @@ const addTask = (task) => {
         )
 
         subCheck.click(() => {
-            subCheck.removeClass("fa-square-check").addClass("fa-square")
-            subCheck.toggleClass("fa-regular fa-square fa-solid fa-square-check")
+            subCheck
+                .removeClass("fa-square-check")
+                .addClass("fa-square")
+                .toggleClass("fa-regular fa-square fa-solid fa-square-check")
 
             subtask.check = !subtask.check
 
@@ -234,23 +246,27 @@ const addTask = (task) => {
             })
             
             if (percent === 100) {
-                taskCheck.removeClass("fa-regular fa-square").addClass("fa-solid fa-square-check")
+                taskCheck
+                    .removeClass("fa-regular fa-square")
+                    .addClass("fa-solid fa-square-check")
 
-                body.prepend($canvas)
+                body.append($canvas)
                 PrintConfetti()
-
-                if (!itemlist[il].lock) {
-                    itemlist.splice(il, 1)
-                    refresh()
-                }
             } else {
-                taskCheck.addClass("fa-regular fa-square").removeClass("fa-solid fa-square-check")
+                taskCheck
+                    .addClass("fa-regular fa-square")
+                    .removeClass("fa-solid fa-square-check")
             }
 
             itemlist[il].check = percent === 100
 
             textProgress.text(parseInt(percent) + '%')
             findProgress.animate({width: `${percent}%`}, 300)
+
+            if (itemlist[il].check && !itemlist[il].lock) {
+                itemlist.splice(il, 1)
+                $task[0].classList.add("unlockedTask")
+            }
         })
 
         $subtask.on('dragstart', () => {subdragging = itemlist[il].data.indexOf(subtask)})
@@ -331,7 +347,6 @@ const addTask = (task) => {
 
     taskExpand.click(() => {
         taskExpand.toggleClass("rotate")
-        console.log(itemlist[il])
         itemlist[il].expanded = !itemlist[il].expanded
     })
 
@@ -435,4 +450,4 @@ const addTask = (task) => {
     }
 }
 
-handlerAddTask(itemlist)
+// handlerAddTask(itemlist)
