@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
+body {
+    background: var(--background);
+    margin: auto;
+    --primary:#1686df;
+    --secondary:#99cefb;
+    --background:#efffff;
+    --shadow: #2b86c240 3px 3px 5px 1px;
+    --quart-bright: #ffffff40;
+    --half-dark: #00000080;
+    --task: #d2f5fa;
+    --subtask-even: #a6e0fa;
+    --subtask: #bbeafa;
+    --t-cross: #505050;
+    --selection: #003fff6b;
+}
+
+*{
+    font-family: Montserrat;
+    font-weight: 700;
+}
+
+::selection {
+    background: var(--selection);
+}
+
+#canvas {
+    position: fixed;
+    top: 0;
+    z-index: 3;
+}
+
+[contenteditable="true"]:focus {
+    font-style: italic;
+    outline: none;
+    border-bottom: .1px solid BLACK;
+}
+
+.form-group {
+    position: relative;
+    --color: BLACK;
+}
+
+.input-data {
+    width: 125px;
+    color: BLACK;
+    padding: 8px 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color);
+    background: transparent;
+}
+
+.form-label {
+    color: var(--color);
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transform: translateY(10px);
+    transition: transform .5s, color .3s;
+}
+
+.input-data:focus + .form-label,
+.input-data:not(:placeholder-shown) + .form-label {
+    transform: translateY(-12px) scale(.7);
+    transform-origin: top left;
+    --color: var(--primary);
+}
+
+[class~="btn"] {
+    border: none;
+    position: relative;
+    transform: scale(1);
+    z-index: 2;
+}
+
+.btn {
+    border-radius: 5px;
+    transition: all .3s;
+    background: transparent;
+}
+
+.btn:active,
+.btn:focus {
+    background: var(--quart-bright);
+}
+
+.btn:hover {
+    cursor: pointer;
+    background: var(--quart-bright);
+    transition: all .3s;
+    transform: scale(1.15);
+    position: relative;
+}
+
+.text-btn {
+    color: WHITE;
+    border-radius: 3px;
+    transition: transform .3s, color .5s;
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.text-btn:hover {
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform .3s, color .5s;
+    transform: scale(1.02);
+    position: relative;
+    color: BLACK;
+}
+
+.navbar {
+    position: fixed;
+    background: var(--primary);
+    width: 100%;
+    height: 30px;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5.5%;
+    z-index: 3;
+    box-shadow: var(--shadow);
+}
+
+.navbar > nav:first-child{
+    align-items: center;
+    color: WHITE;
+}
+
+.navbar i{
+    margin-right: 10px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.elements {
+    padding: 0px;
+    margin: 75px 15% 10px;
+}
+
+.drag-over{
+    border: 2px var(--primary) dashed;
+}
+
+.drag-over.task::after {
+    content: " ";
+    height: 50px;
+    background: var(--task);
+    display: flex;
+}
+
+.dragging {
+    opacity: .5;
+}
+
+.subtask {
+    position: relative;
+    overflow: hidden;
+    padding: 5px 0px;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    padding-left: 2%;
+    font-size: smaller;
+}
+
+.task {
+    background: var(--task);
+    box-shadow: var(--shadow);
+    padding: 2px 0px 5px;
+    opacity: 0;
+}
+
+.task > div:first-child {
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    padding: 2px;
+}
+
+.task > div:first-child:hover::after,
+.subtask:hover::after{
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.task > div:first-child::after,
+.subtask::after{
+    content: " ";
+    width: 77px;
+    height: 1000px;
+    background: var(--task);
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(0);
+    opacity: 1;
+    transition: all 750ms;
+    z-index: 2;
+}
+
+.subtask:nth-child(even), 
+.subtask::after {
+    background: var(--subtask-even);
+}
+
+.subtask:nth-child(odd)::after {
+    background: var(--subtask);
+}
+
+[id^="text-"], .subtask text {
+    max-height: 20px;
+    overflow-x: hidden;
+    word-break: break-all;
+}
+
+.hidden {
+    transition: all .3s;
+    max-height: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: var(--subtask);
+}
+
+.btn-expand:not(.rotate) + .hidden {
+    margin: 0px 50%;
+}
+
+.btn-expand.rotate + .hidden {
+    margin: 0px 5px;
+    transition: all .3s;
+    max-height: 120px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.expanded {
+    transition: all .3s;
+    max-height: 120px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.rotate {
+    rotate: 90deg;
+}
+
+*::-webkit-scrollbar {
+    background: transparent;
+    width: 2px;
+}
+
+  
+*::-webkit-scrollbar-button {
+    display: none;
+}
+
+  
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(0deg, transparent, var(--primary), transparent);
+}
+
+.tres-p {
+    margin: 0 10px 0 auto;
+}
+
+.options {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    right: 7.5%;
+    z-index: 3;
+    overflow: hidden;
+    background: WHITE;
+    border-radius: 3px;
+}
+
+.options > button {
+    margin: 3px;
+}
+
+.options.expanded{
+    box-shadow: var(--shadow);
+}
+
+.modal {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    opacity: 0;
+    z-index: 2;
+    position: fixed;
+}
+
+.check{
+    z-index: 2;
+    transition: all .3s;
+    transform: scale(1);
+    margin: 0px 10px;
+}
+
+.subtask .check {
+    margin: auto;
+}
+
+.check.fa-solid.fa-square-check + text {
+    color: var(--t-cross);
+    text-decoration: .9px line-through;
+}
+
+.check:hover{
+    transition: all .3s;
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+.check:not(.fa-square) {
+    color: var(--t-cross);
+}
+
+.set-input{
+    margin: 20px 17%;
+    padding: 3px;
+    box-shadow: var(--shadow);
+}
+
+/* progress bar */
+
+.bar {
+    border: solid;
+    border-radius: 30px;
+    width: 180px;
+    margin-left: 15px;
+    background: var(--secondary);
+}
+
+.progress {
+    font-size: 10px;
+    background-color: var(--primary);
+    height: 12.5px;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.progress > *{
+    margin: auto 2.5px;
+    color: WHITE;
+    text-shadow: 1px 1px 1px BLACK;
+}
+
+/* done progress bar */
+
+.d-none {
+    display: none;
+}

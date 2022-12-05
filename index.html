@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Task board</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
+    </head>
+    <body>
+        <header class="navbar">
+            <nav class="d-flex">
+                <i class="fa-solid fa-list-check"></i>
+                <h4 class="text">TASK LIST</h4>
+            </nav>
+        </header>
+        <ul class="elements"></ul>
+        <button class="set-input text-btn" onclick={setInput()}>
+            <i class="fa-solid fa-plus"></i>
+            <text>Add task</text>
+        </button>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/confettis.js"></script>
+        <script src="assets/js/app.js"></script>
+    </body>
+</html>
