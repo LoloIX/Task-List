@@ -1,42 +1,7 @@
-let itemlist = [
-    // {
-    //     "name": "Unlocked Task",
-    //     "check": true,
-    //     "expanded": false,
-    //     "lock": false,
-    //     "data": [
-    //         {"text": "0",
-    //         "check": true},
-    //         {"text": "1",
-    //         "check": true},
-    //         {"text": "2",
-    //         "check": true},
-    //         {"text": "3",
-    //         "check": true},
-    //         {"text": "4",
-    //         "check": true}
-    //     ]
-    // },
-    // {
-    //     "name": "Locked Task",
-    //     "check": false,
-    //     "expanded": false,
-    //     "lock": true,
-    //     "data": [
-    //         {"text": "0",
-    //         "check": true},
-    //         {"text": "1",
-    //         "check": false},
-    //         {"text": "2",
-    //         "check": false},
-    //         {"text": "3",
-    //         "check": false},
-    //         {"text": "4",
-    //         "check": false}]
-    // }
-]
+let itemlist = []
 
 let i = -1
+let canvasPrinted = 0
 let dragging
 let subdragging
 
@@ -44,21 +9,21 @@ var body = $('body')
 
 const setInput = () => {
     let $mainButton = $(`
-    <button class="set-input text-btn" onclick={setInput()}>
-        <i class="fa-solid fa-plus"></i>
-        <text>Add task</text>
-    </button>
+        <button class="set-input text-btn" onclick={setInput()}>
+            <i class="fa-solid fa-plus"></i>
+            Add task
+        </button>
     `)
 
     let $textBox = $(`
-    <div style="margin: 20px 17%">
-        <form class="form">
-            <div class="form-group">
-                <input type="text" class="input-data" placeholder=" ">
-                <label for="name" class="form-label">Task name</label>
-            </div>
-        </form>
-    </div>
+        <div style="margin: 20px 17%">
+            <form class="form">
+                <div class="form-group">
+                    <input type="text" class="input-data" placeholder=" ">
+                    <label for="name" class="form-label">Task name</label>
+                </div>
+            </form>
+        </div>
     `)
 
     $textBox.find('.input-data').blur(() => {
@@ -70,6 +35,7 @@ const setInput = () => {
 
     $textBox.find('.input-data').keydown((e) => {
         if (e.keyCode === 13) {
+            e.preventDefault()
             handlerAddTask()
             $textBox.remove()
             body.append($mainButton)
@@ -83,7 +49,7 @@ const setInput = () => {
 
 const handlerAddTask = (array) => {
     if (array === undefined) {
-        if ($('.input-data').val() !== "") addTask({"name": $('.input-data').val(), "check": false, "expanded": false, "lock": true})
+        if ($('.input-data').val() !== "") addTask({"name": $('.input-data').val(), "check": false, "expanded": false, "lock": false})
     } else {
         Object.keys(array).map((key) => {
             return addTask(array[key])
@@ -91,28 +57,33 @@ const handlerAddTask = (array) => {
     }
 }
 
-const swap = (arr, indexA, indexB) => {
-    let copy = arr[indexA]
-    arr[indexA] = arr[indexB]
-    arr[indexB] = copy
-}
-
 const refresh = () => {
-    $('.elements > div').remove()
+    $('.elements > div:not(.unlockedTask)').remove()
+
+    itemlist.map((e, i) => {
+        if (e === "placeholder") {
+            itemlist.splice(i, 1)
+        }
+    })
+
+    canvasPrinted = 0
+
     let refreshList = itemlist
     itemlist = []
     i = -1
+
     handlerAddTask(refreshList)
 }
 
 const addTask = (task) => {
-    
     i++
     let il = i
-    let $canvas = $('<canvas width="900" height="900" id="canvas"></canvas>')
+
+    if (task === "placeholder") return
     
+    let $canvas = $('<canvas width="900" height="900" id="canvas"></canvas>')   
     let percent = task.check ? 100:0
-    
+
     if (task.data !== undefined && !task.check) {
         task.data.map((e) => {
             e.check ? percent = percent + 100 / task.data.length : ""
@@ -125,10 +96,10 @@ const addTask = (task) => {
         <div class="task">
             <div draggable="true" class="d-flex">
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <text title="${task.name}" type="text" id="text-${il}">${task.name}</text>
+                <h3 title="${task.name}" type="text" id="text-${il}">${task.name}</h3>
                 <div class="bar">
                     <div class="progress">
-                        <text>${parseInt(percent)}%</text>
+                        <h4>${parseInt(percent)}%</h4>
                     </div>
                 </div>
                 <button class="btn tres-p">⁝</button>
@@ -147,7 +118,7 @@ const addTask = (task) => {
     `)
 
     var taskCheck = $task.find('.check')
-    var textProgress = $task.find('.progress > text')
+    var textProgress = $task.find('.progress > h4')
     var taskOptions = $task.find('.options')
     var taskExpand = $task.find('.btn-expand')
     var findProgress = $task.find('.progress')
@@ -186,8 +157,11 @@ const addTask = (task) => {
 
             percent = "100%"
 
-            body.append($canvas)
-            PrintConfetti()
+            if (!canvasPrinted) {
+                canvasPrinted++
+                body.append($canvas)
+                PrintConfetti()
+            }
         } else {
             taskCheck
                 .addClass("fa-regular fa-square")
@@ -208,7 +182,7 @@ const addTask = (task) => {
         })
 
         if (itemlist[il].check && !itemlist[il].lock) {
-            itemlist.splice(il, 1)
+            itemlist.splice(il, 1, "placeholder")
             $task[0].classList.add("unlockedTask")
         }
     })
@@ -217,7 +191,7 @@ const addTask = (task) => {
         let $subtask = $(`
             <div draggable="true" class="subtask">
                 <i class="check ${subtask.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <text title="${subtask.text}">${subtask.text}</text>
+                <h3 title="${subtask.text}">${subtask.text}</h3>
                 <button class="btn btn-delete fa-solid fa-xmark" style="margin: 0 10px 0 auto"></button>
             </div>
         `)
@@ -250,8 +224,11 @@ const addTask = (task) => {
                     .removeClass("fa-regular fa-square")
                     .addClass("fa-solid fa-square-check")
 
-                body.append($canvas)
-                PrintConfetti()
+                if (!canvasPrinted) {
+                    canvasPrinted++
+                    body.append($canvas)
+                    PrintConfetti()
+                }
             } else {
                 taskCheck
                     .addClass("fa-regular fa-square")
@@ -306,7 +283,7 @@ const addTask = (task) => {
         $(`#${il}`).append($subtask)
 
         if (subtask.text === "") {
-            let subText = $subtask.find('text')
+            let subText = $subtask.find('h3')
 
             taskExpand.addClass("rotate")
 
@@ -449,5 +426,3 @@ const addTask = (task) => {
         $task.animate({opacity: 1, margin: "20px 10px 0px"}, 300)
     }
 }
-
-// handlerAddTask(itemlist)
