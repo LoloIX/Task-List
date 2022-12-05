@@ -1,39 +1,39 @@
 let itemlist = [
-    {
-        "name": "Unlocked Task",
-        "check": true,
-        "expanded": false,
-        "lock": false,
-        "data": [
-            {"text": "0",
-            "check": true},
-            {"text": "1",
-            "check": true},
-            {"text": "2",
-            "check": true},
-            {"text": "3",
-            "check": true},
-            {"text": "4",
-            "check": true}
-        ]
-    },
-    {
-        "name": "Locked Task",
-        "check": false,
-        "expanded": false,
-        "lock": true,
-        "data": [
-            {"text": "0",
-            "check": true},
-            {"text": "1",
-            "check": false},
-            {"text": "2",
-            "check": false},
-            {"text": "3",
-            "check": false},
-            {"text": "4",
-            "check": false}]
-    }
+    // {
+    //     "name": "Unlocked Task",
+    //     "check": true,
+    //     "expanded": false,
+    //     "lock": false,
+    //     "data": [
+    //         {"text": "0",
+    //         "check": true},
+    //         {"text": "1",
+    //         "check": true},
+    //         {"text": "2",
+    //         "check": true},
+    //         {"text": "3",
+    //         "check": true},
+    //         {"text": "4",
+    //         "check": true}
+    //     ]
+    // },
+    // {
+    //     "name": "Locked Task",
+    //     "check": false,
+    //     "expanded": false,
+    //     "lock": true,
+    //     "data": [
+    //         {"text": "0",
+    //         "check": true},
+    //         {"text": "1",
+    //         "check": false},
+    //         {"text": "2",
+    //         "check": false},
+    //         {"text": "3",
+    //         "check": false},
+    //         {"text": "4",
+    //         "check": false}]
+    // }
 ]
 
 let i = -1
@@ -182,11 +182,6 @@ const addTask = (task) => {
 
             body.prepend($canvas)
             PrintConfetti()
-
-            if (!itemlist[il].lock) {
-                itemlist.splice(il, 1)
-                refresh()
-            }
         } else {
             taskCheck.addClass("fa-regular fa-square").removeClass("fa-solid fa-square-check")
 
@@ -201,6 +196,11 @@ const addTask = (task) => {
         Object.values(itemlist[il].data).map((e) => {
             e.check = itemlist[il].check
         })
+
+        if (itemlist.check && !itemlist[il].lock) {
+            itemlist.splice(il, 1)
+            refresh()
+        }
     })
 
     const addSubTask = (subtask) => {
@@ -238,11 +238,6 @@ const addTask = (task) => {
 
                 body.prepend($canvas)
                 PrintConfetti()
-
-                if (!itemlist[il].lock) {
-                    itemlist.splice(il, 1)
-                    refresh()
-                }
             } else {
                 taskCheck.addClass("fa-regular fa-square").removeClass("fa-solid fa-square-check")
             }
@@ -251,6 +246,11 @@ const addTask = (task) => {
 
             textProgress.text(parseInt(percent) + '%')
             findProgress.animate({width: `${percent}%`}, 300)
+
+            if (itemlist[il].check && !itemlist[il].lock) {
+                itemlist.splice(il, 1)
+                refresh()
+            }
         })
 
         $subtask.on('dragstart', () => {subdragging = itemlist[il].data.indexOf(subtask)})
@@ -435,4 +435,4 @@ const addTask = (task) => {
     }
 }
 
-handlerAddTask(itemlist)
+// handlerAddTask(itemlist)
