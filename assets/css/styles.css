@@ -21,6 +21,12 @@ body {
     font-weight: 700;
 }
 
+h3 {
+    margin: 0px;
+    padding: 0px;
+    font-size: small;
+}
+
 ::selection {
     background: var(--selection);
 }
@@ -147,6 +153,19 @@ body {
     margin: 75px 15% 10px;
 }
 
+.elements + div{
+    display: none;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 75px;
+}
+
+.elements:empty + div{
+    display: flex;
+}
+
 .drag-over{
     border: 2px var(--primary) dashed;
 }
@@ -224,7 +243,7 @@ body {
     background: var(--subtask);
 }
 
-[id^="text-"], .subtask text {
+[id^="text-"], .subtask h3 {
     max-height: 20px;
     overflow-x: hidden;
     word-break: break-all;
@@ -320,7 +339,7 @@ body {
     margin: auto;
 }
 
-.check.fa-solid.fa-square-check + text {
+.check.fa-solid.fa-square-check + h3 {
     color: var(--t-cross);
     text-decoration: .9px line-through;
 }

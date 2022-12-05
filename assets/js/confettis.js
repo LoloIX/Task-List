@@ -73,6 +73,7 @@ function PrintConfetti() {
             confettis = []
             canvas.remove()
             refresh()
+            $('.elements > .unlockedTask').remove()
         }
     }
 
