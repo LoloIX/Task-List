@@ -136,6 +136,10 @@ p {
     color: WHITE;
 }
 
+.navbar > nav h4 {
+    font-size: 35px;
+}
+
 .navbar i{
     margin-right: 20px;
 }
@@ -299,10 +303,6 @@ p {
   
 *::-webkit-scrollbar-thumb {
     background: linear-gradient(0deg, transparent, var(--primary), transparent);
-}
-
-.navbar > nav h4 {
-    font-size: 40px;
 }
 
 .tres-p {
