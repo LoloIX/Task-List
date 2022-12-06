@@ -58,6 +58,8 @@ const handlerAddTask = (array) => {
 }
 
 const refresh = () => {
+    canvasPrinted = 0
+
     $('.elements > div:not(.unlockedTask)').remove()
 
     itemlist.map((e, i) => {
@@ -66,8 +68,6 @@ const refresh = () => {
         }
     })
 
-    canvasPrinted = 0
-
     let refreshList = itemlist
     itemlist = []
     i = -1
@@ -75,11 +75,19 @@ const refresh = () => {
     handlerAddTask(refreshList)
 }
 
+$('#search-input').keyup((e) => {
+    refresh()
+})
+
 const addTask = (task) => {
+
     i++
     let il = i
 
     if (task === "placeholder") return
+    
+    let query = $('#search-input').val().replace(/.(?<![A-Za-z0-9 áéíóú])/g, '\\$&')
+    let regex = new RegExp(query, "i")
     
     let $canvas = $('<canvas width="900" height="900" id="canvas"></canvas>')   
     let percent = task.check ? 100:0
@@ -93,7 +101,7 @@ const addTask = (task) => {
     itemlist[il] = {name: task.name, check: task.check, expanded: task.expanded, lock: (task.lock !== undefined ) ? task.lock : true, data:[]}
 
     let $task = $(`
-        <div class="task">
+        <div class="task ${regex.test(itemlist[il].name) ? "" : "d-none"}">
             <div draggable="true" class="d-flex">
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${task.name}" id="text-${il}">${task.name}</p>
