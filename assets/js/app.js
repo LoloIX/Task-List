@@ -96,7 +96,7 @@ const addTask = (task) => {
         <div class="task">
             <div draggable="true" class="d-flex">
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <h3 title="${task.name}" type="text" id="text-${il}">${task.name}</h3>
+                <h4 title="${task.name}" id="text-${il}">${task.name}</h4>
                 <div class="bar">
                     <div class="progress">
                         <h4>${parseInt(percent)}%</h4>
@@ -124,6 +124,8 @@ const addTask = (task) => {
     var findProgress = $task.find('.progress')
     var taskLock = $task.find('div:first-child > i:last-child')
 
+    findProgress.animate({width: `${percent}%`}, 300)
+
     taskCheck.hover(
         () => { taskCheck.removeClass("fa-square").addClass("fa-square-check")},
         () => {
@@ -132,8 +134,6 @@ const addTask = (task) => {
             }
         },
     )
-
-    findProgress.animate({width: `${percent}%`}, 300)
 
     taskLock.click(() => {
         itemlist[il].lock = !itemlist[il].lock
@@ -191,7 +191,7 @@ const addTask = (task) => {
         let $subtask = $(`
             <div draggable="true" class="subtask">
                 <i class="check ${subtask.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <h3 title="${subtask.text}">${subtask.text}</h3>
+                <h4 title="${subtask.text}">${subtask.text}</h4>
                 <button class="btn btn-delete fa-solid fa-xmark" style="margin: 0 10px 0 auto"></button>
             </div>
         `)
@@ -283,7 +283,7 @@ const addTask = (task) => {
         $(`#${il}`).append($subtask)
 
         if (subtask.text === "") {
-            let subText = $subtask.find('h3')
+            let subText = $subtask.find('h4')
 
             taskExpand.addClass("rotate")
 
