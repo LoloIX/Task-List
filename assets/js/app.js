@@ -16,7 +16,7 @@ const setInput = () => {
     `)
 
     let $textBox = $(`
-        <div style="margin: 20px 17%">
+        <div style="margin: 40px 17%">
             <form class="form">
                 <div class="form-group">
                     <input type="text" class="input-data" placeholder=" ">
@@ -96,20 +96,20 @@ const addTask = (task) => {
         <div class="task">
             <div draggable="true" class="d-flex">
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <h4 title="${task.name}" id="text-${il}">${task.name}</h4>
+                <p title="${task.name}" id="text-${il}">${task.name}</p>
                 <div class="bar">
                     <div class="progress">
-                        <h4>${parseInt(percent)}%</h4>
+                        <p>${parseInt(percent)}%</p>
                     </div>
                 </div>
                 <button class="btn tres-p">⁝</button>
-                <i class="btn fa-xs fa-solid fa-pen" style="margin-right: 15px"></i>
-                <i class="btn fa-xs fa-solid ${task.lock ? "fa-lock" : "fa-lock-open"}" style="margin-right: 15px"></i>
+                <i class="btn fa-xs fa-solid fa-pen" style="margin-right: 30px"></i>
+                <i class="btn fa-xs fa-solid ${task.lock ? "fa-lock" : "fa-lock-open"}" style="margin-right: 30px"></i>
             </div>
-            <div id="options-${il}" class="options hidden">
+            <span id="options-${il}" class="options hidden">
                 <button class="text-btn btn-addSubtask">Add subtask</button>
                 <button class="text-btn btn-delete">Delete</button>
-            </div>
+            </span>
             <button class="btn btn-expand ${(task.data !== undefined && task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
@@ -118,7 +118,7 @@ const addTask = (task) => {
     `)
 
     var taskCheck = $task.find('.check')
-    var textProgress = $task.find('.progress > h4')
+    var textProgress = $task.find('.progress > p')
     var taskOptions = $task.find('.options')
     var taskExpand = $task.find('.btn-expand')
     var findProgress = $task.find('.progress')
@@ -129,7 +129,8 @@ const addTask = (task) => {
     taskCheck.hover(
         () => { taskCheck.removeClass("fa-square").addClass("fa-square-check")},
         () => {
-            if (!itemlist[il]?.check) {
+            if (itemlist[il].check !== undefined && !itemlist[il].check) {
+                console.log("i should not work")
                 taskCheck.addClass("fa-square")
             }
         },
@@ -191,8 +192,8 @@ const addTask = (task) => {
         let $subtask = $(`
             <div draggable="true" class="subtask">
                 <i class="check ${subtask.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <h4 title="${subtask.text}">${subtask.text}</h4>
-                <button class="btn btn-delete fa-solid fa-xmark" style="margin: 0 10px 0 auto"></button>
+                <p title="${subtask.text}">${subtask.text}</p>
+                <button class="btn btn-delete fa-solid fa-xmark" style="margin: 0 20px 0 auto"></button>
             </div>
         `)
 
@@ -283,7 +284,7 @@ const addTask = (task) => {
         $(`#${il}`).append($subtask)
 
         if (subtask.text === "") {
-            let subText = $subtask.find('h4')
+            let subText = $subtask.find('p')
 
             taskExpand.addClass("rotate")
 
