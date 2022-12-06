@@ -8,10 +8,16 @@
     </head>
     <body>
 
-        <header class="navbar">
+        <header>
             <nav class="d-flex">
-                <i class="fa-solid fa-list-check"></i>
-                <h4 class="text">TASK LIST</h4>
+                <i class="fa-solid fa-bars"></i>
+                <span>
+
+                </span>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input">
+                </div>
             </nav>
         </header>
         
@@ -23,7 +29,7 @@
             <h2>Enjoy the rest of the day.</h2>
         </div>
 
-        <button class="set-input text-btn" onclick={setInput()}>
+        <button id="set-input" class="text-btn" onclick={setInput()}>
             <i class="fa-solid fa-plus"></i>
             <text>Add task</text>
         </button>
@@ -32,6 +38,7 @@
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
         <script src="assets/js/confettis.js"></script>
+        <script src="assets/js/search.js"></script>
         <script src="assets/js/app.js"></script>
 
     </body>
