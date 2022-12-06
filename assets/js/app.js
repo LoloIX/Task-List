@@ -1,15 +1,16 @@
 let itemlist = []
-
 let i = -1
-let canvasPrinted = 0
+
 let dragging
 let subdragging
+
+let canvasPrinted = 0
 
 var body = $('body')
 
 const setInput = () => {
     let $mainButton = $(`
-        <button class="set-input text-btn" onclick={setInput()}>
+        <button id="set-input" class="text-btn" onclick={setInput()}>
             <i class="fa-solid fa-plus"></i>
             Add task
         </button>
@@ -17,25 +18,24 @@ const setInput = () => {
 
     let $textBox = $(`
         <div style="margin: 40px 17%">
-            <form class="form">
+            <div class="form">
                 <div class="form-group">
-                    <input type="text" class="input-data" placeholder=" ">
+                    <input type="text" id="input-data" placeholder=" ">
                     <label for="name" class="form-label">Task name</label>
                 </div>
-            </form>
+            </div>
         </div>
     `)
 
-    $textBox.find('.input-data').blur(() => {
+    $textBox.find('#input-data').blur(() => {
         $textBox.remove()
         body.append($mainButton)
     })
 
-    $('.set-input').remove()
+    $('#set-input').remove()
 
-    $textBox.find('.input-data').keydown((e) => {
+    $textBox.find('#input-data').keydown((e) => {
         if (e.keyCode === 13) {
-            e.preventDefault()
             handlerAddTask()
             $textBox.remove()
             body.append($mainButton)
@@ -44,12 +44,12 @@ const setInput = () => {
 
     body.append($textBox)
 
-    $('.input-data').focus()
+    $('#input-data').focus()
 }
 
 const handlerAddTask = (array) => {
     if (array === undefined) {
-        if ($('.input-data').val() !== "") addTask({"name": $('.input-data').val(), "check": false, "expanded": false, "lock": false})
+        if ($('#input-data').val() !== "") addTask({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false})
     } else {
         Object.keys(array).map((key) => {
             return addTask(array[key])
@@ -130,7 +130,6 @@ const addTask = (task) => {
         () => { taskCheck.removeClass("fa-square").addClass("fa-square-check")},
         () => {
             if (itemlist[il].check !== undefined && !itemlist[il].check) {
-                console.log("i should not work")
                 taskCheck.addClass("fa-square")
             }
         },
@@ -418,12 +417,12 @@ const addTask = (task) => {
 
     if (task.data !== undefined) {
         $task.css("opacity", "1")
-        $task.css("margin", "20px 10px 0px")
+        $task.css("margin", "30px 20px 0px")
         task.data.map((subtask) => {
             addSubTask(subtask)
         })
     }
     else {
-        $task.animate({opacity: 1, margin: "20px 10px 0px"}, 300)
+        $task.animate({opacity: 1, margin: "30px 20px 0px"}, 300)
     }
 }
