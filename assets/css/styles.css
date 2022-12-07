@@ -379,7 +379,7 @@
   .task > div:first-child::after,
   .subtask::after{
     content: " ";
-    width: 15%;
+    width: 26%;
     height: 100vh;
     background: var(--task);
     position: absolute;
@@ -408,7 +408,15 @@
     background: var(--subtask);
   }
 
-  [id^="text-"], .subtask p {
+  [id^="text-"] {
+    max-width: 40%;
+    max-height: 40px;
+    overflow-x: hidden;
+    word-break: break-all;
+  }
+
+  .subtask p {
+    max-width: 90%;
     max-height: 40px;
     overflow-x: hidden;
     word-break: break-all;
@@ -531,8 +539,8 @@
   .bar {
     border: solid;
     border-radius: 60px;
-    width: 360px;
-    margin-left: 30px;
+    width: 35%;
+    margin-left: 5%;
     background: var(--secondary);
   }
 

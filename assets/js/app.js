@@ -1,12 +1,4 @@
-let itemlist = [
-    {
-    "name": "test",
-    "check": false,
-    "expanded": false,
-    "lock": true,
-    "data":[]
-    }
-]
+let itemlist = []
 let i = -1
 
 let dragging
@@ -442,4 +434,3 @@ const addTask = (task) => {
         $task.animate({opacity: 1, margin: "30px 20px 0px"}, 300)
     }
 }
-handlerAddTask(itemlist)
