@@ -1,4 +1,12 @@
-let itemlist = []
+let itemlist = [
+    {
+    "name": "test",
+    "check": false,
+    "expanded": false,
+    "lock": true,
+    "data":[]
+    }
+]
 let i = -1
 
 let dragging
@@ -75,7 +83,7 @@ const refresh = () => {
     handlerAddTask(refreshList)
 }
 
-$('#search-input').keyup((e) => {
+$('#sort-input').keyup((e) => {
     refresh()
 })
 
@@ -86,7 +94,7 @@ const addTask = (task) => {
 
     if (task === "placeholder") return
     
-    let query = $('#search-input').val().replace(/.(?<![A-Za-z0-9 áéíóú])/g, '\\$&')
+    let query = $('#sort-input').val().replace(/.(?<![A-Za-z0-9 áéíóú])/g, '\\$&')
     let regex = new RegExp(query, "i")
     
     let $canvas = $('<canvas width="900" height="900" id="canvas"></canvas>')   
@@ -110,9 +118,9 @@ const addTask = (task) => {
                         <p>${parseInt(percent)}%</p>
                     </div>
                 </div>
-                <button class="btn tres-p">⁝</button>
-                <i class="btn fa-xs fa-solid fa-pen" style="margin-right: 30px"></i>
-                <i class="btn fa-xs fa-solid ${task.lock ? "fa-lock" : "fa-lock-open"}" style="margin-right: 30px"></i>
+                <i class="btn fa-xs fa-solid fa-pen" style="margin: 0px 3% 0px auto"></i>
+                <i class="btn fa-xs fa-solid ${task.lock ? "fa-lock" : "fa-lock-open"}" style="margin-right: 3%"></i>
+                <button class="btn">⁝</button>
             </div>
             <span id="options-${il}" class="options hidden">
                 <button class="text-btn btn-addSubtask">Add subtask</button>
@@ -124,76 +132,6 @@ const addTask = (task) => {
             <div id=${il} class="hidden"></div>
         </div>
     `)
-
-    var taskCheck = $task.find('.check')
-    var textProgress = $task.find('.progress > p')
-    var taskOptions = $task.find('.options')
-    var taskExpand = $task.find('.btn-expand')
-    var findProgress = $task.find('.progress')
-    var taskLock = $task.find('div:first-child > i:last-child')
-
-    findProgress.animate({width: `${percent}%`}, 300)
-
-    taskCheck.hover(
-        () => { taskCheck.removeClass("fa-square").addClass("fa-square-check")},
-        () => {
-            if (itemlist[il].check !== undefined && !itemlist[il].check) {
-                taskCheck.addClass("fa-square")
-            }
-        },
-    )
-
-    taskLock.click(() => {
-        itemlist[il].lock = !itemlist[il].lock
-
-        taskLock.toggleClass("fa-lock fa-lock-open")
-    })
-
-    taskCheck.click(() => {
-        let subCheck = $task.find(`#${il} > div > i`)
-
-        itemlist[il].check = !itemlist[il].check
-
-        if (itemlist[il].check) {
-            taskCheck
-                .removeClass("fa-square fa-regular")
-                .addClass("fa-solid fa-square-check")
-
-            subCheck
-                .removeClass("fa-regular fa-square")
-                .addClass("fa-solid fa-square-check")
-
-            percent = "100%"
-
-            if (!canvasPrinted) {
-                canvasPrinted++
-                body.append($canvas)
-                PrintConfetti()
-            }
-        } else {
-            taskCheck
-                .addClass("fa-regular fa-square")
-                .removeClass("fa-solid fa-square-check")
-
-            subCheck
-                .addClass("fa-regular fa-square")
-                .removeClass("fa-solid fa-square-check")
-
-            percent = "0%"
-        }
-        
-        textProgress.text(percent)
-        findProgress.animate({width: percent}, 300)
-
-        Object.values(itemlist[il].data).map((e) => {
-            e.check = itemlist[il].check
-        })
-
-        if (itemlist[il].check && !itemlist[il].lock) {
-            itemlist.splice(il, 1, "placeholder")
-            $task[0].classList.add("unlockedTask")
-        }
-    })
 
     const addSubTask = (subtask) => {
         let $subtask = $(`
@@ -329,6 +267,76 @@ const addTask = (task) => {
             itemlist[il].data.push(subtask)
         }
     }
+    
+    var taskCheck = $task.find('.check')
+    var textProgress = $task.find('.progress > p')
+    var taskOptions = $task.find('.options')
+    var taskExpand = $task.find('.btn-expand')
+    var findProgress = $task.find('.progress')
+    var taskLock = $task.find('div:first-child > [class^="fa-lock"]')
+
+    findProgress.animate({width: `${percent}%`}, 300)
+
+    taskCheck.hover(
+        () => { taskCheck.removeClass("fa-square").addClass("fa-square-check")},
+        () => {
+            if (itemlist[il].check !== undefined && !itemlist[il].check) {
+                taskCheck.addClass("fa-square")
+            }
+        },
+    )
+
+    taskLock.click(() => {
+        itemlist[il].lock = !itemlist[il].lock
+
+        taskLock.toggleClass("fa-lock fa-lock-open")
+    })
+
+    taskCheck.click(() => {
+        let subCheck = $task.find(`#${il} > div > i`)
+
+        itemlist[il].check = !itemlist[il].check
+
+        if (itemlist[il].check) {
+            taskCheck
+                .removeClass("fa-square fa-regular")
+                .addClass("fa-solid fa-square-check")
+
+            subCheck
+                .removeClass("fa-regular fa-square")
+                .addClass("fa-solid fa-square-check")
+
+            percent = "100%"
+
+            if (!canvasPrinted) {
+                canvasPrinted++
+                body.append($canvas)
+                PrintConfetti()
+            }
+        } else {
+            taskCheck
+                .addClass("fa-regular fa-square")
+                .removeClass("fa-solid fa-square-check")
+
+            subCheck
+                .addClass("fa-regular fa-square")
+                .removeClass("fa-solid fa-square-check")
+
+            percent = "0%"
+        }
+        
+        textProgress.text(percent)
+        findProgress.animate({width: percent}, 300)
+
+        Object.values(itemlist[il].data).map((e) => {
+            e.check = itemlist[il].check
+        })
+
+        if (itemlist[il].check && !itemlist[il].lock) {
+            itemlist.splice(il, 1, "placeholder")
+            $task[0].classList.add("unlockedTask")
+        }
+    })
 
     taskExpand.click(() => {
         taskExpand.toggleClass("rotate")
@@ -381,7 +389,7 @@ const addTask = (task) => {
         $('.modal').remove()
     })
 
-    $task.find('.tres-p').click(() => {
+    $task.find('div:first-child > .btn:last-child').click(() => {
         $(`.options:not(#options-${il})`).removeClass("expanded")
         taskOptions.toggleClass("expanded")
         
@@ -434,3 +442,4 @@ const addTask = (task) => {
         $task.animate({opacity: 1, margin: "30px 20px 0px"}, 300)
     }
 }
+handlerAddTask(itemlist)
