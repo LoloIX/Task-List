@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
 
-body {
+  body {
     background: var(--background);
-    margin: auto;
+    margin: 0px;
     --primary:#1686df;
     --secondary:#99cefb;
     --background:#efffff;
@@ -14,20 +14,24 @@ body {
     --subtask: #bbeafa;
     --t-cross: #505050;
     --selection: #003fff6b;
-}
+  }
 
-*{
+  *{
     font-family: Montserrat;
     font-weight: 700;
     font-size: 25px;
-}
+  }
 
-p {
+  ::selection {
+    background: var(--selection);
+  }
+
+  p {
     margin: 0;
     padding: 0;
-}
+  }
 
-header {
+  header {
     position: fixed;
     background: var(--primary);
     width: -webkit-fill-available;
@@ -39,59 +43,194 @@ header {
     padding: 20px 5.5%;
     z-index: 3;
     box-shadow: var(--shadow);
-}
+  }
 
-header > nav {
+  header > nav {
     width: 100%;
     align-items: center;
     color: WHITE;
-}
+  }
 
-header > nav > div {
+  header > nav > i:first-child {
+    font-size: 35px;
+  }
+
+  header > nav > div:last-child {
     background-color: WHITE;
     padding: 7px 15px;
     border-radius: 20px;
     margin-left: auto;
-}
+  }
 
-header > nav > div:hover {
+  header > nav > div:last-child:hover {
     background-color: var(--background);
     border: var(--t-cross) .1px solid;
     box-shadow: #2d4f6940 3px 3px 5px 1px;
-}
+    transition: background-color 1s;
+  }
 
-header > nav > div i {
+  header > nav > div:last-child i {
     font-size: 24px;
     color: var(--t-cross);
-}
-header > nav > div input {
+  }
+  header > nav > div:last-child input {
     border: none;
     outline: none;
     background: transparent;
-}
+  }
 
-::selection {
-    background: var(--selection);
-}
+/* MENU BTN
+  CREDITS TO: Himalaya Singh
+  https://codepen.io/himalayasingh
+*/
+  #menu-button {
+    width: 60px;
+    padding-top: 2px;
+    overflow: hidden;
+  }
+  
+  #menu-checkbox {
+    display: none;
+  }
+  
+  #menu-label {
+    position: relative;
+    display: block;
+    height: 28px;
+    cursor: pointer;
+  }
+  
+  #menu-label:before,
+  #menu-label:after,
+  #menu-text-bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    border-radius: 1px;
+    background-color: #fff;
+  }
+  
+  #menu-label:before,
+  #menu-label:after {
+    content: "";
+    transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) left;
+  }
+  
+  #menu-label:before {
+    top: 0;
+  }
+  
+  #menu-label:after {
+    top: 11px;
+  }
+  
+  #menu-text-bar {
+    top: 23px;
+    transition: all .1s;
+  }
+  
+  #menu-text-bar:before {
+    content: "MENU";
+    position: absolute;
+    top: 5px;
+    right: 0;
+    left: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    transition: all .1s;
+  }
+  
+  #menu-checkbox:hover + #menu-label:before,
+  #menu-checkbox:checked + #menu-label:before {
+    left: -60px;
+  }
+  
+  #menu-checkbox:hover + #menu-label:after,
+  #menu-checkbox:checked + #menu-label:after {
+    left: 60px;
+  }
+  
+  #menu-checkbox:hover + #menu-label #menu-text-bar:before,
+  #menu-checkbox:checked + #menu-label #menu-text-bar:before{
+    animation: 
+    moveUpThenDown 0.8s ease 0.2s forwards,
+    shakeWhileMovingUp 0.8s ease 0.2s forwards,
+    shakeWhileMovingDown 0.2s ease 0.8s forwards;
+  }
 
-#canvas {
+  #menu-checkbox:active + #menu-label #menu-text-bar:before,
+  #menu-checkbox:active + #menu-label #menu-text-bar {
+    transform: scale(0.9);
+  }
+  
+  @keyframes moveUpThenDown {
+    0% {
+      top: 0;
+    }
+    50% {
+      top: -28px;
+    }
+    100% {
+      top: -21px;
+    }
+  }
+  
+  @keyframes shakeWhileMovingUp {
+    0% {
+      transform: rotateZ(0);
+    }
+    25% {
+      transform: rotateZ(-10deg);
+    }
+    50% {
+      transform: rotateZ(0deg);
+    }
+    75% {
+      transform: rotateZ(10deg);
+    }
+    100% {
+      transform: rotateZ(0);
+    }
+  }
+  
+  @keyframes shakeWhileMovingDown {
+    0% {
+      transform: rotateZ(0);
+    }
+    80% {
+      transform: rotateZ(3deg);
+    }
+    90% {
+      transform: rotateZ(-3deg);
+    }
+    100% {
+      transform: rotateZ(0);
+    }
+  }
+/* DONE MENU BTN */
+
+  #canvas {
     position: fixed;
     left: 0;
     top: 0;
-}
+  }
 
-[contenteditable="true"]:focus {
+  [contenteditable="true"]:focus {
     font-style: italic;
     outline: none;
     border-bottom: .2px solid BLACK;
-}
+  }
 
-.form-group {
+  .form-group {
     position: relative;
     --color: BLACK;
-}
+  }
 
-#input-data {
+  #input-data {
     width: 250px;
     color: BLACK;
     padding: 15px 10px;
@@ -99,116 +238,110 @@ header > nav > div input {
     outline: none;
     border-bottom: 1px solid var(--color);
     background: transparent;
-}
+  }
 
-.form-label {
+  .form-label {
     color: var(--color);
     position: absolute;
     top: 0;
     left: 5px;
     transform: translateY(10px);
     transition: transform .5s, color .3s;
-}
+  }
 
-#input-data:focus + .form-label,
-#input-data:not(:placeholder-shown) + .form-label {
+  #input-data:focus + .form-label,
+  #input-data:not(:placeholder-shown) + .form-label {
     transform: translateY(-24px) scale(.7);
     transform-origin: top left;
     --color: var(--primary);
-}
+  }
 
-[class~="btn"] {
+  [class~="btn"] {
     border: none;
     position: relative;
     transform: scale(1);
     z-index: 2;
-}
+  }
 
-.btn {
+  .btn {
     border-radius: 10px;
     transition: all .3s;
     background: transparent;
-}
+  }
 
-.btn:active,
-.btn:focus {
-    background: var(--quart-bright);
-}
-
-.btn:hover {
+  .btn:hover {
     cursor: pointer;
-    background: var(--quart-bright);
     transition: all .3s;
     transform: scale(1.15);
     position: relative;
-}
+  }
 
-.text-btn {
+  .text-btn {
     color: WHITE;
     border-radius: 6px;
     transition: transform .3s, color .5s;
     background-color: var(--primary);
     border-color: var(--primary);
-}
+  }
 
-.text-btn:hover {
+  .text-btn:hover {
     cursor: pointer;
     border-radius: 8px;
     transition: transform .3s, color .5s;
     transform: scale(1.02);
     position: relative;
     color: BLACK;
-}
+  }
 
-.d-none {
+  .d-none {
     display: none;
-}
+  }
 
-.d-flex {
+  .d-flex {
     display: flex;
-}
+  }
 
-.elements {
+  .elements {
     padding: 0px;
     margin: 150px 15% 20px;
-}
+  }
 
-.elements + div {
+  .elements + div {
     display: none;
     align-items: center;
     text-align: center;
     justify-content: center;
     flex-direction: column;
     margin-top: 150px;
-}
+  }
 
-.elements + div img {
+  .elements + div img {
     width: 745.5px;
     height: 500px;
     /* width: 36.9vw;
     height: 55vh; */
-}
+  }
 
-.elements:empty + div {
+  .elements:empty + div {
     display: flex;
-}
+  }
 
-.drag-over {
+  .drag-over {
     border: 2px var(--primary) dashed;
-}
+  }
 
-.drag-over.task::after {
+  .drag-over.task::after {
     content: " ";
     height: 100px;
     background: var(--task);
     display: flex;
-}
+  }
 
-.dragging {
+  .dragging {
     opacity: .5;
-}
+  }
 
-.subtask {
+  .subtask {
     position: relative;
     overflow: hidden;
     padding: 10px 0px;
@@ -216,34 +349,38 @@ header > nav > div input {
     grid-template-columns: 10% 80% 10%;
     padding-left: 2%;
     font-size: smaller;
-}
+  }
 
-.task {
+  .task {
     background: var(--task);
     box-shadow: var(--shadow);
     padding: 4px 0px 10px;
     opacity: 0;
     position: relative;
-}
+  }
 
-.task > div:first-child {
+  .task > div:first-child {
     overflow: hidden;
     position: relative;
     align-items: center;
     padding: 4px;
-}
+  }
 
-.task > div:first-child:hover::after,
-.subtask:hover::after{
+  .task > div:first-child > .btn:last-child {
+    margin-right: 1%;
+  }
+
+  .task > div:first-child:hover::after,
+  .subtask:hover::after{
     transform: translateX(100%);
     opacity: 0;
-}
+  }
 
-.task > div:first-child::after,
-.subtask::after{
+  .task > div:first-child::after,
+  .subtask::after{
     content: " ";
-    width: 154px;
-    height: 2000px;
+    width: 15%;
+    height: 100vh;
     background: var(--task);
     position: absolute;
     top: 0;
@@ -255,79 +392,79 @@ header > nav > div input {
     opacity: 1;
     transition: all 750ms;
     z-index: 2;
-}
+  }
 
-.unlockedTask {
+  .unlockedTask {
     animation: removingTask 2s;
     animation-fill-mode: forwards;
-}
+  }
 
-.subtask:nth-child(even), 
-.subtask::after {
+  .subtask:nth-child(even), 
+  .subtask::after {
     background: var(--subtask-even);
-}
+  }
 
-.subtask:nth-child(odd)::after {
+  .subtask:nth-child(odd)::after {
     background: var(--subtask);
-}
+  }
 
-[id^="text-"], .subtask p {
+  [id^="text-"], .subtask p {
     max-height: 40px;
     overflow-x: hidden;
     word-break: break-all;
-}
+  }
 
-.hidden {
+  .hidden {
     transition: all .3s;
     max-height: 0px;
     overflow-y: scroll;
     overflow-x: hidden;
     background: var(--subtask);
-}
+  }
 
-.btn-expand:not(.rotate) + .hidden {
+  .btn-expand {
+    margin-left: 10px;
+  }
+
+  .btn-expand:not(.rotate) + .hidden {
     margin: 0px 50%;
-}
+  }
 
-.btn-expand.rotate + .hidden {
+  .btn-expand.rotate + .hidden {
     margin: 0px 10px;
     transition: all .3s;
     max-height: 240px;
     overflow-y: scroll;
     overflow-x: hidden;
-}
+  }
 
-.expanded {
+  .expanded {
     transition: all .3s;
     max-height: 240px;
     overflow-y: scroll;
     overflow-x: hidden;
-}
+  }
 
-.rotate {
+  .rotate {
     rotate: 90deg;
-}
+  }
 
-*::-webkit-scrollbar {
+  *::-webkit-scrollbar {
     background: transparent;
     width: 2px;
-}
+  }
 
   
-*::-webkit-scrollbar-button {
+  *::-webkit-scrollbar-button {
     display: none;
-}
+  }
 
   
-*::-webkit-scrollbar-thumb {
+  *::-webkit-scrollbar-thumb {
     background: linear-gradient(0deg, transparent, var(--primary), transparent);
-}
+  }
 
-.tres-p {
-    margin: 0 20px 0 auto;
-}
-
-.options {
+  .options {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -338,129 +475,129 @@ header > nav > div input {
     border-radius: 6px;
     top: 40px;
     right: 5px;
-}
+  }
 
-.options > button {
+  .options > button {
     margin: 6px;
-}
+  }
 
-.options.expanded{
+  .options.expanded{
     box-shadow: var(--shadow);
-}
+  }
 
-.modal {
+  .modal {
     width: 100%;
     height: 100%;
     top: 0;
     opacity: 0;
     z-index: 2;
     position: fixed;
-}
+  }
 
-.check{
+  .check{
     z-index: 2;
     transition: all .3s;
     transform: scale(1);
     margin: 0px 20px;
-}
+  }
 
-.subtask .check {
+  .subtask .check {
     margin: auto;
-}
+  }
 
-.check.fa-solid.fa-square-check + p {
+  .check.fa-solid.fa-square-check + p {
     color: var(--t-cross);
     text-decoration: 1px line-through;
-}
+  }
 
-.check:hover{
+  .check:hover{
     transition: all .3s;
     transform: scale(1.3);
     cursor: pointer;
-}
+  }
 
-.check:not(.fa-square) {
+  .check:not(.fa-square) {
     color: var(--t-cross);
-}
+  }
 
-#set-input{
+  #set-input{
     margin: 40px 17%;
     padding: 6px;
     box-shadow: var(--shadow);
-}
+  }
 
 /* progress bar */
 
-.bar {
+  .bar {
     border: solid;
     border-radius: 60px;
     width: 360px;
     margin-left: 30px;
     background: var(--secondary);
-}
+  }
 
-.progress {
+  .progress {
     font-size: 20px;
     background-color: var(--primary);
     height: 25px;
     border-radius: 60px;
     text-align: center;
-}
+  }
 
-.progress > *{
+  .progress > *{
     margin: auto 5px;
     color: WHITE;
     text-shadow: 1px 1px 1px BLACK;
     bottom: 3px;
     position: relative;
-}
+  }
 
 /* done progress bar */
 
 /* KEYFRAME */
 
-@keyframes removingTask {
+  @keyframes removingTask {
   5%   {
     transform: scale(1.1);
-  }
+    }
   10%   {
     transform: scale(1.3);
     rotate: .5deg;
-  }
+    }
   20%   {
     transform: scale(.9);
     rotate: -1deg;
-  }
+    }
   30%   {
     transform: scale(1.2);
     rotate: 2deg;
-  }
+    }
   40%   {
     transform: scale(.7);
     rotate: 1deg;
-  }
+    }
   50%   {
     transform: scale(.9);
     rotate: -1deg;
-  }
+    }
   60%   {
     transform: scale(.8);
     rotate: 0deg;
-  }
+    }
   70%   {
     transform: scale(1.2);
     rotate: -1deg;
     opacity: 1;
-  }
+    }
   99%   {
     transform: scale(2.5);
     opacity: 0;
     position: static;
-  }
+    }
   100%  {
     opacity: 0;
     position: fixed;
+    }
   }
-}
 
 /* DONE KEYFRAME */
