@@ -3,8 +3,9 @@
   body {
     background: var(--background);
     margin: 0px;
-    --primary:#1686df;
+    --primary:#01459f;
     --secondary:#99cefb;
+    --tertiary: #1686df;
     --background:#efffff;
     --shadow: #2b86c240 6px 6px 10px 1px;
     --quart-bright: #ffffff40;
@@ -36,7 +37,7 @@
     align-items: center;
     color: WHITE;
     position: fixed;
-    background: var(--primary);
+    background: #01459f;
     width: -webkit-fill-available;
     height: 60px;
     top: 0px;
@@ -257,7 +258,7 @@
     position: absolute;
     overflow-y: hidden;
     transition: all .5s;
-    background-color: var(--primary);
+    background-color: var(--tertiary);
     z-index: 2;
     height: 100vh;
     box-shadow: var(--shadow);
@@ -371,7 +372,7 @@
     position: relative;
   }
 
-  .text-btn {
+  .add-btn, .text-btn {
     color: WHITE;
     border-radius: 6px;
     transition: transform .3s, color .5s;
@@ -379,7 +380,12 @@
     border-color: var(--primary);
   }
 
-  .text-btn:hover {
+  .text-btn {
+    background-color: var(--tertiary);
+    border-color: var(--tertiary);
+  }
+
+  .add-btn:hover, .text-btn:hover {
     cursor: pointer;
     border-radius: 8px;
     transition: transform .3s, color .5s;
@@ -635,7 +641,7 @@
 
   .progress {
     font-size: 20px;
-    background-color: var(--primary);
+    background-color: var(--tertiary);
     height: 25px;
     border-radius: 60px;
     text-align: center;
