@@ -7,36 +7,62 @@
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>
 
-    <body data-nav="false">
+    <body data-menu="false">
 
         <nav class="d-flex">
             <!-- CREDITS TO: Himalaya Singh -->
             <div id="menu-button">
-                <input type="checkbox" id="menu-checkbox">
+                <input onclick={showMenu()} type="checkbox" id="menu-checkbox">
                 <label for="menu-checkbox" id="menu-label">
                 <div id="menu-text-bar"></div>
                 </label>
             </div>
             <!-- CREDITS TO: Himalaya Singh 
             https://codepen.io/himalayasingh-->
+            
             <div>
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="sort-input">
             </div>
         </nav>
         
-        <ul class="elements"></ul>
+        <span id="menu">
+            <menu>
+                <div>
+                    <div>
+                        <img src="">
+                    </div>
+                    <div>
+                        <i></i>
+                        <p>test</p>
+                    </div>
+                </div>
+                <il>
+                    <p>test</p>
+                </il>
+                <il>
+                    <p>test</p>
+                </il>
+                <il>
+                    <p>test</p>
+                </il>
+            </menu>
+        </span>
+        
+        <div id="main">
+            <ul class="elements"></ul>
 
-        <div>
-            <img src="assets/img/Resting.png">
-            <h1>It seems like you're all done for today!</h1>
-            <h2>Enjoy the rest of the day.</h2>
+            <div>
+                <img src="assets/img/Resting.png">
+                <h1>It seems like you're all done for today!</h1>
+                <h2>Enjoy the rest of the day.</h2>
+            </div>
+
+            <button id="set-input" class="text-btn" onclick={setInput()}>
+                <i class="fa-solid fa-plus"></i>
+                <text>Add task</text>
+            </button>
         </div>
-
-        <button id="set-input" class="text-btn" onclick={setInput()}>
-            <i class="fa-solid fa-plus"></i>
-            <text>Add task</text>
-        </button>
 
         <script src="https://code.jquery.com/jquery-3.6.1.js"
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="

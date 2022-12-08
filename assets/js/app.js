@@ -29,7 +29,7 @@ const setInput = () => {
 
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
-        body.append($mainButton)
+        $('#main').append($mainButton)
     })
 
     $('#set-input').remove()
@@ -38,11 +38,11 @@ const setInput = () => {
         if (e.keyCode === 13) {
             handlerAddTask()
             $textBox.remove()
-            body.append($mainButton)
+            $('#main').append($mainButton)
         }
     })
 
-    body.append($textBox)
+    $('#main').append($textBox)
 
     $('#input-data').focus()
 }
@@ -73,6 +73,10 @@ const refresh = () => {
     i = -1
 
     handlerAddTask(refreshList)
+}
+
+const showMenu = () => {
+    document.body.dataset.menu = document.body.dataset.menu === "true" ? "false" : "true"
 }
 
 $('#sort-input').keyup((e) => {
@@ -251,8 +255,10 @@ const addTask = (task) => {
 
             subText.blur(() => {
                 if (subText.attr('contenteditable') === "true") {
-                subText.attr('contenteditable', 'false')
-                $subtask.remove()
+                    subText.attr('contenteditable', 'false')
+                    $subtask.remove()
+                    taskExpand.addClass('d-none')
+                    itemlist[il].expanded = false
                 }
             })
         } else {

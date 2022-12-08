@@ -44,6 +44,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 5.5%;
+    padding-left: 1.5%;
     z-index: 3;
     box-shadow: var(--shadow);
   }
@@ -221,6 +222,59 @@
     top: 0;
   }
 
+  #input-data {
+    width: 250px;
+    color: BLACK;
+    padding: 15px 10px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color);
+    background: transparent;
+  }
+
+  #input-data:focus + .form-label,
+  #input-data:not(:placeholder-shown) + .form-label {
+    transform: translateY(-24px) scale(.7);
+    transform-origin: top left;
+    --color: var(--primary);
+  }
+
+  #set-input{
+    margin: 40px 17%;
+    padding: 6px;
+    box-shadow: var(--shadow);
+  }
+
+  #main {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #menu {
+    position: absolute;
+    overflow-y: hidden;
+    transition: all .5s;
+    background-color: var(--primary);
+    z-index: 2;
+    height: 100vh;
+    top: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  body[data-menu="false"] #menu {
+    width: 0px;
+  }
+
+  body[data-menu="true"] #menu {
+    width: max(10vw, 250px);
+  }
+
+  body[data-menu="true"] #main {
+    width: 80vw;
+    right: 0;
+  }
+
   [contenteditable="true"]:focus {
     font-style: italic;
     outline: none;
@@ -232,16 +286,6 @@
     --color: BLACK;
   }
 
-  #input-data {
-    width: 250px;
-    color: BLACK;
-    padding: 15px 10px;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid var(--color);
-    background: transparent;
-  }
-
   .form-label {
     color: var(--color);
     position: absolute;
@@ -251,18 +295,11 @@
     transition: transform .5s, color .3s;
   }
 
-  #input-data:focus + .form-label,
-  #input-data:not(:placeholder-shown) + .form-label {
-    transform: translateY(-24px) scale(.7);
-    transform-origin: top left;
-    --color: var(--primary);
-  }
-
   [class~="btn"] {
     border: none;
     position: relative;
     transform: scale(1);
-    z-index: 2;
+    z-index: 1;
   }
 
   .btn {
@@ -393,7 +430,7 @@
     transform: translateX(0);
     opacity: 1;
     transition: all 750ms;
-    z-index: 2;
+    z-index: 1;
   }
 
   .unlockedTask {
@@ -433,7 +470,7 @@
   }
 
   .btn-expand {
-    margin-left: 10px;
+    margin-left: 50px;
   }
 
   .btn-expand:not(.rotate) + .hidden {
@@ -479,7 +516,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    z-index: 3;
+    z-index: 2;
     overflow: hidden;
     background: WHITE;
     border-radius: 6px;
@@ -500,12 +537,12 @@
     height: 100%;
     top: 0;
     opacity: 0;
-    z-index: 2;
+    z-index: 1;
     position: fixed;
   }
 
   .check{
-    z-index: 2;
+    z-index: 1;
     transition: all .3s;
     transform: scale(1);
     margin: 0px 20px;
@@ -528,12 +565,6 @@
 
   .check:not(.fa-square) {
     color: var(--t-cross);
-  }
-
-  #set-input{
-    margin: 40px 17%;
-    padding: 6px;
-    box-shadow: var(--shadow);
   }
 
 /* progress bar */
