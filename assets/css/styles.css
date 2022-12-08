@@ -222,6 +222,7 @@
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 0;
   }
 
   #input-data {
@@ -242,6 +243,11 @@
   }
 
   #set-input{
+    color: WHITE;
+    border-radius: 6px;
+    transition: transform .3s, color .5s;
+    background-color: var(--primary);
+    border-color: var(--primary);
     margin: 40px 17%;
     padding: 6px;
     box-shadow: var(--shadow);
@@ -294,7 +300,7 @@
     color: WHITE;
     text-transform: uppercase;
     font-weight: bold;
-    transition: background-color .3s, border-radius .5s;
+    transition: background-color .3s, border-radius .3s;
   }
 
   #menu > menu li div:hover *{
@@ -372,20 +378,15 @@
     position: relative;
   }
 
-  .add-btn, .text-btn {
+  .text-btn {
     color: WHITE;
     border-radius: 6px;
     transition: transform .3s, color .5s;
-    background-color: var(--primary);
-    border-color: var(--primary);
-  }
-
-  .text-btn {
     background-color: var(--tertiary);
     border-color: var(--tertiary);
   }
 
-  .add-btn:hover, .text-btn:hover {
+  #set-input:hover, .text-btn:hover {
     cursor: pointer;
     border-radius: 8px;
     transition: transform .3s, color .5s;

@@ -10,7 +10,7 @@ var body = $('body')
 
 const setInput = () => {
     let $mainButton = $(`
-        <button id="set-input" class="add-btn" onclick={setInput()}>
+        <button id="set-input" onclick={setInput()}>
             <i class="fa-solid fa-plus"></i>
             Add task
         </button>
