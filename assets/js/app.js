@@ -116,7 +116,7 @@ const addTask = (task) => {
                 </div>
                 <i class="btn fa-xs fa-solid fa-pen" style="margin: 0px 3% 0px auto"></i>
                 <i class="btn fa-xs fa-solid ${task.lock ? "fa-lock" : "fa-lock-open"}" style="margin-right: 3%"></i>
-                <button class="btn">⁝</button>
+                <button class="btn" style="margin-right: 1%;">⁝</button>
             </div>
             <span id="options-${il}" class="options hidden">
                 <button class="text-btn btn-addSubtask">Add subtask</button>
