@@ -143,23 +143,19 @@
     transition: all .1s;
   }
   
-  #menu-checkbox:hover + #menu-label:before,
   #menu-checkbox:checked + #menu-label:before {
     left: -62px;
   }
+  
+  #menu-checkbox:checked + #menu-label:after {
+    left: 62px;
+  }
 
-  #menu-checkbox:hover + #menu-label #menu-text-bar,
   #menu-checkbox:checked + #menu-label #menu-text-bar {
     width: 100%;
     transition: width .7s;
   }
   
-  #menu-checkbox:hover + #menu-label:after,
-  #menu-checkbox:checked + #menu-label:after {
-    left: 62px;
-  }
-  
-  #menu-checkbox:hover + #menu-label #menu-text-bar:before,
   #menu-checkbox:checked + #menu-label #menu-text-bar:before{
     animation: 
     moveUpThenDown 0.8s ease 0.2s forwards,
@@ -167,18 +163,12 @@
     shakeWhileMovingDown 0.2s ease 0.8s forwards;
   }
 
-  #menu-checkbox:hover + #menu-label #menu-text-bar:before,
-  #menu-checkbox:hover + #menu-label #menu-text-bar {
+  #menu-button:hover {
     transform: scale(1.04);
   }
-  #menu-checkbox:active + #menu-label #menu-text-bar:before,
-  #menu-checkbox:active + #menu-label #menu-text-bar {
-    transform: scale(0.96);
-  }
 
-  #menu-checkbox:checked:hover + #menu-label #menu-text-bar:before,
-  #menu-checkbox:checked:hover + #menu-label #menu-text-bar:after{
-    background-color: red;
+  #menu-button:active {
+    transform: scale(0.96);
   }
   
   @keyframes moveUpThenDown {
@@ -258,7 +248,7 @@
 
   #main {
     position: absolute;
-    width: 100vw;
+    width: 93vw;
     height: 100vh;
   }
 
@@ -287,13 +277,6 @@
     margin: 10px;
     display: flex;
     align-items: center;
-    transition: background-color .3s, border-radius .5s;
-  }
-
-  #menu > menu li div:hover {
-    background-color: var(--quart-bright);
-    cursor: pointer;
-    border-radius: 10px;
   }
 
   #menu > menu li div:active {
@@ -305,10 +288,18 @@
   }
 
   #menu > menu li div * {
-    margin: 10px;
+    padding: 10px;
+    margin: 2px;
     color: WHITE;
     text-transform: uppercase;
     font-weight: bold;
+    transition: background-color .3s, border-radius .5s;
+  }
+
+  #menu > menu li div:hover *{
+    background-color: var(--quart-bright);
+    cursor: pointer;
+    border-radius: 10px;
   }
 
   body[data-menu="false"] #menu > menu li {
@@ -319,12 +310,16 @@
     margin: 50px 0px;
   }
 
+  body[data-menu="false"] #menu > menu li div * {
+    padding: 10px;
+  }
+
   body[data-menu="false"] #menu > menu li div h3 {
     display: none;
   }
 
   body[data-menu="false"] #menu {
-    width: min(60px);
+    width: min(75px, 4vw);
   }
 
   body[data-menu="true"] #menu {
