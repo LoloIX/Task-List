@@ -3,8 +3,9 @@
   body {
     background: var(--background);
     margin: 0px;
-    --primary:#1686df;
+    --primary:#01459f;
     --secondary:#99cefb;
+    --tertiary: #1686df;
     --background:#efffff;
     --shadow: #2b86c240 6px 6px 10px 1px;
     --quart-bright: #ffffff40;
@@ -31,9 +32,12 @@
     padding: 0;
   }
 
-  header {
+  nav {
+    width: 100%;
+    align-items: center;
+    color: WHITE;
     position: fixed;
-    background: var(--primary);
+    background: #01459f;
     width: -webkit-fill-available;
     height: 60px;
     top: 0px;
@@ -41,39 +45,34 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 5.5%;
+    padding-left: 1.5%;
     z-index: 3;
     box-shadow: var(--shadow);
   }
 
-  header > nav {
-    width: 100%;
-    align-items: center;
-    color: WHITE;
-  }
-
-  header > nav > i:first-child {
+  nav > i:first-child {
     font-size: 35px;
   }
 
-  header > nav > div:last-child {
+  nav > div:last-child {
     background-color: WHITE;
     padding: 7px 15px;
     border-radius: 20px;
     margin-left: auto;
   }
 
-  header > nav > div:last-child:hover {
+  nav > div:last-child:hover {
     background-color: var(--background);
     border: var(--t-cross) .1px solid;
     box-shadow: #2d4f6940 3px 3px 5px 1px;
     transition: background-color 1s;
   }
 
-  header > nav > div:last-child i {
+  nav > div:last-child i {
     font-size: 24px;
     color: var(--t-cross);
   }
-  header > nav > div:last-child input {
+  nav > div:last-child input {
     border: none;
     outline: none;
     background: transparent;
@@ -85,7 +84,8 @@
 */
   #menu-button {
     width: 60px;
-    padding-top: 2px;
+    padding: 4px 2px;
+    padding-bottom: 0px;
     overflow: hidden;
   }
   
@@ -105,7 +105,7 @@
   #menu-text-bar {
     position: absolute;
     left: 0;
-    width: 100%;
+    width: 50%;
     height: 5px;
     border-radius: 1px;
     background-color: #fff;
@@ -144,17 +144,19 @@
     transition: all .1s;
   }
   
-  #menu-checkbox:hover + #menu-label:before,
   #menu-checkbox:checked + #menu-label:before {
-    left: -60px;
+    left: -62px;
   }
   
-  #menu-checkbox:hover + #menu-label:after,
   #menu-checkbox:checked + #menu-label:after {
-    left: 60px;
+    left: 62px;
+  }
+
+  #menu-checkbox:checked + #menu-label #menu-text-bar {
+    width: 100%;
+    transition: width .7s;
   }
   
-  #menu-checkbox:hover + #menu-label #menu-text-bar:before,
   #menu-checkbox:checked + #menu-label #menu-text-bar:before{
     animation: 
     moveUpThenDown 0.8s ease 0.2s forwards,
@@ -162,9 +164,12 @@
     shakeWhileMovingDown 0.2s ease 0.8s forwards;
   }
 
-  #menu-checkbox:active + #menu-label #menu-text-bar:before,
-  #menu-checkbox:active + #menu-label #menu-text-bar {
-    transform: scale(0.9);
+  #menu-button:hover {
+    transform: scale(1.04);
+  }
+
+  #menu-button:active {
+    transform: scale(0.96);
   }
   
   @keyframes moveUpThenDown {
@@ -217,6 +222,120 @@
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 0;
+  }
+
+  #input-data {
+    width: 250px;
+    color: BLACK;
+    padding: 15px 10px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color);
+    background: transparent;
+  }
+
+  #input-data:focus + .form-label,
+  #input-data:not(:placeholder-shown) + .form-label {
+    transform: translateY(-24px) scale(.7);
+    transform-origin: top left;
+    --color: var(--primary);
+  }
+
+  #set-input{
+    color: WHITE;
+    border-radius: 6px;
+    transition: transform .3s, color .5s;
+    background-color: var(--primary);
+    border-color: var(--primary);
+    margin: 40px 17%;
+    padding: 6px;
+    box-shadow: var(--shadow);
+  }
+
+  #main {
+    position: absolute;
+    width: 93vw;
+    height: 100vh;
+  }
+
+  #menu {
+    top: 100px;
+    position: absolute;
+    overflow-y: hidden;
+    transition: all .5s;
+    background-color: var(--tertiary);
+    z-index: 2;
+    height: 100vh;
+    box-shadow: var(--shadow);
+  }
+
+  #menu > menu {
+    padding: 0px;
+  }
+
+  #menu > menu li {
+    display: block;
+    border-bottom: 1px #6fadde solid;
+    margin: 0px 10px;
+  }
+  
+  #menu > menu li div {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  #menu > menu li div:active {
+    transform: scale(0.9);
+  }
+
+  #menu > menu li div i {
+    font-size: 25px;
+  }
+
+  #menu > menu li div * {
+    padding: 10px;
+    margin: 2px;
+    color: WHITE;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color .3s, border-radius .3s;
+  }
+
+  #menu > menu li div:hover *{
+    background-color: var(--quart-bright);
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  body[data-menu="false"] #menu > menu li {
+    border: none;
+  }
+
+  body[data-menu="false"] #menu > menu li div {
+    margin: 50px 0px;
+  }
+
+  body[data-menu="false"] #menu > menu li div * {
+    padding: 10px;
+  }
+
+  body[data-menu="false"] #menu > menu li div h3 {
+    display: none;
+  }
+
+  body[data-menu="false"] #menu {
+    width: min(75px, 4vw);
+  }
+
+  body[data-menu="true"] #menu {
+    width: min(20vw, 250px);
+  }
+
+  body[data-menu="true"] #main {
+    width: 80vw;
+    right: 10vw;
   }
 
   [contenteditable="true"]:focus {
@@ -230,16 +349,6 @@
     --color: BLACK;
   }
 
-  #input-data {
-    width: 250px;
-    color: BLACK;
-    padding: 15px 10px;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid var(--color);
-    background: transparent;
-  }
-
   .form-label {
     color: var(--color);
     position: absolute;
@@ -249,18 +358,11 @@
     transition: transform .5s, color .3s;
   }
 
-  #input-data:focus + .form-label,
-  #input-data:not(:placeholder-shown) + .form-label {
-    transform: translateY(-24px) scale(.7);
-    transform-origin: top left;
-    --color: var(--primary);
-  }
-
   [class~="btn"] {
     border: none;
     position: relative;
     transform: scale(1);
-    z-index: 2;
+    z-index: 1;
   }
 
   .btn {
@@ -280,11 +382,11 @@
     color: WHITE;
     border-radius: 6px;
     transition: transform .3s, color .5s;
-    background-color: var(--primary);
-    border-color: var(--primary);
+    background-color: var(--tertiary);
+    border-color: var(--tertiary);
   }
 
-  .text-btn:hover {
+  #set-input:hover, .text-btn:hover {
     cursor: pointer;
     border-radius: 8px;
     transition: transform .3s, color .5s;
@@ -379,7 +481,7 @@
   .task > div:first-child::after,
   .subtask::after{
     content: " ";
-    width: 15%;
+    width: 26%;
     height: 100vh;
     background: var(--task);
     position: absolute;
@@ -391,7 +493,7 @@
     transform: translateX(0);
     opacity: 1;
     transition: all 750ms;
-    z-index: 2;
+    z-index: 1;
   }
 
   .unlockedTask {
@@ -408,7 +510,15 @@
     background: var(--subtask);
   }
 
-  [id^="text-"], .subtask p {
+  [id^="text-"] {
+    max-width: 40%;
+    max-height: 40px;
+    overflow-x: hidden;
+    word-break: break-all;
+  }
+
+  .subtask p {
+    max-width: 90%;
     max-height: 40px;
     overflow-x: hidden;
     word-break: break-all;
@@ -423,7 +533,7 @@
   }
 
   .btn-expand {
-    margin-left: 10px;
+    margin-left: 50px;
   }
 
   .btn-expand:not(.rotate) + .hidden {
@@ -461,7 +571,7 @@
 
   
   *::-webkit-scrollbar-thumb {
-    background: linear-gradient(0deg, transparent, var(--primary), transparent);
+    background: var(--secondary)
   }
 
   .options {
@@ -469,7 +579,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    z-index: 3;
+    z-index: 2;
     overflow: hidden;
     background: WHITE;
     border-radius: 6px;
@@ -490,12 +600,12 @@
     height: 100%;
     top: 0;
     opacity: 0;
-    z-index: 2;
+    z-index: 1;
     position: fixed;
   }
 
   .check{
-    z-index: 2;
+    z-index: 1;
     transition: all .3s;
     transform: scale(1);
     margin: 0px 20px;
@@ -520,25 +630,19 @@
     color: var(--t-cross);
   }
 
-  #set-input{
-    margin: 40px 17%;
-    padding: 6px;
-    box-shadow: var(--shadow);
-  }
-
 /* progress bar */
 
   .bar {
     border: solid;
     border-radius: 60px;
-    width: 360px;
-    margin-left: 30px;
+    width: 35%;
+    margin-left: 5%;
     background: var(--secondary);
   }
 
   .progress {
     font-size: 20px;
-    background-color: var(--primary);
+    background-color: var(--tertiary);
     height: 25px;
     border-radius: 60px;
     text-align: center;

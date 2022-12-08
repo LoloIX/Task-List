@@ -1,12 +1,4 @@
-let itemlist = [
-    {
-    "name": "test",
-    "check": false,
-    "expanded": false,
-    "lock": true,
-    "data":[]
-    }
-]
+let itemlist = []
 let i = -1
 
 let dragging
@@ -18,7 +10,7 @@ var body = $('body')
 
 const setInput = () => {
     let $mainButton = $(`
-        <button id="set-input" class="text-btn" onclick={setInput()}>
+        <button id="set-input" onclick={setInput()}>
             <i class="fa-solid fa-plus"></i>
             Add task
         </button>
@@ -37,7 +29,7 @@ const setInput = () => {
 
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
-        body.append($mainButton)
+        $('#main').append($mainButton)
     })
 
     $('#set-input').remove()
@@ -46,11 +38,11 @@ const setInput = () => {
         if (e.keyCode === 13) {
             handlerAddTask()
             $textBox.remove()
-            body.append($mainButton)
+            $('#main').append($mainButton)
         }
     })
 
-    body.append($textBox)
+    $('#main').append($textBox)
 
     $('#input-data').focus()
 }
@@ -81,6 +73,10 @@ const refresh = () => {
     i = -1
 
     handlerAddTask(refreshList)
+}
+
+const showMenu = () => {
+    document.body.dataset.menu = document.body.dataset.menu === "true" ? "false" : "true"
 }
 
 $('#sort-input').keyup((e) => {
@@ -259,8 +255,10 @@ const addTask = (task) => {
 
             subText.blur(() => {
                 if (subText.attr('contenteditable') === "true") {
-                subText.attr('contenteditable', 'false')
-                $subtask.remove()
+                    subText.attr('contenteditable', 'false')
+                    $subtask.remove()
+                    taskExpand.addClass('d-none')
+                    itemlist[il].expanded = false
                 }
             })
         } else {
@@ -442,4 +440,3 @@ const addTask = (task) => {
         $task.animate({opacity: 1, margin: "30px 20px 0px"}, 300)
     }
 }
-handlerAddTask(itemlist)
