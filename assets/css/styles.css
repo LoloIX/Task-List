@@ -31,7 +31,10 @@
     padding: 0;
   }
 
-  header {
+  nav {
+    width: 100%;
+    align-items: center;
+    color: WHITE;
     position: fixed;
     background: var(--primary);
     width: -webkit-fill-available;
@@ -45,35 +48,29 @@
     box-shadow: var(--shadow);
   }
 
-  header > nav {
-    width: 100%;
-    align-items: center;
-    color: WHITE;
-  }
-
-  header > nav > i:first-child {
+  nav > i:first-child {
     font-size: 35px;
   }
 
-  header > nav > div:last-child {
+  nav > div:last-child {
     background-color: WHITE;
     padding: 7px 15px;
     border-radius: 20px;
     margin-left: auto;
   }
 
-  header > nav > div:last-child:hover {
+  nav > div:last-child:hover {
     background-color: var(--background);
     border: var(--t-cross) .1px solid;
     box-shadow: #2d4f6940 3px 3px 5px 1px;
     transition: background-color 1s;
   }
 
-  header > nav > div:last-child i {
+  nav > div:last-child i {
     font-size: 24px;
     color: var(--t-cross);
   }
-  header > nav > div:last-child input {
+  nav > div:last-child input {
     border: none;
     outline: none;
     background: transparent;
@@ -85,7 +82,8 @@
 */
   #menu-button {
     width: 60px;
-    padding-top: 2px;
+    padding: 4px 2px;
+    padding-bottom: 0px;
     overflow: hidden;
   }
   
@@ -146,12 +144,12 @@
   
   #menu-checkbox:hover + #menu-label:before,
   #menu-checkbox:checked + #menu-label:before {
-    left: -60px;
+    left: -62px;
   }
   
   #menu-checkbox:hover + #menu-label:after,
   #menu-checkbox:checked + #menu-label:after {
-    left: 60px;
+    left: 62px;
   }
   
   #menu-checkbox:hover + #menu-label #menu-text-bar:before,
@@ -162,9 +160,13 @@
     shakeWhileMovingDown 0.2s ease 0.8s forwards;
   }
 
+  #menu-checkbox:hover + #menu-label #menu-text-bar:before,
+  #menu-checkbox:hover + #menu-label #menu-text-bar {
+    transform: scale(1.04);
+  }
   #menu-checkbox:active + #menu-label #menu-text-bar:before,
   #menu-checkbox:active + #menu-label #menu-text-bar {
-    transform: scale(0.9);
+    transform: scale(0.96);
   }
   
   @keyframes moveUpThenDown {
