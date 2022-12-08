@@ -259,7 +259,7 @@
     height: 100vh;
   }
 
-  #menu {
+  #side-bar {
     top: 100px;
     position: absolute;
     overflow-y: hidden;
@@ -270,66 +270,67 @@
     box-shadow: var(--shadow);
   }
 
-  #menu > menu {
+  #side-bar > menu {
     padding: 0px;
   }
 
-  #menu > menu li {
+  #side-bar > menu li {
     display: block;
     border-bottom: 1px #6fadde solid;
     margin: 0px 10px;
   }
   
-  #menu > menu li div {
+  #side-bar > menu li div {
     margin: 10px;
     display: flex;
     align-items: center;
+    transition: all .5s;
   }
 
-  #menu > menu li div:active {
+  #side-bar > menu li div:active {
     transform: scale(0.9);
   }
 
-  #menu > menu li div i {
+  #side-bar > menu li div i {
     font-size: 25px;
   }
 
-  #menu > menu li div * {
+  #side-bar > menu li div * {
     padding: 10px;
     margin: 2px;
     color: WHITE;
     text-transform: uppercase;
     font-weight: bold;
-    transition: background-color .3s, border-radius .3s;
+    transition: all 3s;
   }
 
-  #menu > menu li div:hover *{
+  #side-bar > menu li div:hover *{
     background-color: var(--quart-bright);
     cursor: pointer;
     border-radius: 10px;
   }
 
-  body[data-menu="false"] #menu > menu li {
+  body[data-menu="false"] #side-bar > menu li {
     border: none;
   }
 
-  body[data-menu="false"] #menu > menu li div {
+  body[data-menu="false"] #side-bar > menu li div {
     margin: 50px 0px;
   }
 
-  body[data-menu="false"] #menu > menu li div * {
+  body[data-menu="false"] #side-bar > menu li div * {
     padding: 10px;
   }
 
-  body[data-menu="false"] #menu > menu li div h3 {
+  body[data-menu="false"] #side-bar > menu li div h3 {
     display: none;
   }
 
-  body[data-menu="false"] #menu {
+  body[data-menu="false"] #side-bar {
     width: min(75px, 4vw);
   }
 
-  body[data-menu="true"] #menu {
+  body[data-menu="true"] #side-bar {
     width: min(20vw, 250px);
   }
 
