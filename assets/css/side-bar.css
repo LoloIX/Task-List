@@ -9,17 +9,17 @@
     box-shadow: var(--shadow);
   }
 
-  #side-bar > menu {
+  menu {
     padding: 0px;
   }
 
-  #side-bar > menu li {
+  menu li {
     display: block;
     border-bottom: 1px #6fadde solid;
     margin: 0px 10px;
   }
   
-  #side-bar > menu li div {
+  menu li div {
     margin: 10px;
     display: flex;
     align-items: center;
@@ -27,7 +27,7 @@
     justify-content: start;
   }
 
-  #side-bar > menu li div i {
+  menu li div i {
     font-size: 25px;
   }
 
@@ -37,41 +37,57 @@
     color: WHITE;
     text-transform: uppercase;
     font-weight: bold;
-    transition: all .3s;
+    transition: all .7s;
   }
 
-  #side-bar > menu li div:hover{
+  menu li div:hover{
     background-color: var(--quart-bright);
     cursor: pointer;
     border-radius: 10px;
   }
 
-  #side-bar > menu li div:active {
+  menu li div:active {
     transform: scale(0.9);
   }
 
-  body[data-menu="false"] #side-bar > menu li {
+  body[data-menu="false"] menu li {
     border: none;
   }
 
-  body[data-menu="false"] #side-bar > menu li div {
+  body[data-menu="false"] menu li div {
     margin: 50px 0px;
     justify-content: center;
   }
 
-  body[data-menu="false"] #side-bar > menu li div * {
+  body[data-menu="false"] menu li div * {
     padding: 10px;
   }
 
-  body[data-menu="false"] #side-bar > menu li div h3 {
-    display: none;
+  body[data-menu="false"] menu li div h3 {
+    font-size: 0px;
+    position: fixed;
+    animation: TextOut 1s;
   }
 
   body[data-menu="false"] #side-bar {
-    width: 86.2px;
+    width: 85px;
   }
 
   body[data-menu="true"] #main {
     width: calc(100vw - 275px);
     right: 0px;
+  }
+
+  @keyframes TextOut {
+    0% {
+      font-size: 25px;
+      position: initial;
+    }
+    50% {
+      font-size: 0px;
+    }
+    100% {
+      font-size: 0px;
+      position: fixed;
+    }
   }
