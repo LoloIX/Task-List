@@ -191,7 +191,7 @@ const addTask = (task) => {
     var taskOptions = $task.find('.options')
     var taskExpand = $task.find('.btn-expand')
     var findProgress = $task.find('.progress')
-    var taskLock = $task.find('div:first-child > [class^="fa-lock"]')
+    var taskLock = $task.find('div:first-child > .fa-lock-open')
 
     findProgress.animate({width: `${percent}%`}, 300)
 
