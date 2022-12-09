@@ -9,8 +9,8 @@ const addTask = (task) => {
     let il = i
 
     if (task === "placeholder") return
-    
     let query = $('#sort-input').val().replace(/.(?<![A-Za-z0-9 áéíóú])/g, '\\$&')
+    // let query = $('#sort-input').val().replace(/\\|\.|\[|\]|\^|\$|\(|\)|\*|\+|\{|\}|\||\/|\?|\=|\:|\-|\!/g, '\\$&')
     let regex = new RegExp(query, "i")
     
     let $canvas = $('<canvas width="900" height="900" id="canvas"></canvas>')   
