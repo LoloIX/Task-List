@@ -1,11 +1,11 @@
   #side-bar {
     top: 100px;
     position: absolute;
-    overflow-y: hidden;
     transition: all .5s;
     background-color: var(--tertiary);
     z-index: 2;
-    height: 100vh;
+    width: 275px;
+    height: calc(100vh - 100px);
     box-shadow: var(--shadow);
   }
 
@@ -24,10 +24,7 @@
     display: flex;
     align-items: center;
     transition: all .5s;
-  }
-
-  #side-bar > menu li div:active {
-    transform: scale(0.9);
+    justify-content: start;
   }
 
   #side-bar > menu li div i {
@@ -40,13 +37,17 @@
     color: WHITE;
     text-transform: uppercase;
     font-weight: bold;
-    transition: all 3s;
+    transition: all .3s;
   }
 
-  #side-bar > menu li div:hover *{
+  #side-bar > menu li div:hover{
     background-color: var(--quart-bright);
     cursor: pointer;
     border-radius: 10px;
+  }
+
+  #side-bar > menu li div:active {
+    transform: scale(0.9);
   }
 
   body[data-menu="false"] #side-bar > menu li {
@@ -55,6 +56,7 @@
 
   body[data-menu="false"] #side-bar > menu li div {
     margin: 50px 0px;
+    justify-content: center;
   }
 
   body[data-menu="false"] #side-bar > menu li div * {
@@ -66,14 +68,10 @@
   }
 
   body[data-menu="false"] #side-bar {
-    width: min(75px, 4vw);
-  }
-
-  body[data-menu="true"] #side-bar {
-    width: min(20vw, 250px);
+    width: 86.2px;
   }
 
   body[data-menu="true"] #main {
-    width: 80vw;
-    right: 10vw;
+    width: calc(100vw - 275px);
+    right: 0px;
   }
