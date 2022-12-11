@@ -1,4 +1,4 @@
-date = new Date()
+let date = new Date()
 
 let week = [
     "Saturday",
@@ -10,39 +10,23 @@ let week = [
     "Friday"
 ]
 
-let days = []
+let monthsLength = [31,28,31,30,31,30,31,31,30,31,30,31]
 
-for (let daysCount = 0; daysCount <= 365; daysCount++) {
-    let index = daysCount - (Math.floor(daysCount / 7) * 7)
-    days.push(week[index])
+let year = []
+
+const monthsCreator = (mlength) => {
+    let days = []
+    let InitialDay = year.length !== 0 ? week.indexOf(year[year.length - 1][year[year.length - 1].length - 1]) + 1 : 0
+
+    for (let daysCount = InitialDay; daysCount < mlength+InitialDay; daysCount++) {
+        let index = daysCount - (Math.floor(daysCount / 7) * 7)
+        days.push(week[index])
+    }
+
+    year.push(days)
 }
 
-console.log(days)
+monthsLength.map((e) => {
+    monthsCreator(e)
+})
 
-let January = days.splice(0, 31)
-let Febuary = days.splice(0, 28)
-let March = days.splice(0, 31)
-let April = days.splice(0, 30)
-let May = days.splice(0, 31)
-let June = days.splice(0, 30)
-let July = days.splice(0, 31)
-let August = days.splice(0, 31)
-let September = days.splice(0, 30)
-let October = days.splice(0, 31)
-let November = days.splice(0, 30)
-let December = days.splice(0, 31)
-
-let year = {
-    "January": January,
-    "Febuary": Febuary,
-    "March": March,
-    "April": April,
-    "May": May,
-    "June": June,
-    "July": July,
-    "August": August,
-    "September": September,
-    "October": October,
-    "November": November,
-    "December": December
-}
