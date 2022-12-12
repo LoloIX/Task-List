@@ -1,48 +1,82 @@
-date = new Date()
-
-let week = [
-    "Saturday",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday"
+let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
 ]
 
-let days = []
+let date = new Date()
+let currentMonth = date.getMonth()
+let currentYear = date.getFullYear()
+let currentDate = document.getElementById("CurrentDate")
+let tbody = document.getElementsByTagName("tbody")
 
-for (let daysCount = 0; daysCount <= 365; daysCount++) {
-    let index = daysCount - (Math.floor(daysCount / 7) * 7)
-    days.push(week[index])
+const monthLength = (month, year) => {
+    return 32 - (new Date(year, month, 32)).getDate()
 }
 
-console.log(days)
+const createCalendar = (month, year) => {
+    currentDate.innerText = months[month] + " " + String (year)
 
-let January = days.splice(0, 31)
-let Febuary = days.splice(0, 28)
-let March = days.splice(0, 31)
-let April = days.splice(0, 30)
-let May = days.splice(0, 31)
-let June = days.splice(0, 30)
-let July = days.splice(0, 31)
-let August = days.splice(0, 31)
-let September = days.splice(0, 30)
-let October = days.splice(0, 31)
-let November = days.splice(0, 30)
-let December = days.splice(0, 31)
+    let InitialDay = (new Date(year, month)).getDay()
+    let days = 1
+    let maxDays = monthLength(month, year)
+    
+    for (let i = 0; i < 6; i++) {
+        let row = document.createElement("tr")
 
-let year = {
-    "January": January,
-    "Febuary": Febuary,
-    "March": March,
-    "April": April,
-    "May": May,
-    "June": June,
-    "July": July,
-    "August": August,
-    "September": September,
-    "October": October,
-    "November": November,
-    "December": December
+        for (let j = 0; j < 7; j++) {
+
+            let td = document.createElement("td")
+
+            td.innerText = days
+
+            if (j < InitialDay && i === 0 || days > maxDays) {
+                td.innerText = ""
+            } else {
+                days++
+            }
+
+            row.append(td)
+        }
+
+        tbody[0].append(row)
+    }
 }
+
+const changeMonth = (bool) => {
+    let num = sign = newMonth = 0
+
+    if (bool) {
+        num = 11
+        sign = 1
+    } else {
+        sign = -1
+        newMonth = 11
+    }
+
+    if (currentMonth === num) {
+        currentYear += sign
+        currentMonth = newMonth
+    } else {
+        currentMonth += sign
+    }
+
+    let save = tbody[0].children[0]
+
+    tbody[0].innerHTML = ""
+
+    tbody[0].append(save)
+
+    createCalendar(currentMonth, currentYear)
+}
+
+createCalendar(currentMonth, currentYear)

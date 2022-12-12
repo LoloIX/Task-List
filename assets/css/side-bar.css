@@ -41,7 +41,7 @@
   }
 
   menu li div:hover{
-    background-color: var(--quart-bright);
+    background-color: var(--quart-bright) !important;
     cursor: pointer;
     border-radius: 10px;
   }
