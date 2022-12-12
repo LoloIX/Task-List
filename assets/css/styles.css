@@ -265,6 +265,13 @@
     padding: 4px;
   }
 
+  .task > div:first-child > p {
+    max-width: 40%;
+    max-height: 40px;
+    overflow-x: hidden;
+    word-break: break-all;
+  }
+
   .task > div:first-child .btn, .subtask .btn {
     transform: translateX(500px);
     font-size: 0px;
@@ -300,13 +307,6 @@
     grid-template-columns: 10% 80% 10%;
     padding-left: 2%;
     font-size: smaller;
-  }
-
-  [id^="text-"] {
-    max-width: 40%;
-    max-height: 40px;
-    overflow-x: hidden;
-    word-break: break-all;
   }
 
   .hidden {

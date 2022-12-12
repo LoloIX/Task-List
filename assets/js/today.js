@@ -28,7 +28,7 @@ const addTask = (task) => {
         <div class="task ${regex.test(itemlist[il].name) ? "" : "d-none"}">
             <div draggable="true" class="d-flex">
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <p title="${task.name}" id="text-${il}">${task.name}</p>
+                <p title="${task.name}">${task.name}</p>
                 <div class="bar">
                     <div class="progress">
                         <p>${parseInt(percent)}%</p>
@@ -262,7 +262,8 @@ const addTask = (task) => {
     })
 
     $task.find('.fa-pen').click(() => {
-        var text = $(`#text-${il}`)
+        var text = ($task.find('div:first-child:not(.progress, .subtask) > p:first-of-type'))
+        console.log(text)
 
         text.attr('contenteditable', 'true')
 
