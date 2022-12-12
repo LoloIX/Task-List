@@ -1,37 +1,84 @@
-#main {
+  #main {
     display: flex;
-}
+    justify-content: center;
+  }
 
-#calendar {
-    margin: auto;
+  #calendar {
+    margin: auto 0px;
     justify-content: center;
     text-align: center;
     align-items: center;
-}
+  }
 
-table {
+  #calendar h3 {
+    font-size: 40px;
+    padding-top: 20px;
+    margin: 0px;
+    background-color: var(--primary);
+    color: WHITE;
+  }
+
+  table {
+    border-spacing: 0px;
     table-layout: fixed;
     width: 1000px;
-}
+    border: 3px solid var(--primary);
+  }
 
-table * > tr:first-child {
+  table * > tr:first-child {
     background-color: var(--primary);
-}
+  }
 
-tr {
+  tr {
     background-color: #53a6e8;
     color: WHITE;
-}
 
-tr:nth-child(even) {
+  }
+
+  tr:nth-child(even) {
     background-color: var(--tertiary);
-}
+  }
 
-th {
+  th {
     font-weight: bolder;
-}
+  }
 
-th, td {
+  th, td {
+    border: 25px solid transparent;
     font-size: 35px;
-    height: 85px;
-}
+    height: 45px;
+    transition: all .3s;
+  }
+
+  td:hover {
+    border: 2px solid WHITE;
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+
+  td:active {
+    transform: scale(0.9);
+  }
+
+  .text-btn {
+    border: 20px solid transparent;
+    transition: all .3s;
+  }
+  
+  .text-btn:hover {
+    transition: all .3s;
+    border: 2px solid WHITE;
+    color: WHITE;
+  }
+
+  #main button {
+    display: flex;
+    margin: 20% 5px;
+    min-width: 75px;
+    justify-content: center;
+    align-items: center
+  }
+
+  #main button i {
+    font-size: 45px;
+  }

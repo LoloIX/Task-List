@@ -67,6 +67,7 @@
         </span>
         
         <div id="main">
+            <button class="text-btn" onclick=changeMonth(false)><i class="fa-solid fa-caret-left"></i></button>
             <div id="calendar">
                 <h3 id="CurrentDate"></h3>
                 <table>
@@ -80,9 +81,8 @@
                         <th>Sat</th>
                     </tr>
                 </table>
-                <button class="text-btn" onclick=changeMonth(false)><</button>
-                <button class="text-btn" onclick=changeMonth(true)>></button>
             </div>
+            <button class="text-btn" onclick=changeMonth(true)><i class="fa-solid fa-caret-right"></i></button>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.6.1.js"
