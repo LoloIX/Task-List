@@ -1,0 +1,37 @@
+#main {
+    display: flex;
+}
+
+#calendar {
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+table {
+    table-layout: fixed;
+    width: 1000px;
+}
+
+table * > tr:first-child {
+    background-color: var(--primary);
+}
+
+tr {
+    background-color: #53a6e8;
+    color: WHITE;
+}
+
+tr:nth-child(even) {
+    background-color: var(--tertiary);
+}
+
+th {
+    font-weight: bolder;
+}
+
+th, td {
+    font-size: 35px;
+    height: 85px;
+}

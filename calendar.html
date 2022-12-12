@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <link rel="stylesheet" href="assets/css/side-bar.css">
+        <link rel="stylesheet" href="assets/css/calendar.css">
         <link rel="stylesheet" href="assets/css/menu-button.css">
     </head>
 
@@ -36,7 +37,7 @@
             <menu>
                 <li>
                     <div>
-                        <i class="fa-regular fa-calendar-day"></i>
+                        <i class="fa-solid fa-calendar-day"></i>
                         <h3>Today</h3>
                     </div>
                     <div style="
@@ -66,21 +67,21 @@
         </span>
         
         <div id="main">
-            <div>
+            <div id="calendar">
                 <h3 id="CurrentDate"></h3>
                 <table>
                     <tr>
-                        <th>Sunday</th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Weed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
                     </tr>
                 </table>
-                <button onclick=changeMonth(false)>Previous Month</button>
-                <button onclick=changeMonth(true)>Next Month</button>
+                <button class="text-btn" onclick=changeMonth(false)><</button>
+                <button class="text-btn" onclick=changeMonth(true)>></button>
             </div>
         </div>
 
