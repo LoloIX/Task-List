@@ -1,32 +1,57 @@
-let date = new Date()
-
-let week = [
-    "Saturday",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday"
+let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
 ]
 
-let monthsLength = [31,28,31,30,31,30,31,31,30,31,30,31]
+let date = new Date()
+let currentMonth = date.getMonth()
+let currentYear = date.getFullYear()
+let currentDate = document.getElementById("CurrentDate")
+let tbody = document.getElementsByTagName("tbody")
 
-let year = []
+console.log(tbody)
 
-const monthsCreator = (mlength) => {
-    let days = []
-    let InitialDay = year.length !== 0 ? week.indexOf(year[year.length - 1][year[year.length - 1].length - 1]) + 1 : 0
-
-    for (let daysCount = InitialDay; daysCount < mlength+InitialDay; daysCount++) {
-        let index = daysCount - (Math.floor(daysCount / 7) * 7)
-        days.push(week[index])
-    }
-
-    year.push(days)
+const monthLength = (month, year) => {
+    return 32 - (new Date(year, month, 32)).getDate()
 }
 
-monthsLength.map((e) => {
-    monthsCreator(e)
-})
+const createCalendar = (month, year) => {
+    currentDate.innerText = months[month] + " " + String (year)
 
+    let InitialDay = (new Date(year, month)).getDay()
+    let days = 1
+    let maxDays = monthLength(month, year)
+    
+    for (let i = 0; i < 6; i++) {
+        let row = document.createElement("tr")
+
+        for (let j = 0; j < 7; j++) {
+
+            let td = document.createElement("td")
+
+            td.innerText = days
+
+            if (j < InitialDay && i === 0 || days > maxDays) {
+                td.innerText = ""
+            } else {
+                days++
+            }
+
+            row.append(td)
+        }
+
+        tbody[0].append(row)
+    }
+}
+
+createCalendar(11, 2022)
