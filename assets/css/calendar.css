@@ -71,6 +71,10 @@
     color: WHITE;
   }
 
+  .text-btn:active {
+    transform: scale(0.9);
+  }
+  
   #main button {
     display: flex;
     margin: 20% 5px;
