@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
         <link rel="stylesheet" href="assets/css/side-bar.css">
+        <link rel="stylesheet" href="assets/css/calendar.css">
         <link rel="stylesheet" href="assets/css/menu-button.css">
     </head>
 
@@ -35,16 +36,16 @@
         <span id="side-bar">
             <menu>
                 <li>
-                    <div>
-                        <i class="fa-regular fa-calendar-day"></i>
+                    <a href="today.html"><div>
+                        <i class="fa-solid fa-calendar-day"></i>
                         <h3>Today</h3>
-                    </div>
-                    <div style="
+                    </div></a>
+                    <a href="calendar.html"><div style="
                         background-color: var(--half-dark);
                         border-radius: 10px;">
                         <i class="fa-regular fa-calendar-days"></i>
                         <h3>Calendar</h3>
-                    </div>
+                    </div></a>
                 </li>
                 <li>
                     <div>
@@ -66,22 +67,22 @@
         </span>
         
         <div id="main">
-            <div>
+            <button class="text-btn" onclick=changeMonth(false)><i class="fa-solid fa-caret-left"></i></button>
+            <div id="calendar">
                 <h3 id="CurrentDate"></h3>
                 <table>
                     <tr>
-                        <th>Sunday</th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Weed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
                     </tr>
                 </table>
-                <button onclick=changeMonth(false)>Previous Month</button>
-                <button onclick=changeMonth(true)>Next Month</button>
             </div>
+            <button class="text-btn" onclick=changeMonth(true)><i class="fa-solid fa-caret-right"></i></button>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.6.1.js"

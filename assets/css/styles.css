@@ -23,6 +23,10 @@
     font-size: 25px;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   ::selection {
     background: var(--selection);
   }
@@ -178,11 +182,9 @@
 
   .text-btn:hover, #set-input:hover {
     cursor: pointer;
-    border-radius: 8px;
     transition: transform .3s, color .5s;
     transform: scale(1.02);
     position: relative;
-    color: BLACK;
   }
 
   .btn-expand {
@@ -263,28 +265,15 @@
     padding: 4px;
   }
 
-  .task > div:first-child:hover::after,
-  .subtask:hover::after{
-    transform: translateX(100%);
-    opacity: 0;
+  .task > div:first-child .btn, .subtask .btn {
+    transform: translateX(500px);
+    font-size: 0px;
+    position: relative;
   }
 
-  .task > div:first-child::after,
-  .subtask::after{
-    content: " ";
-    width: 26%;
-    height: 100vh;
-    background: var(--task);
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateX(0);
-    opacity: 1;
-    transition: all 750ms;
-    z-index: 1;
+  .task:hover > div:first-child .btn, .subtask:hover .btn {
+    transform: translateX(0px);
+    font-size: 20px;
   }
 
   .unlockedTask {
@@ -292,13 +281,8 @@
     animation-fill-mode: forwards;
   }
 
-  .subtask:nth-child(even), 
-  .subtask::after {
+  .subtask:nth-child(even) {
     background: var(--subtask-even);
-  }
-
-  .subtask:nth-child(odd)::after {
-    background: var(--subtask);
   }
 
   .subtask p {
