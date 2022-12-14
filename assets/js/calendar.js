@@ -50,16 +50,7 @@ const createCalendar = (month, year) => {
             let td = document.createElement("td")
 
             td.innerText = days
-            td.addEventListener("click", function dailyQuest (element) {
-                let span = document.getElementById("daily-quest")
-                span.innerHTML = ""
-                let $quest = document.createElement("div")
-                $quest.setAttribute("class", "quest")
-                
-                span.append($quest)
-                console.log(span)
-                console.log(element)
-            })
+            td.addEventListener("click", dailyQuest)
             
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
