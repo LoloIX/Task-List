@@ -24,10 +24,13 @@ const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-const dailyQuest = (element) => {
-    let $quest = $(`<div class="pop-up"></div>`)
-
+function dailyQuest (element) {
     let span = document.getElementById("daily-quest")
+    span.innerHTML = ""
+    let $quest = document.createElement("div")
+    $quest.setAttribute("class", "quest")
+    
+    span.append($quest)
     console.log(span)
     console.log(element)
 }
@@ -46,8 +49,17 @@ const createCalendar = (month, year) => {
 
             let td = document.createElement("td")
 
-            td.addEventListener("mousedown", dailyQuest("owo"))
             td.innerText = days
+            td.addEventListener("click", function dailyQuest (element) {
+                let span = document.getElementById("daily-quest")
+                span.innerHTML = ""
+                let $quest = document.createElement("div")
+                $quest.setAttribute("class", "quest")
+                
+                span.append($quest)
+                console.log(span)
+                console.log(element)
+            })
             
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
