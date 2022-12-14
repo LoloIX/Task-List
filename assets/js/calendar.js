@@ -48,7 +48,7 @@ function dailyQuest (event) {
             <button class="btn btn-expand">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
-            <button class="btn btn-expand ${(quests[il].data?.length > 0) ? "" : "d-none"}">
+            <button class="btn btn-expand ${(quests[il].data.length > 0) ? "" : "d-none"}">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
             <div class="hidden"></div>
@@ -82,6 +82,7 @@ function dailyQuest (event) {
     })
 
     span.find('ul').append($task)
+    console.log(quests)
     console.log(event)
 }
 
