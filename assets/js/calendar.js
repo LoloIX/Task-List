@@ -12,15 +12,24 @@ let months = [
     "November",
     "December"
 ]
-
 let date = new Date()
+
 let currentMonth = date.getMonth()
 let currentYear = date.getFullYear()
 let currentDate = document.getElementById("CurrentDate")
+
 let tbody = document.getElementsByTagName("tbody")
 
 const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
+}
+
+const dailyQuest = (element) => {
+    let $quest = $(`<div class="pop-up"></div>`)
+
+    let span = document.getElementById("daily-quest")
+    console.log(span)
+    console.log(element)
 }
 
 const createCalendar = (month, year) => {
@@ -37,10 +46,11 @@ const createCalendar = (month, year) => {
 
             let td = document.createElement("td")
 
+            td.addEventListener("mousedown", dailyQuest("owo"))
             td.innerText = days
-
+            
             if (j < InitialDay && i === 0 || days > maxDays) {
-                td.innerText = ""
+                td.innerHTML = ""
             } else {
                 days++
             }

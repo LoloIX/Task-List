@@ -67,9 +67,14 @@
         </span>
         
         <div id="main">
-            <button class="text-btn" onclick=changeMonth(false)><i class="fa-solid fa-caret-left"></i></button>
             <div id="calendar">
-                <h3 id="CurrentDate"></h3>
+                <div class="header">
+                    <div style="padding: 0px 125px;">
+                        <button class="text-btn" onclick=changeMonth(false)><i class="fa-solid fa-caret-left"></i></button>
+                        <button class="text-btn" onclick=changeMonth(true)><i class="fa-solid fa-caret-right"></i></button>
+                    </div>
+                    <h3 id="CurrentDate"></h3>
+                </div>
                 <table>
                     <tr>
                         <th>Sun</th>
@@ -82,8 +87,10 @@
                     </tr>
                 </table>
             </div>
-            <button class="text-btn" onclick=changeMonth(true)><i class="fa-solid fa-caret-right"></i></button>
         </div>
+
+        <span id="daily-quest">
+        </span>
 
         <script src="https://code.jquery.com/jquery-3.6.1.js"
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
