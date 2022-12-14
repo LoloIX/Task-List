@@ -12,15 +12,22 @@ let months = [
     "November",
     "December"
 ]
-
 let date = new Date()
+
 let currentMonth = date.getMonth()
 let currentYear = date.getFullYear()
 let currentDate = document.getElementById("CurrentDate")
+
 let tbody = document.getElementsByTagName("tbody")
 
 const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
+}
+
+function dailyQuest (element) {
+    let span = document.getElementById("daily-quest")
+    document.body.dataset.quest = document.body.dataset.quest === "true" ? "false" : "true"
+
 }
 
 const createCalendar = (month, year) => {
@@ -38,9 +45,10 @@ const createCalendar = (month, year) => {
             let td = document.createElement("td")
 
             td.innerText = days
-
+            td.addEventListener("click", dailyQuest)
+            
             if (j < InitialDay && i === 0 || days > maxDays) {
-                td.innerText = ""
+                td.innerHTML = ""
             } else {
                 days++
             }

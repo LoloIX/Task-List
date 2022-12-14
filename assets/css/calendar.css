@@ -3,6 +3,12 @@
     justify-content: center;
   }
 
+  #main button i {
+    font-size: 45px;
+  }
+
+  /* CALENDAR */
+
   #calendar {
     margin: auto 0px;
     justify-content: center;
@@ -12,7 +18,6 @@
 
   #calendar h3 {
     font-size: 40px;
-    padding-top: 20px;
     margin: 0px;
     background-color: var(--primary);
     color: WHITE;
@@ -60,29 +65,43 @@
     transform: scale(0.9);
   }
 
+  .header {
+    background-color: var(--primary);
+    display: flex;
+    padding: 20px;
+    justify-content: flex-start;
+  }
+
+  .header > div {
+    padding: 0px 125px;
+  }
+
   .text-btn {
-    border: 20px solid transparent;
+    background-color: transparent;
+    border: 1px solid transparent;
     transition: all .3s;
   }
   
   .text-btn:hover {
+    transform: scale(1);
     transition: all .3s;
-    border: 2px solid WHITE;
+    border: 1px solid var(--quart-bright);
     color: WHITE;
   }
 
   .text-btn:active {
     transform: scale(0.9);
   }
-  
-  #main button {
-    display: flex;
-    margin: 20% 5px;
-    min-width: 75px;
-    justify-content: center;
-    align-items: center
+
+  /* CALENDAR DONE  */
+
+  /* POP-UP */
+
+  .pop-up {
+    width: 750px;
+    height: 500px;
+    position: relative;
+    background-color: var(--background);
   }
 
-  #main button i {
-    font-size: 45px;
-  }
+  /* POP-UP DONE */
