@@ -72,7 +72,7 @@ function PrintConfetti() {
         } else {
             confettis = []
             canvas.remove()
-            refresh()
+            refresh(itemlist)
             $('.elements > .unlockedTask').remove()
         }
     }

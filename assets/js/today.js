@@ -363,7 +363,7 @@ const addTask = (task, list) => {
 }
 
 const handlerAddTask = (array) => {
-    if ($('#input-data').val() !== "") {
+    if ($('#input-data').val() !== undefined) {
         addTask({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false}, array)
     } else {
         Object.keys(array).map((key) => {
@@ -387,5 +387,5 @@ const refresh = (list) => {
     list = []
     i = -1
 
-    handlerAddTask(refreshList, list)
+    handlerAddTask(refreshList)
 }
