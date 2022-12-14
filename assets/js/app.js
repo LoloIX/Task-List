@@ -1,7 +1,3 @@
-let i = -1
-
-let canvasPrinted = 0
-
 var body = $('body')
 
 const setInput = () => {

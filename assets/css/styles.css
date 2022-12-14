@@ -27,6 +27,10 @@
     text-decoration: none;
   }
 
+  ul {
+    list-style-type: none;
+  }
+
   ::selection {
     background: var(--selection);
   }

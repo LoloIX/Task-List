@@ -1,4 +1,6 @@
 let itemlist = []
+let i = -1
+let canvasPrinted = 0
 
 let dragging
 let subdragging
@@ -24,7 +26,7 @@ const addTask = (task) => {
     itemlist[il] = {name: task.name, check: task.check, expanded: task.expanded, lock: (task.lock !== undefined ) ? task.lock : true, data:[]}
 
     let $task = $(`
-        <div class="task ${regex.test(itemlist[il].name) ? "" : "d-none"}">
+        <li class="task ${regex.test(itemlist[il].name) ? "" : "d-none"}">
             <div draggable="true" class="d-flex">
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${task.name}">${task.name}</p>
@@ -45,7 +47,7 @@ const addTask = (task) => {
                 <i class="fa-solid fa-angle-right"></i>
             </button>
             <div id=${il} class="hidden"></div>
-        </div>
+        </li>
     `)
 
     const addSubTask = (subtask) => {
@@ -374,7 +376,7 @@ const handlerAddTask = (array) => {
 const refresh = () => {
     canvasPrinted = 0
 
-    $('.elements > div:not(.unlockedTask)').remove()
+    $('.elements > li:not(.unlockedTask)').remove()
 
     itemlist.map((e, i) => {
         if (e === "placeholder") {
