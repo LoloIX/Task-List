@@ -26,13 +26,8 @@ const monthLength = (month, year) => {
 
 function dailyQuest (element) {
     let span = document.getElementById("daily-quest")
-    span.innerHTML = ""
-    let $quest = document.createElement("div")
-    $quest.setAttribute("class", "quest")
-    
-    span.append($quest)
-    console.log(span)
-    console.log(element)
+    document.body.dataset.quest = document.body.dataset.quest === "true" ? "false" : "true"
+
 }
 
 const createCalendar = (month, year) => {
