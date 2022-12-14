@@ -185,9 +185,6 @@ const addTask = (task, list) => {
         } else {
             list[il].data.push(subtask)
         }
-
-        console.log({"list": list})
-        console.log({"itemlist": itemlist})
     }
     
     var taskCheck = $task.find('.check')
@@ -267,7 +264,6 @@ const addTask = (task, list) => {
 
     $task.find('.fa-pen').click(() => {
         var text = ($task.find('div:first-child:not(.progress, .subtask) > p:first-of-type'))
-        console.log(text)
 
         text.attr('contenteditable', 'true')
 
@@ -342,13 +338,12 @@ const addTask = (task, list) => {
     $task.on('drop', (e) => {
         e.target.classList.remove("drag-over")
         $('.dragging').removeClass("dragging")
-        
+
         list.splice(il + 1, 0, list[dragging])
         
         if (dragging > il) dragging++
 
         list.splice(dragging, 1)
-        console.log(list)
 
         refresh(list)
     })
@@ -367,12 +362,12 @@ const addTask = (task, list) => {
     }
 }
 
-const handlerAddTask = (array, list) => {
-    if (array === undefined) {
-        if ($('#input-data').val() !== "") addTask({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false}, list)
+const handlerAddTask = (array) => {
+    if ($('#input-data').val() !== "") {
+        addTask({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false}, array)
     } else {
         Object.keys(array).map((key) => {
-            return addTask(array[key], list)
+            return addTask(array[key], array)
         })
     }
 }

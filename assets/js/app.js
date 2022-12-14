@@ -28,7 +28,7 @@ const setInput = () => {
 
     $textBox.find('#input-data').keydown((e) => {
         if (e.keyCode === 13) {
-            handlerAddTask(undefined, itemlist)
+            handlerAddTask(itemlist)
             $textBox.remove()
             $('#main').append($mainButton)
         }
