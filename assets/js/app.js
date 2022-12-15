@@ -48,9 +48,10 @@ const showMenu = () => {
 
 const handlerAddTask = (array, bool) => {
     let result = bool ? addTask : dailyQuests
+    let entry = bool ? {"lock": false} : {"cycle": undefined}
 
     if ($('#input-data').val() !== undefined) {
-        result({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false})
+        result({"name": $('#input-data').val(), "check": false, "expanded": false, entry})
     } else {
         Object.keys(array).map((key) => {
             return result(array[key])

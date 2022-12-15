@@ -100,7 +100,7 @@
     right: 0px;
     background-color: var(--tertiary);
     top: 100px;
-    width: 750px;
+    width: 450px;
     min-height: calc(100vh - 100px);
     transition: all .5s;
   }
@@ -111,7 +111,7 @@
 
   body[data-quests="false"] .close-span,
   body[data-quests="false"] #set-input {
-    display: none;
+    width: 0px;
   }
   
   /* QUEST */

@@ -50,7 +50,7 @@ const addTask = (task) => {
                 <button class="text-btn addSubtask">Add subtask</button>
                 <button class="text-btn delete">Delete</button>
             </span>
-            <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
+            <button class="btn expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
             <div id=${il} class="hidden"></div>
@@ -197,7 +197,7 @@ const addTask = (task) => {
     var taskCheck = $task.find('.check')
     var textProgress = $task.find('.progress > p')
     var taskOptions = $task.find('.options')
-    var taskExpand = $task.find('.btn-expand')
+    var taskExpand = $task.find('.expand')
     var findProgress = $task.find('.progress')
     var taskLock = $task.find('div:first-child > .fa-lock-open')
 
