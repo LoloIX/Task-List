@@ -33,57 +33,7 @@ function dailyQuest (event) {
     
     i++
     let il = i
-    quests[il] = {name: "", check: false, expanded: false, data: []}
-
-    let $task = $(`
-        <li>
-            <div class="d-flex">
-                <i class="check ${quests[il].check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <p contenteditable="true"></p>
-            </div>
-            <span class="options hidden">
-                <button class="text-btn btn-addSubtask">Add subtask</button>
-                <button class="text-btn btn-delete">Delete</button>
-            </span>
-            <button class="btn btn-expand">
-                <i class="fa-solid fa-angle-right"></i>
-            </button>
-            <button class="btn btn-expand ${(quests[il].data.length > 0) ? "" : "d-none"}">
-                <i class="fa-solid fa-angle-right"></i>
-            </button>
-            <div class="hidden"></div>
-        </li>
-    `)
-
-    let text = $task.find('div:first-child:not(.subtask) > p')
-
-    text.on('focus', function() {
-        var selection = window.getSelection()
-        var range = document.createRange()
-
-        range.selectNodeContents(this)
-
-        selection.removeAllRanges()
-        selection.addRange(range)
-    })
-    
-    text.focus()
-
-    text.keydown((e) => {
-        if (e.keyCode === 13) {
-            quests[il].name = text[0].innerText
-            text.attr('contenteditable', 'false')
-        }
-    })
-
-    text.blur(() => {
-        text.attr('contenteditable', 'false')
-        text[0].innerText = quests[il].name
-    })
-
-    span.find('ul').append($task)
-    console.log(quests)
-    console.log(event)
+    addTask()
 }
 
 const createCalendar = (month, year) => {
