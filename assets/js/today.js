@@ -2,8 +2,6 @@ let itemlist = []
 let i = -1
 let canvasPrinted = 0
 
-let main = $('#main')
-
 let dragging
 let subdragging
 
@@ -52,7 +50,7 @@ const addTask = (task) => {
                 <button class="text-btn addSubtask">Add subtask</button>
                 <button class="text-btn delete">Delete</button>
             </span>
-            <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
+            <button class="btn expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
             <div id=${il} class="hidden"></div>
@@ -199,7 +197,7 @@ const addTask = (task) => {
     var taskCheck = $task.find('.check')
     var textProgress = $task.find('.progress > p')
     var taskOptions = $task.find('.options')
-    var taskExpand = $task.find('.btn-expand')
+    var taskExpand = $task.find('.expand')
     var findProgress = $task.find('.progress')
     var taskLock = $task.find('div:first-child > .fa-lock-open')
 
@@ -371,16 +369,6 @@ const addTask = (task) => {
     }
 }
 
-const handlerAddTask = (array) => {
-    if ($('#input-data').val() !== undefined) {
-        addTask({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false})
-    } else {
-        Object.keys(array).map((key) => {
-            return addTask(array[key])
-        })
-    }
-}
-
 const refresh = () => {
     canvasPrinted = 0
 
@@ -396,5 +384,5 @@ const refresh = () => {
     itemlist = []
     i = -1
 
-    handlerAddTask(refreshList)
+    handlerAddTask(refreshList, true)
 }

@@ -11,15 +11,15 @@
     margin: 50px 16% 0px;
   }
 
-  .btn-expand {
+  .expand {
     margin-left: 50px;
   }
 
-  .btn-expand:not(.rotate) + .hidden {
+  .expand:not(.rotate) + .hidden {
     margin: 0px 50%;
   }
 
-  .btn-expand.rotate + .hidden {
+  .expand.rotate + .hidden {
     margin: 0px 10px;
     transition: all .3s;
     max-height: 240px;

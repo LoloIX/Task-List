@@ -100,7 +100,7 @@
     right: 0px;
     background-color: var(--tertiary);
     top: 100px;
-    width: 750px;
+    width: 450px;
     min-height: calc(100vh - 100px);
     transition: all .5s;
   }
@@ -108,15 +108,20 @@
   body[data-quests="false"] #daily-quests {
     width: 0px;
   }
+
+  body[data-quests="false"] .close-span,
+  body[data-quests="false"] #set-input {
+    width: 0px;
+  }
   
-  /* TASK */
+  /* QUEST */
 
   #daily-quests ul {
     max-height: 550px;
     overflow: scroll;
   }
   
-  .task {
+  .quest {
     border-radius: 20px;
     background-color: var(--primary);
     margin: 20px;
@@ -125,26 +130,26 @@
     align-items: center;
   }
 
-  .task > div:first-child {
+  .quest > div:first-child {
     display: flex;
     align-items: center;
   }
 
-  .task > div:first-child > p {
+  .quest > div:first-child > p {
     color: white;
   }
 
-  .task > div:first-child + div {
+  .quest > div:first-child + div {
     margin-left: auto;
   }
 
-  .task > div:first-child + div i {
+  .quest > div:first-child + div i {
     padding: 0px;
   }
 
-  .task > div:first-child + div i {
+  .quest > div:first-child + div i {
     font-size: 20px;
     margin-right: 15px;
   }
 
-  /* TASK DONE */
+  /* QUEST DONE */
