@@ -22,6 +22,7 @@ let currentYear = date.getFullYear()
 let currentDate = document.getElementById("CurrentDate")
 let tbody = document.getElementsByTagName("tbody")
 let span = $('#daily-quests')
+let ul = span.find('ul')
 
 const showSpan = () => {
     document.body.dataset.quests = "false"
@@ -31,43 +32,50 @@ const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-function dailyQuest (task) {
-    i++
-    il = i
-    
+const handlerSetInput = () => {
     document.body.dataset.quests = "true"
+    setInput(false)
+}
+
+const dailyQuests = (quest) => {
+    i++
+    let il = i
 
     quests[il] = {
-        name: task.name,
-        check: task.check,
-        expanded: task.expanded,
-        cycle: task.cycle,
+        name: quest.name,
+        check: quest.check,
+        expanded: quest.expanded,
+        cycle: quest.cycle,
         data:[]
     }
 
-    $task = $(`
-        <li class="task">
+    let $quest = $(`
+        <li class="quest">
             <div>
-                <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <p title="${task.name}">${task.name}</p>
+                <i class="check ${quest.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
+                <p title="${quest.name}">${quest.name}</p>
             </div>
             <div>
-                <button class="btn">
+                <button class="btn addSubTask">
                     <i class="fa-regular fa-plus"></i>
                 </button>
-                <button class="btn">
+                <button class="btn delete">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
+            <button class="btn btn-expand ${(quest.data?.length > 0) ? "" : "d-none"} ${quest.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
             <div id=${il} class="hidden"></div>
         </li>
     `)
 
-    span.find('ul').append($task)
-    // setInput(false)
+    $quest.find('.delete').click((e) => {
+        $quest.remove()
+        quests.splice(il, 1)
+    })
+
+    ul.append($quest)
 }
 
 const createCalendar = (month, year) => {
@@ -85,7 +93,7 @@ const createCalendar = (month, year) => {
             let td = document.createElement("td")
 
             td.innerText = days
-            td.addEventListener("click", dailyQuest)
+            td.addEventListener("click", handlerSetInput)
             
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""

@@ -1,4 +1,5 @@
 var body = $('body')
+var main = $('#main')
 
 const setInput = (bool) => {
     let $mainButton = $(`
@@ -30,7 +31,7 @@ const setInput = (bool) => {
 
     $textBox.find('#input-data').keydown((e) => {
         if (e.keyCode === 13) {
-            handlerAddTask(itemlist)
+            handlerAddTask(undefined, bool)
             $textBox.remove()
             tab.append($mainButton)
         }
@@ -43,6 +44,18 @@ const setInput = (bool) => {
 
 const showMenu = () => {
     document.body.dataset.menu = document.body.dataset.menu === "true" ? "false" : "true"
+}
+
+const handlerAddTask = (array, bool) => {
+    let result = bool ? addTask : dailyQuests
+
+    if ($('#input-data').val() !== undefined) {
+        result({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false})
+    } else {
+        Object.keys(array).map((key) => {
+            return result(array[key])
+        })
+    }
 }
 
 $('#sort-input').keyup((e) => {
