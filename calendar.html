@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/css/menu-button.css">
     </head>
 
-    <body data-menu="false">
+    <body data-menu="false" data-quests="false">
 
         <nav class="d-flex">
             <!-- CREDITS TO: Himalaya Singh -->
@@ -90,7 +90,10 @@
         </div>
 
         <span id="daily-quests">
-            <ul class="d-none">
+            <button class="btn close-span" onclick=showSpan()>
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <ul>
             </ul>
         </span>
 

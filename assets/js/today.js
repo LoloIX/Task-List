@@ -2,11 +2,12 @@ let itemlist = []
 let i = -1
 let canvasPrinted = 0
 
+let main = $('#main')
+
 let dragging
 let subdragging
 
-const addTask = (task, list) => {
-
+const addTask = (task) => {
     i++
     let il = i
 
@@ -15,6 +16,8 @@ const addTask = (task, list) => {
     let regex = new RegExp(query, "i")
     
     let $canvas = $('<canvas width="900" height="900" id="canvas"></canvas>')   
+    let $task
+
     let percent = task.check ? 100:0
 
     if (task.data !== undefined && !task.check) {
@@ -22,12 +25,18 @@ const addTask = (task, list) => {
             e.check ? percent = percent + 100 / task.data.length : ""
         })
     }
-    
-    list[il] = {name: task.name, check: task.check, expanded: task.expanded, lock: (task.lock !== undefined ) ? task.lock : true, data:[]}
 
-    let $task = $(`
-        <li class="task ${regex.test(list[il].name) ? "" : "d-none"}">
-            <div draggable="true" class="d-flex">
+    itemlist[il] = {
+        name: task.name,
+        check: task.check,
+        expanded: task.expanded,
+        lock: task.lock,
+        data:[]
+    }
+
+    $task = $(`
+        <li class="task ${regex.test(itemlist[il].name) ? "" : "d-none"}">
+            <div draggable="true">
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${task.name}">${task.name}</p>
                 <div class="bar">
@@ -40,10 +49,10 @@ const addTask = (task, list) => {
                 <button class="btn" style="margin-right: 1%;">⁝</button>
             </div>
             <span id="options-${il}" class="options hidden">
-                <button class="text-btn btn-addSubtask">Add subtask</button>
-                <button class="text-btn btn-delete">Delete</button>
+                <button class="text-btn addSubtask">Add subtask</button>
+                <button class="text-btn delete">Delete</button>
             </span>
-            <button class="btn btn-expand ${(task.data !== undefined && task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
+            <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
             <div id=${il} class="hidden"></div>
@@ -55,7 +64,7 @@ const addTask = (task, list) => {
             <div draggable="true" class="subtask">
                 <i class="check ${subtask.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${subtask.text}">${subtask.text}</p>
-                <button class="btn btn-delete fa-solid fa-xmark" style="margin: 0 20px 0 auto"></button>
+                <button class="btn delete fa-solid fa-xmark" style="margin: 0 20px 0 auto"></button>
             </div>
         `)
 
@@ -78,8 +87,8 @@ const addTask = (task, list) => {
 
             percent = 0
 
-            Object.values(list[il].data).map((e) => {
-                e.check ? percent = percent + 100 / list[il].data.length : ""
+            Object.values(itemlist[il].data).map((e) => {
+                e.check ? percent = percent + 100 / itemlist[il].data.length : ""
             })
             
             if (percent === 100) {
@@ -98,47 +107,47 @@ const addTask = (task, list) => {
                     .removeClass("fa-solid fa-square-check")
             }
 
-            list[il].check = percent === 100
+            itemlist[il].check = percent === 100
 
             textProgress.text(parseInt(percent) + '%')
             findProgress.animate({width: `${percent}%`}, 300)
 
-            if (list[il].check && !list[il].lock) {
-                list.splice(il, 1)
+            if (itemlist[il].check && !itemlist[il].lock) {
+                itemlist.splice(il, 1)
                 $task[0].classList.add("unlockedTask")
             }
         })
 
-        $subtask.on('dragstart', () => {subdragging = list[il].data.indexOf(subtask)})
+        $subtask.on('dragstart', () => {subdragging = itemlist[il].data.indexOf(subtask)})
         
         // $subtask.on('dragenter', (e) => {$('.subtask').addClass("drag-over")})
 
         $subtask.on('drop', () => {
-            let index = list[il].data.indexOf(subtask)
+            let index = itemlist[il].data.indexOf(subtask)
             
-            list[il].data.splice(index + 1, 0, list[il].data[subdragging])
+            itemlist[il].data.splice(index + 1, 0, itemlist[il].data[subdragging])
             
             if (subdragging > index) subdragging++
     
-            list[il].data.splice(subdragging, 1)
+            itemlist[il].data.splice(subdragging, 1)
     
-            refresh(list)
+            refresh(itemlist)
         })
 
-        $subtask.find('.btn-delete').click(() => {
+        $subtask.find('.delete').click(() => {
             $subtask.remove()
-            list[il].data.splice(list[il].data.indexOf(subtask), 1)
+            itemlist[il].data.splice(itemlist[il].data.indexOf(subtask), 1)
 
             percent = 0
 
-            Object.values(list[il].data).map((e) => {
-                e.check ? percent = percent + 100 / list[il].data.length : ""
+            Object.values(itemlist[il].data).map((e) => {
+                e.check ? percent = percent + 100 / itemlist[il].data.length : ""
             })
 
             textProgress.text(parseInt(percent) + '%')
             findProgress.animate({width: `${percent}%`}, 300)
 
-            list[il].data.length == 0 ? taskExpand.addClass("d-none") : ""
+            itemlist[il].data.length == 0 ? taskExpand.addClass("d-none") : ""
         })
 
         taskExpand.removeClass("d-none")
@@ -167,10 +176,10 @@ const addTask = (task, list) => {
             subText.keydown((e) => {
                 if (e.keyCode === 13 && subText[0].innerText !== "") {
                     subText.attr('contenteditable', 'false')
-                    list[il].data.push({"text": subText[0].innerText, "check": false})
-                    list[il].check = false
-                    list[il].expanded = true
-                    refresh(list)
+                    itemlist[il].data.push({"text": subText[0].innerText, "check": false})
+                    itemlist[il].check = false
+                    itemlist[il].expanded = true
+                    refresh(itemlist)
                 }
             })
 
@@ -179,11 +188,11 @@ const addTask = (task, list) => {
                     subText.attr('contenteditable', 'false')
                     $subtask.remove()
                     taskExpand.addClass('d-none')
-                    list[il].expanded = false
+                    itemlist[il].expanded = false
                 }
             })
         } else {
-            list[il].data.push(subtask)
+            itemlist[il].data.push(subtask)
         }
     }
     
@@ -199,14 +208,14 @@ const addTask = (task, list) => {
     taskCheck.hover(
         () => { taskCheck.removeClass("fa-square").addClass("fa-square-check")},
         () => {
-            if (list[il].check !== undefined && !list[il].check) {
+            if (itemlist[il].check !== undefined && !itemlist[il].check) {
                 taskCheck.addClass("fa-square")
             }
         },
     )
 
     taskLock.click(() => {
-        list[il].lock = !list[il].lock
+        itemlist[il].lock = !itemlist[il].lock
 
         taskLock.toggleClass("fa-lock fa-lock-open")
     })
@@ -214,9 +223,9 @@ const addTask = (task, list) => {
     taskCheck.click(() => {
         let subCheck = $task.find(`#${il} > div > i`)
 
-        list[il].check = !list[il].check
+        itemlist[il].check = !itemlist[il].check
 
-        if (list[il].check) {
+        if (itemlist[il].check) {
             taskCheck
                 .removeClass("fa-square fa-regular")
                 .addClass("fa-solid fa-square-check")
@@ -247,19 +256,19 @@ const addTask = (task, list) => {
         textProgress.text(percent)
         findProgress.animate({width: percent}, 300)
 
-        Object.values(list[il].data).map((e) => {
-            e.check = list[il].check
+        Object.values(itemlist[il].data).map((e) => {
+            e.check = itemlist[il].check
         })
 
-        if (list[il].check && !list[il].lock) {
-            list.splice(il, 1, "placeholder")
+        if (itemlist[il].check && !itemlist[il].lock) {
+            itemlist.splice(il, 1, "placeholder")
             $task[0].classList.add("unlockedTask")
         }
     })
 
     taskExpand.click(() => {
         taskExpand.toggleClass("rotate")
-        list[il].expanded = !list[il].expanded
+        itemlist[il].expanded = !itemlist[il].expanded
     })
 
     $task.find('.fa-pen').click(() => {
@@ -281,18 +290,18 @@ const addTask = (task, list) => {
 
         text.keydown((e) => {
             if (e.keyCode === 13) {
-                list[il].name = text[0].innerText
+                itemlist[il].name = text[0].innerText
                 text.attr('contenteditable', 'false')
             }
         })
 
         text.blur(() => {
             text.attr('contenteditable', 'false')
-            text[0].innerText = list[il].name
+            text[0].innerText = itemlist[il].name
         })
     })
 
-    $task.find('.btn-addSubtask').click(() => {
+    $task.find('.addSubtask').click(() => {
 
         $('.modal').remove()
 
@@ -302,9 +311,9 @@ const addTask = (task, list) => {
         addSubTask({"text": "","check": false})
     })
 
-    $task.find('.btn-delete').click(() => {
-        list.splice(il, 1)
-        refresh(list)
+    $task.find('.delete').click(() => {
+        itemlist.splice(il, 1)
+        refresh(itemlist)
         $('.modal').remove()
     })
 
@@ -339,13 +348,13 @@ const addTask = (task, list) => {
         e.target.classList.remove("drag-over")
         $('.dragging').removeClass("dragging")
 
-        list.splice(il + 1, 0, list[dragging])
+        itemlist.splice(il + 1, 0, itemlist[dragging])
         
         if (dragging > il) dragging++
 
-        list.splice(dragging, 1)
+        itemlist.splice(dragging, 1)
 
-        refresh(list)
+        refresh(itemlist)
     })
 
     $('.elements').append($task)
@@ -364,27 +373,27 @@ const addTask = (task, list) => {
 
 const handlerAddTask = (array) => {
     if ($('#input-data').val() !== undefined) {
-        addTask({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false}, array)
+        addTask({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false})
     } else {
         Object.keys(array).map((key) => {
-            return addTask(array[key], array)
+            return addTask(array[key])
         })
     }
 }
 
-const refresh = (list) => {
+const refresh = () => {
     canvasPrinted = 0
 
     $('.elements > li:not(.unlockedTask)').remove()
 
-    list.map((e, i) => {
+    itemlist.map((e, i) => {
         if (e === "placeholder") {
-            list.splice(i, 1)
+            itemlist.splice(i, 1)
         }
     })
 
-    let refreshList = list
-    list = []
+    let refreshList = itemlist
+    itemlist = []
     i = -1
 
     handlerAddTask(refreshList)

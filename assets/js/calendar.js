@@ -12,9 +12,7 @@ let months = [
     "November",
     "December"
 ]
-let quests = [
-
-]
+let quests = []
 
 let i = -1
 let date = new Date()
@@ -25,15 +23,51 @@ let currentDate = document.getElementById("CurrentDate")
 let tbody = document.getElementsByTagName("tbody")
 let span = $('#daily-quests')
 
+const showSpan = () => {
+    document.body.dataset.quests = "false"
+}
+
 const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-function dailyQuest (event) {
-    
+function dailyQuest (task) {
     i++
-    let il = i
-    addTask()
+    il = i
+    
+    document.body.dataset.quests = "true"
+
+    quests[il] = {
+        name: task.name,
+        check: task.check,
+        expanded: task.expanded,
+        cycle: task.cycle,
+        data:[]
+    }
+
+    $task = $(`
+        <li class="task">
+            <div>
+                <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
+                <p title="${task.name}">${task.name}</p>
+            </div>
+            <div>
+                <button class="btn">
+                    <i class="fa-regular fa-plus"></i>
+                </button>
+                <button class="btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+            <div id=${il} class="hidden"></div>
+        </li>
+    `)
+
+    span.find('ul').append($task)
+    // setInput(false)
 }
 
 const createCalendar = (month, year) => {
