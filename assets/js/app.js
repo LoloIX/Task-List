@@ -1,8 +1,8 @@
 var body = $('body')
 
-const setInput = () => {
+const setInput = (bool) => {
     let $mainButton = $(`
-        <button id="set-input" onclick={setInput()}>
+        <button id="set-input" onclick={setInput(${bool})}>
             <i class="fa-solid fa-plus"></i>
             Add task
         </button>
@@ -19,9 +19,11 @@ const setInput = () => {
         </div>
     `)
 
+    let tab = bool ? main : span 
+
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
-        $('#main').append($mainButton)
+        tab.append($mainButton)
     })
 
     $('#set-input').remove()
@@ -30,11 +32,11 @@ const setInput = () => {
         if (e.keyCode === 13) {
             handlerAddTask(itemlist)
             $textBox.remove()
-            $('#main').append($mainButton)
+            tab.append($mainButton)
         }
     })
 
-    $('#main').append($textBox)
+    tab.append($textBox)
 
     $('#input-data').focus()
 }

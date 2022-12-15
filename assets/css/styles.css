@@ -263,6 +263,7 @@
   }
 
   .task > div:first-child {
+    display: flex;
     overflow: hidden;
     position: relative;
     align-items: center;

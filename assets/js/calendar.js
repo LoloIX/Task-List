@@ -12,9 +12,7 @@ let months = [
     "November",
     "December"
 ]
-let quests = [
-
-]
+let quests = []
 
 let i = -1
 let date = new Date()
@@ -30,10 +28,34 @@ const monthLength = (month, year) => {
 }
 
 function dailyQuest (event) {
-    
-    i++
-    let il = i
-    addTask()
+    quests[il] = {
+        name: task.name,
+        check: task.check,
+        expanded: task.expanded,
+        cycle: task.cycle,
+        data:[]
+    }
+
+    $task = $(`
+        <li class="task ${regex.test(itemlist[il].name) ? "" : "d-none"}">
+            <div>
+                <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
+                <p title="${task.name}">${task.name}</p>
+            </div>
+            <button class="addSubtask">
+                <i class="fa-regular fa-xmark">
+            </button>
+            <button class="delete">
+                <i class="fa-regular fa-xmark"
+            </button>
+            <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+            <div id=${il} class="hidden"></div>
+        </li>
+    `)
+
+    setInput(false)
 }
 
 const createCalendar = (month, year) => {
