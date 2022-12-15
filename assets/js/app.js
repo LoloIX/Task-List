@@ -1,7 +1,3 @@
-let i = -1
-
-let canvasPrinted = 0
-
 var body = $('body')
 
 const setInput = () => {
@@ -32,7 +28,7 @@ const setInput = () => {
 
     $textBox.find('#input-data').keydown((e) => {
         if (e.keyCode === 13) {
-            handlerAddTask()
+            handlerAddTask(itemlist)
             $textBox.remove()
             $('#main').append($mainButton)
         }

@@ -12,22 +12,28 @@ let months = [
     "November",
     "December"
 ]
-let date = new Date()
+let quests = [
 
+]
+
+let i = -1
+let date = new Date()
 let currentMonth = date.getMonth()
 let currentYear = date.getFullYear()
-let currentDate = document.getElementById("CurrentDate")
 
+let currentDate = document.getElementById("CurrentDate")
 let tbody = document.getElementsByTagName("tbody")
+let span = $('#daily-quests')
 
 const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-function dailyQuest (element) {
-    let span = document.getElementById("daily-quest")
-    document.body.dataset.quest = document.body.dataset.quest === "true" ? "false" : "true"
-
+function dailyQuest (event) {
+    
+    i++
+    let il = i
+    addTask()
 }
 
 const createCalendar = (month, year) => {
