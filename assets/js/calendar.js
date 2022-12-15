@@ -23,11 +23,20 @@ let currentDate = document.getElementById("CurrentDate")
 let tbody = document.getElementsByTagName("tbody")
 let span = $('#daily-quests')
 
+const showSpan = () => {
+    document.body.dataset.quests = "false"
+}
+
 const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-function dailyQuest (event) {
+function dailyQuest (task) {
+    i++
+    il = i
+    
+    document.body.dataset.quests = "true"
+
     quests[il] = {
         name: task.name,
         check: task.check,
@@ -37,17 +46,19 @@ function dailyQuest (event) {
     }
 
     $task = $(`
-        <li class="task ${regex.test(itemlist[il].name) ? "" : "d-none"}">
+        <li class="task">
             <div>
                 <i class="check ${task.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${task.name}">${task.name}</p>
             </div>
-            <button class="addSubtask">
-                <i class="fa-regular fa-xmark">
-            </button>
-            <button class="delete">
-                <i class="fa-regular fa-xmark"
-            </button>
+            <div>
+                <button class="btn">
+                <i class="fa-regular fa-plus"></i>
+                </button
+                <button class="btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button
+            </div>
             <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
@@ -55,7 +66,8 @@ function dailyQuest (event) {
         </li>
     `)
 
-    setInput(false)
+    span.find('ul').append($task)
+    // setInput(false)
 }
 
 const createCalendar = (month, year) => {

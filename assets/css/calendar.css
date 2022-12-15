@@ -95,13 +95,56 @@
 
   /* CALENDAR DONE  */
 
-  /* POP-UP */
-
-  .pop-up {
+  #daily-quests {
+    position: absolute;
+    right: 0px;
+    background-color: var(--tertiary);
+    top: 100px;
     width: 750px;
-    height: 500px;
-    position: relative;
-    background-color: var(--background);
+    min-height: calc(100vh - 100px);
+    transition: all .5s;
   }
 
-  /* POP-UP DONE */
+  body[data-quests="false"] #daily-quests {
+    width: 0px;
+  }
+  
+  /* TASK */
+
+  #daily-quests ul {
+    max-height: 550px;
+    overflow: scroll;
+  }
+  
+  .task {
+    border-radius: 20px;
+    background-color: var(--primary);
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .task > div:first-child {
+    display: flex;
+    align-items: center;
+  }
+
+  .task > div:first-child > p {
+    color: white;
+  }
+
+  .task > div:first-child + div {
+    margin-left: auto;
+  }
+
+  .task > div:first-child + div i {
+    padding: 0px;
+  }
+
+  .task > div:first-child + div i {
+    font-size: 20px;
+    margin-right: 15px;
+  }
+
+  /* TASK DONE */
