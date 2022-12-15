@@ -53,11 +53,11 @@ function dailyQuest (task) {
             </div>
             <div>
                 <button class="btn">
-                <i class="fa-regular fa-plus"></i>
-                </button
+                    <i class="fa-regular fa-plus"></i>
+                </button>
                 <button class="btn">
                     <i class="fa-solid fa-xmark"></i>
-                </button
+                </button>
             </div>
             <button class="btn btn-expand ${(task.data?.length > 0) ? "" : "d-none"} ${task.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
