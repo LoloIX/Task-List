@@ -140,7 +140,6 @@ const dailyQuests = (quest) => {
                     quests[il].data.push({"text": subText[0].innerText, "check": false})
                     quests[il].check = false
                     quests[il].expanded = true
-                    refresh(quests)
                 }
             })
 
