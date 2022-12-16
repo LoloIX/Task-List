@@ -183,25 +183,6 @@
     position: relative;
   }
 
-  .hidden {
-    transition: all .3s;
-    max-height: 0px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background: var(--subtask);
-  }
-
-  .expanded {
-    transition: all .3s;
-    max-height: 240px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
-
-  .rotate {
-    rotate: 90deg;
-  }
-
   *::-webkit-scrollbar {
     background: transparent;
     width: 5px;
@@ -225,15 +206,24 @@
     position: fixed;
   }
 
+  .task > div:first-child .btn, .subtask .btn,
+  .quest > div:first-child .btn, .subquest .btn {
+    transform: translateX(500px);
+    font-size: 0px;
+    position: relative;
+  }
+
+  .task > div:first-child:hover .btn, .subtask:hover .btn,
+  .quest > div:first-child:hover .btn, .subquest:hover .btn {
+    transform: translateX(0px);
+    font-size: 20px;
+  }
+
   .check{
     z-index: 1;
     transition: all .3s;
     transform: scale(1);
     margin: 0px 20px;
-  }
-
-  .subtask .check {
-    margin: auto;
   }
 
   .check.fa-solid.fa-square-check + p {

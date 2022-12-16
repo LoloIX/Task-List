@@ -113,6 +113,16 @@
     animation-fill-mode: forwards;
   }
 
+  .subtask {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 0px;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    padding-left: 2%;
+    font-size: smaller;
+  }  
+
   .subtask:nth-child(even) {
     background: var(--subtask-even);
   }
@@ -124,14 +134,8 @@
     word-break: break-all;
   }
 
-  .subtask {
-    position: relative;
-    overflow: hidden;
-    padding: 10px 0px;
-    display: grid;
-    grid-template-columns: 10% 80% 10%;
-    padding-left: 2%;
-    font-size: smaller;
+  .subtask .check {
+    margin: auto;
   }
 
   .options {
@@ -153,4 +157,23 @@
 
   .options.expanded{
     box-shadow: var(--shadow);
+  }
+  
+  .hidden {
+    transition: all .3s;
+    max-height: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: var(--subtask);
+  }
+
+  .expanded {
+    transition: all .3s;
+    max-height: 240px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .rotate {
+    rotate: 90deg;
   }

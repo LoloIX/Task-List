@@ -49,7 +49,6 @@ const dailyQuests = (quest) => {
     quests[il] = {
         name: quest.name,
         check: quest.check,
-        expanded: quest.expanded,
         cycle: quest.cycle,
         data:[]
     }
@@ -59,19 +58,16 @@ const dailyQuests = (quest) => {
             <div>
                 <i class="check ${quest.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${quest.name}">${quest.name}</p>
+                <div>
+                    <button class="btn addsubQuest">
+                        <i class="fa-regular fa-plus"></i>
+                    </button>
+                    <button class="btn delete">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
-            <div>
-                <button class="btn addsubQuest">
-                    <i class="fa-regular fa-plus"></i>
-                </button>
-                <button class="btn delete">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <button class="btn expand ${(quest.data?.length > 0) ? "" : "d-none"} ${quest.expanded ? "rotate" : ""}">
-                <i class="fa-solid fa-angle-right"></i>
-            </button>
-            <div id=${il} class="hidden"></div>
+            <div id=${il} class="data"></div>
         </li>
     `)
 
@@ -80,8 +76,11 @@ const dailyQuests = (quest) => {
             <div draggable="true" class="subquest">
                 <i class="check ${subquest.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${subquest.text}">${subquest.text}</p>
-                <button class="btn delete">
-                    <i class="fa-solid fa-solid xmark"></i>
+                <button class="btn delete" style="
+                    margin-left: auto;
+                    margin-right: 5px;
+                ">
+                    <i class="fa-solid fa-xmark" style="font-size: 22px;" ></i>
                 </button>
             </div>
         `)
@@ -107,18 +106,12 @@ const dailyQuests = (quest) => {
         $subQuest.find('.delete').click(() => {
             $subQuest.remove()
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
-
-            quests[il].data.length == 0 ? questExpand.addClass("d-none") : ""
         })
-
-        questExpand.removeClass("d-none")
 
         $(`#${il}`).append($subQuest)
 
         if (subquest.text === "") {
             let subText = $subQuest.find('p')
-
-            questExpand.addClass("rotate")
 
             subText.attr('contenteditable', 'true')
 
@@ -139,7 +132,6 @@ const dailyQuests = (quest) => {
                     subText.attr('contenteditable', 'false')
                     quests[il].data.push({"text": subText[0].innerText, "check": false})
                     quests[il].check = false
-                    quests[il].expanded = true
                 }
             })
 
@@ -147,8 +139,6 @@ const dailyQuests = (quest) => {
                 if (subText.attr('contenteditable') === "true") {
                     subText.attr('contenteditable', 'false')
                     $subQuest.remove()
-                    questExpand.addClass('d-none')
-                    quests[il].expanded = false
                 }
             })
         } else {
@@ -157,7 +147,6 @@ const dailyQuests = (quest) => {
     }
 
     var questCheck = $quest.find(".check")
-    var questExpand = $quest.find(".expand")
 
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
@@ -169,6 +158,8 @@ const dailyQuests = (quest) => {
     )
 
     questCheck.click(() => {
+        let subCheck = $quest.find(`#${il} > div > i`)
+
         quests[il].check = !quests[il].check
 
         if (quests[il].check) {
