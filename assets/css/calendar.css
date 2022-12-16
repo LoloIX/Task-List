@@ -118,7 +118,8 @@
 
   #daily-quests ul {
     max-height: 550px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   
   .quest {
@@ -176,9 +177,8 @@
   .check:not(.fa-square) {
     color: WHITE;
   }
-  
-  .check.fa-solid.fa-square-check + p {
-    color: WHITE;
+  .subquest .check:not(.fa-square) {
+    color: var(--t-cross);
   }
 
   /* QUEST DONE */

@@ -80,8 +80,11 @@ const dailyQuests = (quest) => {
             <div draggable="true" class="subquest">
                 <i class="check ${subquest.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${subquest.text}">${subquest.text}</p>
-                <button class="btn delete">
-                    <i class="fa-solid fa-solid xmark"></i>
+                <button class="btn delete" style="
+                    margin-left: auto;
+                    margin-right: 5px;
+                ">
+                    <i class="fa-solid fa-xmark" style="font-size: 22px;" ></i>
                 </button>
             </div>
         `)

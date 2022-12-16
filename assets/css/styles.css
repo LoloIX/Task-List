@@ -225,15 +225,25 @@
     position: fixed;
   }
 
+  .task .btn, .quest .btn {
+    transform: translateX(500px);
+    font-size: 0px;
+    position: relative;
+  }
+
+  .task > div:first-child:hover .btn,
+  .subtask:hover .btn,
+  .quest > div:first-child:hover .btn,
+  .subquest:hover .btn {
+    transform: translateX(0px);
+    font-size: 20px;
+  }
+
   .check{
     z-index: 1;
     transition: all .3s;
     transform: scale(1);
     margin: 0px 20px;
-  }
-
-  .subtask .check {
-    margin: auto;
   }
 
   .check.fa-solid.fa-square-check + p {
