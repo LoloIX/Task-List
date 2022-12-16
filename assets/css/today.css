@@ -158,3 +158,22 @@
   .options.expanded{
     box-shadow: var(--shadow);
   }
+  
+  .hidden {
+    transition: all .3s;
+    max-height: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: var(--subtask);
+  }
+
+  .expanded {
+    transition: all .3s;
+    max-height: 240px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .rotate {
+    rotate: 90deg;
+  }

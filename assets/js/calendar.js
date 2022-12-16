@@ -49,7 +49,6 @@ const dailyQuests = (quest) => {
     quests[il] = {
         name: quest.name,
         check: quest.check,
-        expanded: quest.expanded,
         cycle: quest.cycle,
         data:[]
     }
@@ -68,10 +67,7 @@ const dailyQuests = (quest) => {
                     </button>
                 </div>
             </div>
-            <button class="btn expand ${(quest.data?.length > 0) ? "" : "d-none"} ${quest.expanded ? "rotate" : ""}">
-                <i class="fa-solid fa-angle-right"></i>
-            </button>
-            <div id=${il} class="hidden"></div>
+            <div id=${il} class="data"></div>
         </li>
     `)
 
@@ -110,18 +106,12 @@ const dailyQuests = (quest) => {
         $subQuest.find('.delete').click(() => {
             $subQuest.remove()
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
-
-            quests[il].data.length == 0 ? questExpand.addClass("d-none") : ""
         })
-
-        questExpand.removeClass("d-none")
 
         $(`#${il}`).append($subQuest)
 
         if (subquest.text === "") {
             let subText = $subQuest.find('p')
-
-            questExpand.addClass("rotate")
 
             subText.attr('contenteditable', 'true')
 
@@ -142,7 +132,6 @@ const dailyQuests = (quest) => {
                     subText.attr('contenteditable', 'false')
                     quests[il].data.push({"text": subText[0].innerText, "check": false})
                     quests[il].check = false
-                    quests[il].expanded = true
                 }
             })
 
@@ -150,8 +139,6 @@ const dailyQuests = (quest) => {
                 if (subText.attr('contenteditable') === "true") {
                     subText.attr('contenteditable', 'false')
                     $subQuest.remove()
-                    questExpand.addClass('d-none')
-                    quests[il].expanded = false
                 }
             })
         } else {
@@ -160,7 +147,6 @@ const dailyQuests = (quest) => {
     }
 
     var questCheck = $quest.find(".check")
-    var questExpand = $quest.find(".expand")
 
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
@@ -197,11 +183,6 @@ const dailyQuests = (quest) => {
         Object.values(quests[il].data).map((e) => {
             e.check = quests[il].check
         })
-    })
-
-    questExpand.click(() => {
-        console.log("I'm working")
-        questExpand.toggleClass("rotate")
     })
 
     $quest.find(".addsubQuest").click(() => {

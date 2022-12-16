@@ -153,32 +153,40 @@
     margin-right: 15px;
   }
 
-  .hidden {
+  .data {
     transition: all .3s;
-    max-height: 0px;
     border-radius: 20px;
+    max-height: 0px;
     min-width: 100%;
     background: var(--subtask);
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
-  .hidden div {
+  .data div {
     display: flex;
     align-items: center;
     padding: 5px 0px;
   }
 
-  .expand.rotate + .hidden {
+  .quest:hover .data {
+    margin-top: 15px;
     transition: all .3s;
     max-height: 240px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .check:not(.fa-square) {
     color: WHITE;
   }
-  .subquest .check:not(.fa-square) {
-    color: var(--t-cross);
+  
+  .check.fa-solid.fa-square-check + p {
+    color: WHITE;
+  }
+
+  .subquest .check.fa-solid.fa-square-check + p,
+  .subquest .check.fa-solid.fa-square-check {
+    color: var(--t-cross)
   }
 
   /* QUEST DONE */
