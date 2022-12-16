@@ -59,14 +59,14 @@ const dailyQuests = (quest) => {
             <div>
                 <i class="check ${quest.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
                 <p title="${quest.name}">${quest.name}</p>
-            </div>
-            <div>
-                <button class="btn addsubQuest">
-                    <i class="fa-regular fa-plus"></i>
-                </button>
-                <button class="btn delete">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <div>
+                    <button class="btn addsubQuest">
+                        <i class="fa-regular fa-plus"></i>
+                    </button>
+                    <button class="btn delete">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
             <button class="btn expand ${(quest.data?.length > 0) ? "" : "d-none"} ${quest.expanded ? "rotate" : ""}">
                 <i class="fa-solid fa-angle-right"></i>
@@ -169,6 +169,8 @@ const dailyQuests = (quest) => {
     )
 
     questCheck.click(() => {
+        let subCheck = $quest.find(`#${il} > div > i`)
+
         quests[il].check = !quests[il].check
 
         if (quests[il].check) {
@@ -192,6 +194,11 @@ const dailyQuests = (quest) => {
         Object.values(quests[il].data).map((e) => {
             e.check = quests[il].check
         })
+    })
+
+    questExpand.click(() => {
+        console.log("I'm working")
+        questExpand.toggleClass("rotate")
     })
 
     $quest.find(".addsubQuest").click(() => {

@@ -128,28 +128,57 @@
     padding: 10px;
     display: flex;
     align-items: center;
+    flex-direction: column;
   }
 
   .quest > div:first-child {
     display: flex;
     align-items: center;
+    width: 100%;
   }
 
   .quest > div:first-child > p {
     color: white;
   }
 
-  .quest > div:first-child + div {
+  .quest > div:first-child > div {
+    display: flex;
     margin-left: auto;
   }
 
-  .quest > div:first-child + div i {
+  .quest > div:first-child > div i {
     padding: 0px;
-  }
-
-  .quest > div:first-child + div i {
     font-size: 20px;
     margin-right: 15px;
+  }
+
+  .hidden {
+    transition: all .3s;
+    max-height: 0px;
+    border-radius: 20px;
+    min-width: 100%;
+    background: var(--subtask);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .hidden div {
+    display: flex;
+    align-items: center;
+    padding: 5px 0px;
+  }
+
+  .expand.rotate + .hidden {
+    transition: all .3s;
+    max-height: 240px;
+  }
+
+  .check:not(.fa-square) {
+    color: WHITE;
+  }
+  
+  .check.fa-solid.fa-square-check + p {
+    color: WHITE;
   }
 
   /* QUEST DONE */
