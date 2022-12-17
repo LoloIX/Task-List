@@ -5,7 +5,7 @@ const setInput = (bool) => {
     let $mainButton = $(`
         <button id="set-input" onclick={setInput(${bool})}>
             <i class="fa-solid fa-plus"></i>
-            Add task
+            ${bool ? "Add task" : "Add quest"}
         </button>
     `)
 
@@ -14,7 +14,7 @@ const setInput = (bool) => {
             <div class="form">
                 <div class="form-group">
                     <input type="text" id="input-data" placeholder=" ">
-                    <label for="name" class="form-label">Task name</label>
+                    <label for="name" class="form-label">${bool ? "Task name" : "Quest name"}</label>
                 </div>
             </div>
         </div>

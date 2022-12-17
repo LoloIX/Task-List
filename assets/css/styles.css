@@ -90,7 +90,6 @@
 
   #input-data {
     width: 250px;
-    color: BLACK;
     padding: 15px 10px;
     border: none;
     outline: none;
@@ -100,6 +99,8 @@
 
   #input-data:focus + .form-label,
   #input-data:not(:placeholder-shown) + .form-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
     transform: translateY(-24px) scale(.7);
     transform-origin: top left;
     --color: var(--primary);

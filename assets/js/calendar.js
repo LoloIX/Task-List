@@ -67,7 +67,7 @@ const dailyQuests = (quest) => {
                     </button>
                 </div>
             </div>
-            <div id=${il} class="data"></div>
+            <div id=${il}></div>
         </li>
     `)
 
