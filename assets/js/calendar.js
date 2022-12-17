@@ -42,22 +42,22 @@ const handlerSetInput = (event) => {
     setInput(false)
 }
 
-const dailyQuests = (quest) => {
+const dailyQuests = (item) => {
     i++
     let il = i
 
     quests[il] = {
-        name: quest.name,
-        check: quest.check,
-        cycle: quest.cycle,
+        name: item.name,
+        check: item.check,
+        cycle: item.cycle,
         data:[]
     }
 
     let $quest = $(`
         <li class="quest">
             <div>
-                <i class="check ${quest.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <p title="${quest.name}">${quest.name}</p>
+                <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
+                <p title="${item.name}">${item.name}</p>
                 <div>
                     <button class="btn addsubQuest">
                         <i class="fa-regular fa-plus"></i>
@@ -85,6 +85,8 @@ const dailyQuests = (quest) => {
             </div>
         `)
 
+        console.log($subQuest)
+
         let subCheck = $subQuest.find('.check')
 
         subCheck.hover(
@@ -108,6 +110,7 @@ const dailyQuests = (quest) => {
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
         })
 
+        console.log(il)
         $(`#${il}`).append($subQuest)
 
         if (subquest.text === "") {
@@ -132,12 +135,19 @@ const dailyQuests = (quest) => {
                     subText.attr('contenteditable', 'false')
                     quests[il].data.push({"text": subText[0].innerText, "check": false})
                     quests[il].check = false
+
+                    ul.find('li').remove()
+                    
+                    let refreshList = quests
+                    i = -1
+                    quests = []
+                    
+                    handlerAddTask(refreshList, false)
                 }
             })
 
             subText.blur(() => {
                 if (subText.attr('contenteditable') === "true") {
-                    subText.attr('contenteditable', 'false')
                     $subQuest.remove()
                 }
             })
@@ -193,6 +203,12 @@ const dailyQuests = (quest) => {
         $quest.remove()
         quests.splice(il, 1)
     })
+
+    if(item.data !== undefined) {
+        item.data.map((e) => {
+            addSubQuest(e)
+        })
+    }
     
     ul.append($quest)
 }
