@@ -110,7 +110,6 @@ const dailyQuests = (item) => {
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
         })
 
-        console.log(il)
         $(`#${il}`).append($subQuest)
 
         if (subquest.text === "") {
@@ -151,6 +150,7 @@ const dailyQuests = (item) => {
                     $subQuest.remove()
                 }
             })
+            
         } else {
             quests[il].data.push(subquest)
         }
