@@ -7,6 +7,11 @@
     font-size: 45px;
   }
 
+  #input-data:focus + .form-label,
+  #input-data:not(:placeholder-shown) + .form-label {
+    color: WHITE;
+    font-weight: 200;
+  }
   /* CALENDAR */
 
   #calendar {
@@ -109,9 +114,8 @@
     width: 0px;
   }
 
-  body[data-quests="false"] .close-span,
-  body[data-quests="false"] #set-input {
-    width: 0px;
+  body[data-quests="false"] #daily-quests * {
+    display: none;
   }
   
   /* QUEST */
@@ -153,7 +157,7 @@
     margin-right: 15px;
   }
 
-  .data {
+  .quest > div:last-child {
     transition: all .3s;
     border-radius: 20px;
     max-height: 0px;
@@ -162,13 +166,13 @@
     overflow: hidden;
   }
 
-  .data div {
+  .quest > div:last-child div {
     display: flex;
     align-items: center;
     padding: 5px 0px;
   }
 
-  .quest:hover .data {
+  .quest:hover > div:last-child:not(:empty) {
     margin-top: 15px;
     transition: all .3s;
     max-height: 240px;

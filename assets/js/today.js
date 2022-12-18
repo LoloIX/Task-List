@@ -306,7 +306,7 @@ const addTask = (task) => {
         taskOptions.removeClass("expanded")
         taskExpand.addClass("rotate")
 
-        addSubTask({"text": "","check": false})
+        addSubTask({"text": "", "check": false})
     })
 
     $task.find('.delete').click(() => {
