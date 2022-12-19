@@ -85,8 +85,6 @@ const dailyQuests = (item) => {
             </div>
         `)
 
-        console.log($subQuest)
-
         let subCheck = $subQuest.find('.check')
 
         subCheck.hover(
@@ -110,7 +108,7 @@ const dailyQuests = (item) => {
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
         })
 
-        $(`#${il}`).append($subQuest)
+        $quest.find(`#${il}`).append($subQuest)
 
         if (subquest.text === "") {
             let subText = $subQuest.find('p')
