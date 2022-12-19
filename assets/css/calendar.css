@@ -28,6 +28,10 @@
     color: WHITE;
   }
 
+  body {
+    overflow: hidden;
+  }
+
   table {
     border-spacing: 0px;
     table-layout: fixed;
@@ -108,14 +112,28 @@
     width: 450px;
     min-height: calc(100vh - 100px);
     transition: all .5s;
+    overflow: hidden;
   }
 
   body[data-quests="false"] #daily-quests {
     width: 0px;
   }
 
-  body[data-quests="false"] #daily-quests * {
-    display: none;
+  body[data-menu="true"][data-quests="false"] #main {
+    left: 275px;
+    width: calc(100vw - 275px);
+  }
+
+  body[data-quests="true"][data-menu="false"] #main {
+    width: calc(100vw - 535px);
+    left: 85px;
+    transition: all .5s;
+  }
+  
+  body[data-quests="true"][data-menu="true"] #main {
+    width: calc(100vw - 725px);
+    transition: all .5s;
+    left: 275px;
   }
   
   /* QUEST */
