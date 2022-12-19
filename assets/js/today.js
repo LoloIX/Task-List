@@ -220,14 +220,15 @@ const addTask = (task) => {
 
     taskCheck.click(() => {
         let subCheck = $task.find(`#${il} > div > i`)
-
+        
+        taskCheck
+            .removeClass("fa-square-check")
+            .addClass("fa-square")
+            .toggleClass("fa-regular fa-square fa-solid fa-square-check")
+        
         itemlist[il].check = !itemlist[il].check
-
+        
         if (itemlist[il].check) {
-            taskCheck
-                .removeClass("fa-square fa-regular")
-                .addClass("fa-solid fa-square-check")
-
             subCheck
                 .removeClass("fa-regular fa-square")
                 .addClass("fa-solid fa-square-check")
@@ -240,10 +241,6 @@ const addTask = (task) => {
                 PrintConfetti()
             }
         } else {
-            taskCheck
-                .addClass("fa-regular fa-square")
-                .removeClass("fa-solid fa-square-check")
-
             subCheck
                 .addClass("fa-regular fa-square")
                 .removeClass("fa-solid fa-square-check")

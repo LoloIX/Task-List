@@ -75,7 +75,6 @@
 
   body[data-menu="true"] #main {
     width: calc(100vw - 275px);
-    right: 0px;
   }
 
   @keyframes TextOut {

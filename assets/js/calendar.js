@@ -85,8 +85,6 @@ const dailyQuests = (item) => {
             </div>
         `)
 
-        console.log($subQuest)
-
         let subCheck = $subQuest.find('.check')
 
         subCheck.hover(
@@ -103,6 +101,20 @@ const dailyQuests = (item) => {
                 .toggleClass("fa-regular fa-square fa-solid fa-square-check")
 
             subquest.check = !subquest.check
+
+            questCheck
+                .removeClass("fa-regular fa-square")
+                .addClass("fa-solid fa-square-check")
+                
+            let hasFalseValue = quests[il].data.some((e) => {return e.check === false})
+
+            if (hasFalseValue) {
+                questCheck
+                    .removeClass("fa-solid fa-square-check")
+                    .addClass("fa-regular fa-square")
+            }
+
+            quests[il].check = !hasFalseValue
         })
 
         $subQuest.find('.delete').click(() => {
@@ -110,7 +122,7 @@ const dailyQuests = (item) => {
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
         })
 
-        $(`#${il}`).append($subQuest)
+        $quest.find(`#${il}`).append($subQuest)
 
         if (subquest.text === "") {
             let subText = $subQuest.find('p')
@@ -170,21 +182,18 @@ const dailyQuests = (item) => {
     questCheck.click(() => {
         let subCheck = $quest.find(`#${il} > div > i`)
 
+        questCheck
+            .removeClass("fa-square-check")
+            .addClass("fa-square")
+            .toggleClass("fa-regular fa-square fa-solid fa-square-check")
+
         quests[il].check = !quests[il].check
 
         if (quests[il].check) {
-            questCheck
-                .removeClass("fa-square fa-regular")
-                .addClass("fa-solid fa-square-check")
-
             subCheck
                 .removeClass("fa-regular fa-square")
                 .addClass("fa-solid fa-square-check")
         } else {
-            questCheck
-                .addClass("fa-regular fa-square")
-                .removeClass("fa-solid fa-square-check")
-
             subCheck
                 .addClass("fa-regular fa-square")
                 .removeClass("fa-solid fa-square-check")
