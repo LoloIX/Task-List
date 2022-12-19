@@ -105,7 +105,7 @@ const dailyQuests = (item) => {
             questCheck
                 .removeClass("fa-regular fa-square")
                 .addClass("fa-solid fa-square-check")
-
+                
             let hasFalseValue = quests[il].data.some((e) => {return e.check === false})
 
             if (hasFalseValue) {
@@ -113,6 +113,8 @@ const dailyQuests = (item) => {
                     .removeClass("fa-solid fa-square-check")
                     .addClass("fa-regular fa-square")
             }
+
+            quests[il].check = !hasFalseValue
         })
 
         $subQuest.find('.delete').click(() => {
