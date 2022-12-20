@@ -1,6 +1,7 @@
   #main {
     display: flex;
     justify-content: center;
+    transition: all .5s;
   }
 
   #main button i {
@@ -119,6 +120,11 @@
     width: 0px;
   }
 
+  body[data-menu="false"][data-quests="false"] #main {
+    left: 85px;
+    width: calc(100vw - 85px);
+  }
+  
   body[data-menu="true"][data-quests="false"] #main {
     left: 275px;
     width: calc(100vw - 275px);
@@ -127,13 +133,10 @@
   body[data-quests="true"][data-menu="false"] #main {
     width: calc(100vw - 535px);
     left: 85px;
-    transition: all .5s;
   }
   
   body[data-quests="true"][data-menu="true"] #main {
-    width: calc(100vw - 725px);
-    transition: all .5s;
-    left: 275px;
+    left: -45px;
   }
   
   /* QUEST */

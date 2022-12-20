@@ -73,10 +73,6 @@
     width: 85px;
   }
 
-  body[data-menu="true"] #main {
-    width: calc(100vw - 275px);
-  }
-
   @keyframes TextOut {
     0% {
       font-size: 25px;
