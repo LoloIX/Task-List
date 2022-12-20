@@ -31,6 +31,8 @@
 
   body {
     overflow: hidden;
+    --span: #6eb8f5;
+    --quest: #0a5cb8;
   }
 
   table {
@@ -108,7 +110,7 @@
   #daily-quests {
     position: absolute;
     right: 0px;
-    background-color: var(--tertiary);
+    background-color: var(--span);
     top: 100px;
     width: 450px;
     min-height: calc(100vh - 100px);
@@ -116,7 +118,27 @@
     overflow: hidden;
   }
 
-  body[data-quests="false"] #daily-quests {
+  #daily-quests + div {
+    position: absolute;
+    background-color: transparent;
+    width: 50px;
+    height: calc(100vw - 100px);
+    top: 100px;
+    left: calc(100vw - 500px);
+  }
+
+  #daily-quests + div > button {
+    top: 20%;
+    left: 500px;
+    transition: all .2s;
+  }
+
+  #daily-quests + div:hover > button {
+    left: 0px;
+  }
+
+  body[data-quests="false"] #daily-quests,
+  body[data-quests="false"] #daily-quests + div {
     width: 0px;
   }
 
@@ -149,7 +171,7 @@
   
   .quest {
     border-radius: 20px;
-    background-color: var(--primary);
+    background-color: var(--quest);
     margin: 20px;
     padding: 10px;
     display: flex;
