@@ -1,5 +1,7 @@
-
-
+  body[data-menu="true"] #main {
+    width: calc(100vw - 275px);
+  }
+  
   #canvas {
     position: fixed;
     left: 0;

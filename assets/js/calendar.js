@@ -22,7 +22,7 @@ let currentYear = date.getFullYear()
 
 let currentDate = document.getElementById("CurrentDate")
 let tbody = document.getElementsByTagName("tbody")
-let span = $('#daily-quests')
+let buttons = $(".buttons")
 let ul = span.find('ul')
 
 const showSpan = () => {
@@ -34,10 +34,15 @@ const monthLength = (month, year) => {
 }
 
 const handlerSetInput = (event) => {
+    let findDate = span.find('h3')
+    let $date = document.createElement('h3')
+    
     document.body.dataset.quests = "true"
 
-    let $date = document.createElement('h3')
+    if (findDate !== undefined) findDate.remove()
+
     $date.innerText = event.path[0].innerText + " " + currentDate.innerText
+    span.prepend($date)
 
     setInput(false)
 }

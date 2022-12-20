@@ -89,14 +89,21 @@
             </div>
         </div>
 
-        <span id="daily-quests">
-            <button class="btn close-span" onclick=showSpan()>
-                <i class="fa-solid fa-xmark"></i>
+        <div class="close-btn">
+            <button class="btn" onclick=showSpan()>
+                <i class="fa-solid fa-arrow-right"></i>
             </button>
+        </div>
+        <span id="daily-quests">
             <ul>
             </ul>
+            <div class="buttons">
+                <button id="select-btn" onclick=selectQuest()>
+                    <p>Select</p>
+                </button>
+            </div>
         </span>
-
+        
         <script src="https://code.jquery.com/jquery-3.6.1.js"
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>

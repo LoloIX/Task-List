@@ -1,16 +1,53 @@
+  body {
+    overflow: hidden;
+    --span: #6eb8f5;
+    --quest: #0a5cb8;
+    --buttons: #2170f3;
+  }
+  
   #main {
     display: flex;
     justify-content: center;
+    transition: all .5s;
   }
 
   #main button i {
     font-size: 45px;
   }
 
+  #set-input {
+    background-color: var(--buttons);
+    border-color: var(--buttons);
+    margin-left: 0px;
+  }
+
+  #select-btn {
+    color: WHITE;
+    border-radius: 6px;
+    transition: all .5s;
+    background-color: var(--buttons);
+    border-color: var(--buttons);
+    margin-top: 40px;
+    box-shadow: var(--shadow);
+  }
+
+  #select-btn:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+
+  #select-btn:active {
+    transform: scale(0.95);
+  }
+
+  #select-btn p {
+    padding: 5px;
+  }
+
   #input-data:focus + .form-label,
   #input-data:not(:placeholder-shown) + .form-label {
-    color: WHITE;
-    font-weight: 200;
+    color: BLACK;
+    font-weight: 300;
   }
   /* CALENDAR */
 
@@ -26,10 +63,6 @@
     margin: 0px;
     background-color: var(--primary);
     color: WHITE;
-  }
-
-  body {
-    overflow: hidden;
   }
 
   table {
@@ -107,18 +140,55 @@
   #daily-quests {
     position: absolute;
     right: 0px;
-    background-color: var(--tertiary);
+    background-color: var(--span);
     top: 100px;
     width: 450px;
     min-height: calc(100vh - 100px);
     transition: all .5s;
     overflow: hidden;
+    z-index: 2;
+    text-align: center;
   }
 
-  body[data-quests="false"] #daily-quests {
+  #daily-quests > h3 {
+    text-transform: uppercase;
+    background-color: var(--tertiary);
+    color: white;
+    margin-top: 0px;
+    padding: 10px;
+  }
+
+  .close-btn {
+    overflow: hidden;
+    position: absolute;
+    background-color: transparent;
+    width: 50px;
+    height: calc(100vw - 100px);
+    margin-top: 100px;
+    margin-left: calc(100vw - 500px);
+    z-index: 0;
+  }
+
+  .close-btn > button {
+    top: 20%;
+    transform: translateX(500px);
+    transition: all .2s;
+  }
+
+  .close-btn:hover > button {
+    transform: translateX(0px);
+  }
+
+  body[data-quests="false"] #daily-quests,
+  body[data-quests="false"] .close-btn {
     width: 0px;
   }
 
+  body[data-menu="false"][data-quests="false"] #main {
+    left: 85px;
+    width: calc(100vw - 85px);
+  }
+  
   body[data-menu="true"][data-quests="false"] #main {
     left: 275px;
     width: calc(100vw - 275px);
@@ -127,13 +197,10 @@
   body[data-quests="true"][data-menu="false"] #main {
     width: calc(100vw - 535px);
     left: 85px;
-    transition: all .5s;
   }
   
   body[data-quests="true"][data-menu="true"] #main {
-    width: calc(100vw - 725px);
-    transition: all .5s;
-    left: 275px;
+    left: -45px;
   }
   
   /* QUEST */
@@ -146,12 +213,13 @@
   
   .quest {
     border-radius: 20px;
-    background-color: var(--primary);
+    background-color: var(--quest);
     margin: 20px;
     padding: 10px;
     display: flex;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .quest > div:first-child {

@@ -109,7 +109,7 @@
   #set-input {
     color: WHITE;
     border-radius: 6px;
-    transition: transform .3s, color .5s;
+    transition: all .5s;
     background-color: var(--primary);
     border-color: var(--primary);
     margin-left: 16%;
@@ -172,16 +172,18 @@
   .text-btn {
     color: WHITE;
     border-radius: 6px;
-    transition: transform .3s, color .5s;
+    transition: all .5s;
     background-color: var(--tertiary);
     border-color: var(--tertiary);
   }
 
   .text-btn:hover, #set-input:hover {
     cursor: pointer;
-    transition: transform .3s, color .5s;
-    transform: scale(1.02);
-    position: relative;
+    transform: scale(1.05);
+  }
+
+  .text-btn:active, #set-input:active {
+    transform: scale(0.95);
   }
 
   *::-webkit-scrollbar {
