@@ -38,7 +38,7 @@ const setInput = (bool) => {
         }
     })
 
-    append.append($textBox)
+    bool ? main.append($textBox) : buttons.prepend($textBox)
 
     $('#input-data').focus()
 }
