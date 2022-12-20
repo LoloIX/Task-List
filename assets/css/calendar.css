@@ -116,29 +116,32 @@
     min-height: calc(100vh - 100px);
     transition: all .5s;
     overflow: hidden;
+    z-index: 2;
   }
 
-  #daily-quests + div {
+  .close-btn {
+    overflow: hidden;
     position: absolute;
     background-color: transparent;
     width: 50px;
     height: calc(100vw - 100px);
-    top: 100px;
-    left: calc(100vw - 500px);
+    margin-top: 100px;
+    margin-left: calc(100vw - 500px);
+    z-index: 0;
   }
 
-  #daily-quests + div > button {
+  .close-btn > button {
     top: 20%;
-    left: 500px;
+    transform: translateX(500px);
     transition: all .2s;
   }
 
-  #daily-quests + div:hover > button {
-    left: 0px;
+  .close-btn:hover > button {
+    transform: translateX(0px);
   }
 
   body[data-quests="false"] #daily-quests,
-  body[data-quests="false"] #daily-quests + div {
+  body[data-quests="false"] .close-btn {
     width: 0px;
   }
 
@@ -177,6 +180,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .quest > div:first-child {
