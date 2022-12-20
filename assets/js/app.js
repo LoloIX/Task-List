@@ -1,5 +1,6 @@
 var body = $('body')
 var main = $('#main')
+var span = $('#daily-quests')
 
 const setInput = (bool) => {
     let $mainButton = $(`
@@ -20,11 +21,11 @@ const setInput = (bool) => {
         </div>
     `)
 
-    let tab = bool ? main : span 
+    let append = bool ? main : buttons 
 
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
-        tab.append($mainButton)
+        append.append($mainButton)
     })
 
     $('#set-input').remove()
@@ -33,11 +34,11 @@ const setInput = (bool) => {
         if (e.keyCode === 13) {
             handlerAddTask(undefined, bool)
             $textBox.remove()
-            tab.append($mainButton)
+            append.append($mainButton)
         }
     })
 
-    tab.append($textBox)
+    append.append($textBox)
 
     $('#input-data').focus()
 }

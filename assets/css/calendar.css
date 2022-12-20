@@ -18,6 +18,7 @@
   #set-input {
     background-color: var(--buttons);
     border-color: var(--buttons);
+    margin-left: 0px;
   }
 
   #select-btn {
@@ -26,9 +27,7 @@
     transition: all .5s;
     background-color: var(--buttons);
     border-color: var(--buttons);
-    margin-left: 16%;
     margin-top: 40px;
-    padding: 6px;
     box-shadow: var(--shadow);
   }
 
@@ -39,6 +38,10 @@
 
   #select-btn:active {
     transform: scale(0.95);
+  }
+
+  #select-btn p {
+    padding: 5px;
   }
 
   #input-data:focus + .form-label,
@@ -144,6 +147,15 @@
     transition: all .5s;
     overflow: hidden;
     z-index: 2;
+    text-align: center;
+  }
+
+  #daily-quests > h3 {
+    text-transform: uppercase;
+    background-color: var(--tertiary);
+    color: white;
+    margin-top: 0px;
+    padding: 10px;
   }
 
   .close-btn {
