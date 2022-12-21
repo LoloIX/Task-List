@@ -36,7 +36,7 @@ const monthLength = (month, year) => {
 const handlerSetInput = (event) => {
     let findDate = span.find('h3')
     let $date = document.createElement('h3')
-    
+
     document.body.dataset.quests = "true"
 
     if (findDate !== undefined) findDate.remove()
@@ -59,20 +59,22 @@ const dailyQuests = (item) => {
     }
 
     let $quest = $(`
-        <li class="quest">
-            <div>
-                <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <p title="${item.name}">${item.name}</p>
+        <li>
+            <div class="quest">
                 <div>
-                    <button class="btn addsubQuest">
-                        <i class="fa-regular fa-plus"></i>
-                    </button>
-                    <button class="btn delete">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
+                    <p title="${item.name}">${item.name}</p>
+                    <div>
+                        <button class="btn addsubQuest">
+                            <i class="fa-regular fa-plus"></i>
+                        </button>
+                        <button class="btn delete">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                 </div>
+                <div id=${il}></div>
             </div>
-            <div id=${il}></div>
         </li>
     `)
 
@@ -174,6 +176,8 @@ const dailyQuests = (item) => {
     }
 
     var questCheck = $quest.find(".check")
+    var questDiv = $quest.find(".quest")
+
 
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
@@ -219,9 +223,13 @@ const dailyQuests = (item) => {
     })
 
     if(item.data !== undefined) {
+        questDiv.css("opacity", "1")
+        questDiv.css("margin", "20px")
         item.data.map((e) => {
             addSubQuest(e)
         })
+    } else {
+        questDiv.animate({opacity: 1, margin: "20px"}, 300)
     }
     
     ul.append($quest)
@@ -242,12 +250,12 @@ const createCalendar = (month, year) => {
             let td = document.createElement("td")
 
             td.innerText = days
-            td.addEventListener("click", handlerSetInput)
             
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
             } else {
                 days++
+                td.addEventListener("click", handlerSetInput)
             }
 
             row.append(td)
@@ -282,6 +290,36 @@ const changeMonth = (bool) => {
     tbody[0].append(save)
 
     createCalendar(currentMonth, currentYear)
+}
+
+const selectQuest = () => {
+    let li = ul.find('li')
+    let quests = $('.quest')
+    
+    quests.addClass("select")
+    quests.css("margin-left", "auto")
+
+    console.log(li)
+
+    for (let index = 0; index < li.length; index++) {
+        let $check = $(`
+            <i class="fa-regular fa-square"></i>
+        `)
+    
+        $check.hover(
+            () => {$check.removeClass("fa-square").addClass("fa-square-check")},
+            () => {$check.addClass("fa-square")}
+        )
+    
+        $check.click(() => {
+            $check
+                .removeClass("fa-square-check")
+                .addClass("fa-square")
+                .toggleClass("fa-regular fa-square fa-solid fa-square-check")
+        })
+    
+        li[index].prepend($check[0])
+    }
 }
 
 createCalendar(currentMonth, currentYear)
