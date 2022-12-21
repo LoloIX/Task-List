@@ -21,7 +21,7 @@
     margin-left: 0px;
   }
 
-  #selector-btn {
+ .option-btn {
     color: WHITE;
     border-radius: 6px;
     transition: all .5s;
@@ -31,16 +31,16 @@
     box-shadow: var(--shadow);
   }
 
-  #selector-btn:hover {
+  .option-btn:hover {
     transform: scale(1.05);
     cursor: pointer;
   }
 
-  #selector-btn:active {
+  .option-btn:active {
     transform: scale(0.95);
   }
 
-  #selector-btn p {
+  .option-btn p {
     padding: 5px;
   }
 

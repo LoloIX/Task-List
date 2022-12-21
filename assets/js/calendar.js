@@ -293,22 +293,30 @@ const changeMonth = (bool) => {
 }
 
 const selectQuest = () => {
+    let selector = []
+
     let li = ul.find('li')
     let quests = $('.quest')
+    
+    li.find('> .btn').remove()
     
     quests.addClass("select")
     quests.css("margin-left", "auto")
 
-    console.log(li)
-
     for (let index = 0; index < li.length; index++) {
+        selector[index] = {"element": li[index], "selected": false}
+
         let $check = $(`
-            <i class="fa-regular fa-square"></i>
+            <i class="btn fa-regular fa-square"></i>
         `)
     
         $check.hover(
             () => {$check.removeClass("fa-square").addClass("fa-square-check")},
-            () => {$check.addClass("fa-square")}
+            () => {
+                if (!selector[index].selected) {
+                    $check.addClass("fa-square")
+                }
+            },
         )
     
         $check.click(() => {
@@ -316,10 +324,40 @@ const selectQuest = () => {
                 .removeClass("fa-square-check")
                 .addClass("fa-square")
                 .toggleClass("fa-regular fa-square fa-solid fa-square-check")
+
+            selector[index].selected = !selector[index].selected
         })
     
         li[index].prepend($check[0])
     }
+
+    let buttons = document.getElementsByClassName("buttons")
+    buttons[0].innerHTML = ""
+
+    let $optionsBtn = $(`
+        <button class="options-select-all option-btn">
+            <p>Select all</p>
+        </button>
+        <button class="options-check option-btn">
+            <p>Check</p>
+        </button>
+        <button class="options-delete option-btn">
+            <p>Delete</p>
+        </button>
+    `)
+    
+    console.log($optionsBtn)
+    buttons[0].append($optionsBtn[0])
+    buttons[0].append($optionsBtn[1])
+    buttons[0].append($optionsBtn[2])
+    buttons[0].append($optionsBtn[3])
+    buttons[0].append($optionsBtn[4])
+
+    $optionsBtn.find('options-select-all').click((e) => {
+        li.find('> .btn')
+            .removeClass("fa-regular fa-square")
+            .addClass("fa-solid fa-square-check")
+    })
 }
 
 createCalendar(currentMonth, currentYear)
