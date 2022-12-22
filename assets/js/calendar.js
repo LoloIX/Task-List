@@ -36,7 +36,7 @@ const monthLength = (month, year) => {
 const handlerSetInput = (event) => {
     let findDate = span.find('h3')
     let $date = document.createElement('h3')
-    
+
     document.body.dataset.quests = "true"
 
     if (findDate !== undefined) findDate.remove()
@@ -47,9 +47,27 @@ const handlerSetInput = (event) => {
     setInput(false)
 }
 
+const refresh = () => {
+    ul.find('li').remove()
+    
+    quests.map((e, i) => {
+        if (e === "placeholder") {
+            quests.splice(i, 1)
+        }
+    })
+                    
+    let refreshList = quests
+    quests = []
+    i = -1
+    
+    handlerAddTask(refreshList, false)
+}
+
 const dailyQuests = (item) => {
     i++
     let il = i
+
+    if (item === "placeholder") return
 
     quests[il] = {
         name: item.name,
@@ -59,20 +77,22 @@ const dailyQuests = (item) => {
     }
 
     let $quest = $(`
-        <li class="quest">
-            <div>
-                <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
-                <p title="${item.name}">${item.name}</p>
+        <li>
+            <div class="quest">
                 <div>
-                    <button class="btn addsubQuest">
-                        <i class="fa-regular fa-plus"></i>
-                    </button>
-                    <button class="btn delete">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
+                    <p title="${item.name}">${item.name}</p>
+                    <div>
+                        <button class="btn addsubQuest">
+                            <i class="fa-regular fa-plus"></i>
+                        </button>
+                        <button class="btn delete">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                 </div>
+                <div id=${il}></div>
             </div>
-            <div id=${il}></div>
         </li>
     `)
 
@@ -152,13 +172,7 @@ const dailyQuests = (item) => {
                     quests[il].data.push({"text": subText[0].innerText, "check": false})
                     quests[il].check = false
 
-                    ul.find('li').remove()
-                    
-                    let refreshList = quests
-                    i = -1
-                    quests = []
-                    
-                    handlerAddTask(refreshList, false)
+                    refresh()
                 }
             })
 
@@ -174,6 +188,8 @@ const dailyQuests = (item) => {
     }
 
     var questCheck = $quest.find(".check")
+    var questDiv = $quest.find(".quest")
+
 
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
@@ -219,9 +235,13 @@ const dailyQuests = (item) => {
     })
 
     if(item.data !== undefined) {
+        questDiv.css("opacity", "1")
+        questDiv.css("margin", "20px")
         item.data.map((e) => {
             addSubQuest(e)
         })
+    } else {
+        questDiv.animate({opacity: 1, margin: "20px"}, 300)
     }
     
     ul.append($quest)
@@ -242,12 +262,12 @@ const createCalendar = (month, year) => {
             let td = document.createElement("td")
 
             td.innerText = days
-            td.addEventListener("click", handlerSetInput)
             
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
             } else {
                 days++
+                td.addEventListener("click", handlerSetInput)
             }
 
             row.append(td)
@@ -282,6 +302,91 @@ const changeMonth = (bool) => {
     tbody[0].append(save)
 
     createCalendar(currentMonth, currentYear)
+}
+
+const selectQuest = () => {
+    let selector = []
+
+    let li = ul.find('li')
+    let findQuests = $('.quest')
+    
+    li.find('> .btn').remove()
+    
+    findQuests.addClass("select")
+    findQuests.css("margin-left", "auto")
+
+    for (let index = 0; index < li.length; index++) {
+        selector[index] = {"element": li[index], "selected": false}
+
+        let $check = $(`
+            <i class="btn fa-regular fa-square"></i>
+        `)
+    
+        $check.hover(
+            () => {$check.removeClass("fa-square").addClass("fa-square-check")},
+            () => {
+                if (!selector[index].selected) {
+                    $check.addClass("fa-square")
+                }
+            },
+        )
+    
+        $check.click(() => {
+            $check
+                .removeClass("fa-square-check")
+                .addClass("fa-square")
+                .toggleClass("fa-regular fa-square fa-solid fa-square-check")
+
+            selector[index].selected = !selector[index].selected
+        })
+    
+        li[index].prepend($check[0])
+    }
+
+    let buttons = document.getElementsByClassName("buttons")
+    buttons[0].innerHTML = ""
+
+    let $optionsBtn = $(`
+        <button class="options-select-all option-btn">
+            <p>Select all</p>
+        </button>
+        <button class="options-check option-btn">
+            <p>Check</p>
+        </button>
+        <button class="options-delete option-btn">
+            <p>Delete</p>
+        </button>
+    `)
+    
+    buttons[0].append(...$optionsBtn)
+
+    $('.options-select-all').click(() => {
+        li.find('> .btn')
+            .removeClass("fa-regular fa-square")
+            .addClass("fa-solid fa-square-check")
+
+        selector.map((e) => {
+            e.selected = true
+        })
+    })
+
+    $('.options-delete').click(() => {
+        selector.map((e, i) => {
+            if (e.selected) {
+                quests.splice(i, 1, "placeholder")
+            }
+        })
+        refresh()
+    })
+
+    $('.options-check').click(() => {
+        selector.map((e, i) => {
+            if (e.selected) {
+                quests[i].check = true
+            }
+        })
+        refresh()
+    })
 }
 
 createCalendar(currentMonth, currentYear)

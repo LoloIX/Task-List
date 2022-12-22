@@ -21,7 +21,7 @@
     margin-left: 0px;
   }
 
-  #select-btn {
+ .option-btn {
     color: WHITE;
     border-radius: 6px;
     transition: all .5s;
@@ -31,16 +31,16 @@
     box-shadow: var(--shadow);
   }
 
-  #select-btn:hover {
+  .option-btn:hover {
     transform: scale(1.05);
     cursor: pointer;
   }
 
-  #select-btn:active {
+  .option-btn:active {
     transform: scale(0.95);
   }
 
-  #select-btn p {
+  .option-btn p {
     padding: 5px;
   }
 
@@ -148,6 +148,7 @@
     overflow: hidden;
     z-index: 2;
     text-align: center;
+    box-shadow: var(--shadow);
   }
 
   #daily-quests > h3 {
@@ -156,6 +157,7 @@
     color: white;
     margin-top: 0px;
     padding: 10px;
+    box-shadow: var(--shadow);
   }
 
   .close-btn {
@@ -212,12 +214,11 @@
   }
   
   .quest {
+    opacity: 0;
     border-radius: 20px;
     background-color: var(--quest);
-    margin: 20px;
     padding: 10px;
-    display: flex;
-    align-items: center;
+    width: 100%;
     flex-direction: column;
     overflow: hidden;
   }
@@ -225,11 +226,11 @@
   .quest > div:first-child {
     display: flex;
     align-items: center;
-    width: 100%;
   }
 
   .quest > div:first-child > p {
     color: white;
+    word-break: break-word;
   }
 
   .quest > div:first-child > div {
@@ -280,3 +281,53 @@
   }
 
   /* QUEST DONE */
+
+  /* SELECTOR */
+  
+  .select {
+    animation: shaking .8s;
+    width: 300px;
+    animation-iteration-count: infinite;
+  }
+
+  #daily-quests ul > li:nth-child(odd) > .select {
+    animation-direction: reverse;
+  }
+
+  #daily-quests ul > li {
+    display: flex;
+    align-items: center;
+  }
+
+  #daily-quests ul > li > i {
+    margin: auto;
+  }
+
+  @keyframes shaking {
+    0% {
+      rotate: .5deg;
+    }
+    15% {
+      rotate: -1deg;
+    }
+    30% {
+      rotate: 0deg;
+    }
+    45% {
+      rotate: 1deg;
+    }
+    60% {
+      rotate: -.5deg;
+    }
+    75% {
+      rotate: .5deg;
+    }
+    90% {
+      rotate: -1deg;
+    }
+    100% {
+      rotate: 0deg;
+    }
+  }
+
+  /* SELECTOR DONE */
