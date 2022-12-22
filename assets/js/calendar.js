@@ -51,8 +51,8 @@ const refresh = () => {
     ul.find('li').remove()
                     
     let refreshList = quests
-    i = -1
     quests = []
+    i = -1
     
     handlerAddTask(refreshList, false)
 }
@@ -60,6 +60,8 @@ const refresh = () => {
 const dailyQuests = (item) => {
     i++
     let il = i
+
+    if (item === "placeholder") return
 
     quests[il] = {
         name: item.name,
@@ -366,9 +368,9 @@ const selectQuest = () => {
     $('.options-delete').click((e) => {
         selector.map((e, i) => {
             if (e.selected) {
-                selector.splice(i, 1, "placeholder")
-                quests.splice(i, 1)
+                quests.splice(i, 1, "placeholder")
             }
+            console.log(quests)
         })
         refresh()
     })
