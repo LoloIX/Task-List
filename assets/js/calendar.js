@@ -47,6 +47,16 @@ const handlerSetInput = (event) => {
     setInput(false)
 }
 
+const refresh = () => {
+    ul.find('li').remove()
+                    
+    let refreshList = quests
+    i = -1
+    quests = []
+    
+    handlerAddTask(refreshList, false)
+}
+
 const dailyQuests = (item) => {
     i++
     let il = i
@@ -154,13 +164,7 @@ const dailyQuests = (item) => {
                     quests[il].data.push({"text": subText[0].innerText, "check": false})
                     quests[il].check = false
 
-                    ul.find('li').remove()
-                    
-                    let refreshList = quests
-                    i = -1
-                    quests = []
-                    
-                    handlerAddTask(refreshList, false)
+                    refresh()
                 }
             })
 
@@ -296,12 +300,12 @@ const selectQuest = () => {
     let selector = []
 
     let li = ul.find('li')
-    let quests = $('.quest')
+    let findQuests = $('.quest')
     
     li.find('> .btn').remove()
     
-    quests.addClass("select")
-    quests.css("margin-left", "auto")
+    findQuests.addClass("select")
+    findQuests.css("margin-left", "auto")
 
     for (let index = 0; index < li.length; index++) {
         selector[index] = {"element": li[index], "selected": false}
@@ -332,6 +336,7 @@ const selectQuest = () => {
     }
 
     let buttons = document.getElementsByClassName("buttons")
+    const save = document.getElementsByClassName("buttons")
     buttons[0].innerHTML = ""
 
     let $optionsBtn = $(`
@@ -346,17 +351,26 @@ const selectQuest = () => {
         </button>
     `)
     
-    console.log($optionsBtn)
-    buttons[0].append($optionsBtn[0])
-    buttons[0].append($optionsBtn[1])
-    buttons[0].append($optionsBtn[2])
-    buttons[0].append($optionsBtn[3])
-    buttons[0].append($optionsBtn[4])
+    buttons[0].append(...$optionsBtn)
 
-    $optionsBtn.find('options-select-all').click((e) => {
+    $('.options-select-all').click(() => {
         li.find('> .btn')
             .removeClass("fa-regular fa-square")
             .addClass("fa-solid fa-square-check")
+
+        selector.map((e) => {
+            e.selected = true
+        })
+    })
+
+    $('.options-delete').click((e) => {
+        selector.map((e, i) => {
+            if (e.selected) {
+                selector.splice(i, 1, "placeholder")
+                quests.splice(i, 1)
+            }
+        })
+        refresh()
     })
 }
 
