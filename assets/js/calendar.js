@@ -22,7 +22,7 @@ let currentYear = date.getFullYear()
 
 let currentDate = document.getElementById("CurrentDate")
 let tbody = document.getElementsByTagName("tbody")
-let buttons = $(".buttons")
+let btn = $("#buttons")
 let ul = span.find('ul')
 
 const showSpan = () => {
@@ -190,7 +190,6 @@ const dailyQuests = (item) => {
     var questCheck = $quest.find(".check")
     var questDiv = $quest.find(".quest")
 
-
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
         () => {
@@ -343,8 +342,9 @@ const selectQuest = () => {
         li[index].prepend($check[0])
     }
 
-    let buttons = document.getElementsByClassName("buttons")
-    buttons[0].innerHTML = ""
+    let buttons = document.getElementById("buttons")
+    let mainsBtn = $('#set-input, #selector-btn')
+    mainsBtn.addClass("d-none")
 
     let $optionsBtn = $(`
         <button class="options-select-all option-btn">
@@ -358,7 +358,7 @@ const selectQuest = () => {
         </button>
     `)
     
-    buttons[0].append(...$optionsBtn)
+    buttons.append(...$optionsBtn)
 
     $('.options-select-all').click(() => {
         li.find('> .btn')
@@ -377,8 +377,10 @@ const selectQuest = () => {
             }
         })
         refresh()
+        mainsBtn.removeClass("d-none")
+        $optionsBtn.remove()
     })
-
+    
     $('.options-check').click(() => {
         selector.map((e, i) => {
             if (e.selected) {
@@ -386,6 +388,8 @@ const selectQuest = () => {
             }
         })
         refresh()
+        $optionsBtn.remove()
+        mainsBtn.removeClass("d-none")
     })
 }
 

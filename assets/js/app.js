@@ -21,7 +21,7 @@ const setInput = (bool) => {
         </div>
     `)
 
-    let append = bool ? main : buttons 
+    let append = bool ? main : btn 
 
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
@@ -38,7 +38,7 @@ const setInput = (bool) => {
         }
     })
 
-    bool ? main.append($textBox) : buttons.prepend($textBox)
+    bool ? main.append($textBox) : btn.prepend($textBox)
 
     $('#input-data').focus()
 }
@@ -51,7 +51,7 @@ const handlerAddTask = (array, bool) => {
     let result = bool ? addTask : dailyQuests
     let entry = bool ? {"lock": false} : {"cycle": undefined}
 
-    if ($('#input-data').val() !== undefined) {
+    if ($('#input-data').val() !== undefined & $('#input-data').val() !== "") {
         result({"name": $('#input-data').val(), "check": false, "expanded": false, entry})
     } else {
         Object.keys(array).map((key) => {
