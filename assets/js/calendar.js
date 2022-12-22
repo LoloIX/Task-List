@@ -49,6 +49,12 @@ const handlerSetInput = (event) => {
 
 const refresh = () => {
     ul.find('li').remove()
+    
+    quests.map((e, i) => {
+        if (e === "placeholder") {
+            quests.splice(i, 1)
+        }
+    })
                     
     let refreshList = quests
     quests = []
@@ -338,7 +344,6 @@ const selectQuest = () => {
     }
 
     let buttons = document.getElementsByClassName("buttons")
-    const save = document.getElementsByClassName("buttons")
     buttons[0].innerHTML = ""
 
     let $optionsBtn = $(`
@@ -365,12 +370,20 @@ const selectQuest = () => {
         })
     })
 
-    $('.options-delete').click((e) => {
+    $('.options-delete').click(() => {
         selector.map((e, i) => {
             if (e.selected) {
                 quests.splice(i, 1, "placeholder")
             }
-            console.log(quests)
+        })
+        refresh()
+    })
+
+    $('.options-check').click(() => {
+        selector.map((e, i) => {
+            if (e.selected) {
+                quests[i].check = true
+            }
         })
         refresh()
     })
