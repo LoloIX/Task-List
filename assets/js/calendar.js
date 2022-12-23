@@ -21,6 +21,7 @@ let currentMonth = date.getMonth()
 let currentYear = date.getFullYear()
 
 let currentDate = document.getElementById("CurrentDate")
+let arrowBtns = document.getElementsByClassName("text-btn")
 let tbody = document.getElementsByTagName("tbody")
 let btn = $("#buttons")
 let ul = span.find('ul')
@@ -350,8 +351,8 @@ const selectQuest = () => {
         <button class="options-select-all option-btn">
             <p>Select all</p>
         </button>
-        <button class="options-check option-btn">
-            <p>Check</p>
+        <button class="options-complete option-btn">
+            <p>Complete</p>
         </button>
         <button class="options-delete option-btn">
             <p>Delete</p>
@@ -371,26 +372,40 @@ const selectQuest = () => {
     })
 
     $('.options-delete').click(() => {
+        let count = 0
         selector.map((e, i) => {
             if (e.selected) {
                 quests.splice(i, 1, "placeholder")
+                count++
             }
         })
-        refresh()
-        mainsBtn.removeClass("d-none")
-        $optionsBtn.remove()
+
+        if (count !== 0) {
+            refresh()
+            mainsBtn.removeClass("d-none")
+            $optionsBtn.remove()
+        }
     })
     
-    $('.options-check').click(() => {
+    $('.options-complete').click(() => {
         selector.map((e, i) => {
             if (e.selected) {
                 quests[i].check = true
             }
         })
-        refresh()
-        $optionsBtn.remove()
-        mainsBtn.removeClass("d-none")
     })
 }
+
+const keyArrow = (e) => {
+    if (e.key === "ArrowRight") {
+        changeMonth(true)
+    }
+    if (e.key === "ArrowLeft") {
+        changeMonth(false)
+    }
+}
+
+arrowBtns[0].addEventListener("keyup", keyArrow)
+arrowBtns[1].addEventListener("keyup", keyArrow)
 
 createCalendar(currentMonth, currentYear)
