@@ -316,8 +316,6 @@ const selectQuest = () => {
     findQuests.css("margin-left", "auto")
 
     for (let index = 0; index < li.length; index++) {
-        selector[index] = {"element": li[index], "selected": false}
-
         let $check = $(`
             <i class="btn fa-regular fa-square"></i>
         `)
@@ -325,7 +323,7 @@ const selectQuest = () => {
         $check.hover(
             () => {$check.removeClass("fa-square").addClass("fa-square-check")},
             () => {
-                if (!selector[index].selected) {
+                if (!selector.includes(index)) {
                     $check.addClass("fa-square")
                 }
             },
@@ -337,16 +335,16 @@ const selectQuest = () => {
                 .addClass("fa-square")
                 .toggleClass("fa-regular fa-square fa-solid fa-square-check")
 
-            selector[index].selected = !selector[index].selected
+            selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
         })
     
         li[index].prepend($check[0])
     }
 
     let buttons = document.getElementById("buttons")
-    let mainsBtn = $('#set-input, #selector-btn')
-    mainsBtn.addClass("d-none")
-
+    let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
+    mainsBtn[0].classList.add("d-none")
+    mainsBtn[1].classList.add("d-none")
     let $optionsBtn = $(`
         <button class="options-select-all option-btn">
             <p>Select all</p>
@@ -358,41 +356,38 @@ const selectQuest = () => {
             <p>Delete</p>
         </button>
     `)
-    
+
     buttons.append(...$optionsBtn)
+
+    const btnsHandler = (bool) => {
+        selector.map((e) => {
+            bool ? quests[e].check = true : quests[e] = "placeholder"
+        })
+
+        if (selector.length !== 0) {
+            refresh()
+            mainsBtn.classList.remove("d-none")
+            $optionsBtn.remove()
+        }
+    }
 
     $('.options-select-all').click(() => {
         li.find('> .btn')
-            .removeClass("fa-regular fa-square")
-            .addClass("fa-solid fa-square-check")
+            .toggleClass("fa-regular fa-square fa-solid fa-square-check")
 
-        selector.map((e) => {
-            e.selected = true
-        })
+        selector = []
+
+        for (let index = 0; index < li.length; index++) {
+            selector.push(index)
+        }
     })
 
     $('.options-delete').click(() => {
-        let count = 0
-        selector.map((e, i) => {
-            if (e.selected) {
-                quests.splice(i, 1, "placeholder")
-                count++
-            }
-        })
-
-        if (count !== 0) {
-            refresh()
-            mainsBtn.removeClass("d-none")
-            $optionsBtn.remove()
-        }
+        btnsHandler(false)
     })
     
     $('.options-complete').click(() => {
-        selector.map((e, i) => {
-            if (e.selected) {
-                quests[i].check = true
-            }
-        })
+        btnsHandler(true)
     })
 }
 
