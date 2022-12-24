@@ -365,7 +365,8 @@ const selectQuest = () => {
 
         if (selector.length !== 0) {
             refresh()
-            mainsBtn.classList.remove("d-none")
+            mainsBtn[0].classList.remove("d-none")
+            mainsBtn[1].classList.remove("d-none")
             $optionsBtn.remove()
         }
     }
@@ -379,13 +380,9 @@ const selectQuest = () => {
         for (let index = 0; index < li.length; index++) selector.push(index)
     })
 
-    $('.options-delete').click(() => {
-        btnsHandler(false)
-    })
+    $('.options-delete').click(() => {btnsHandler(false)})
     
-    $('.options-complete').click(() => {
-        btnsHandler(true)
-    })
+    $('.options-complete').click(() => {btnsHandler(true)})
 }
 
 const keyArrow = (e) => {
