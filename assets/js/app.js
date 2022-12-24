@@ -6,12 +6,12 @@ const setInput = (bool) => {
     let $mainButton = $(`
         <button id="set-input" onclick={setInput(${bool})}>
             <i class="fa-solid fa-plus"></i>
-            ${bool ? "Add task" : "Add quest"}
+            ${bool ? "Add task" : ""}
         </button>
     `)
 
     let $textBox = $(`
-        <div style="margin: 40px 17%">
+        <div style="margin: 40px 17% 0px">
             <div class="form">
                 <div class="form-group">
                     <input type="text" id="input-data" placeholder=" ">
@@ -55,7 +55,7 @@ const handlerAddTask = (array, bool) => {
     ]
     let owo = bool ? entry[0] : entry[1]
 
-    if ($('#input-data').val() !== undefined & $('#input-data').val() !== "") {
+    if ($('#input-data').val() !== undefined && $('#input-data').val() !== "") {
         result({"name": $('#input-data').val(), "check": false, "expanded": false, owo})
     } else {
         Object.keys(array).map((key) => {

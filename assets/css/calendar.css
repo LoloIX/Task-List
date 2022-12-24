@@ -4,6 +4,14 @@
     --quest: #0a5cb8;
     --buttons: #2170f3;
   }
+
+  #daily-quests ul:empty + #buttons #selector-btn {
+    display: none;
+  }
+
+  #buttons {
+    margin-top: 40px;
+  }
   
   #main {
     display: flex;
@@ -18,7 +26,12 @@
   #set-input {
     background-color: var(--buttons);
     border-color: var(--buttons);
-    margin-left: 0px;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  #set-input *{
+    padding: 6px 14.14px;
   }
 
  .option-btn {
@@ -27,7 +40,6 @@
     transition: all .5s;
     background-color: var(--buttons);
     border-color: var(--buttons);
-    margin-top: 40px;
     box-shadow: var(--shadow);
   }
 
@@ -40,7 +52,7 @@
     transform: scale(0.95);
   }
 
-  .option-btn p {
+  .option-btn * {
     padding: 5px;
   }
 
@@ -138,12 +150,16 @@
   /* CALENDAR DONE  */
 
   #daily-quests {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     right: 0px;
     background-color: var(--span);
-    top: 100px;
-    width: 450px;
-    min-height: calc(100vh - 100px);
+    top: 92.5px;
+    width: 442.5px;
+    border: 7.5px solid var(--tertiary);
+    --daily-height: calc(100vh - 100px);
+    min-height: var(--daily-height);
     transition: all .5s;
     overflow: hidden;
     z-index: 2;
@@ -160,19 +176,34 @@
     box-shadow: var(--shadow);
   }
 
+  #buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    background-color: var(--tertiary);
+    width: 100%;
+    height: calc(var(--daily-height) - 600px - 1em)
+  }
+
+  #buttons > button {
+    margin: 10px;
+  }
+
   .close-btn {
     overflow: hidden;
     position: absolute;
     background-color: transparent;
     width: 50px;
-    height: calc(100vw - 100px);
+    height: calc(100vh - 100px);
     margin-top: 100px;
     margin-left: calc(100vw - 500px);
+    display: flex;
+    align-items: center;
     z-index: 0;
   }
 
   .close-btn > button {
-    top: 20%;
     transform: translateX(500px);
     transition: all .2s;
   }
@@ -298,10 +329,41 @@
     align-items: center;
   }
 
-  #daily-quests ul > li > i {
+  #daily-quests ul > li > input {
     margin: auto;
     translate: -100px;
     transition: all .3s;
+    border: 1px solid BLACK;
+    border-radius: 50%;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    background-color: WHITE;
+    --scale: scale(0)
+  }
+
+  #daily-quests ul > li > input::before {
+    content: "";
+    margin: auto;
+    display: block;
+    width: 70%;
+    height: 70%;
+    background-color: var(--buttons);
+    border-radius: 50%;
+    transition: all .3s;
+    transform: var(--scale);
+  }
+
+  #daily-quests ul > li > input:checked {
+    animation: shadow .3s;
+    --scale: scale(1)
+  }
+
+  @keyframes shadow {
+    50% {
+      box-shadow: 0px 0px 20px var(--buttons);
+    }
   }
 
   @keyframes shaking {

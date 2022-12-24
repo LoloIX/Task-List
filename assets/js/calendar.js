@@ -79,7 +79,7 @@ const dailyQuests = (item) => {
 
     let $quest = $(`
         <li>
-            <i class="btn fa-regular fa-square"></i>
+            <input type="checkbox" class="btn"></input>
             <div class="quest">
                 <div>
                     <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
@@ -317,23 +317,8 @@ const selectQuest = () => {
 
     for (let index = 0; index < li.length; index++) {
         let $check = $(li[index]).find('> .btn')
-        console.log($check)
-    
-        $check.hover(
-            () => {$check.removeClass("fa-square").addClass("fa-square-check")},
-            () => {
-                if (!selector.includes(index)) {
-                    $check.addClass("fa-square")
-                }
-            },
-        )
     
         $check.click(() => {
-            $check
-                .removeClass("fa-square-check")
-                .addClass("fa-square")
-                .toggleClass("fa-regular fa-square fa-solid fa-square-check")
-
             selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
         })
         
@@ -373,12 +358,14 @@ const selectQuest = () => {
     }
 
     $('.options-select-all').click(() => {
-        li.find('> .btn')
-            .toggleClass("fa-regular fa-square fa-solid fa-square-check")
+        li.find('> input').click()
 
-        selector = []
-
-        for (let index = 0; index < li.length; index++) selector.push(index)
+        if (selector.length !== 0) {
+            selector = []
+            for (let index = 0; index < li.length; index++) selector.push(index)
+        } else {
+            selector = []
+        }
     })
 
     $('.options-delete').click(() => {btnsHandler(false)})
