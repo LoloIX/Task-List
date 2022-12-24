@@ -311,8 +311,9 @@ const selectQuest = () => {
     let li = ul.find('li')
     let findQuests = $('.quest')
     
-    findQuests.addClass("select")
-    findQuests.css("margin-left", "auto")
+    findQuests
+        .animate({width: "300px", margin: "20px 20px 20px auto"}, 500)
+        .addClass("select")
 
     for (let index = 0; index < li.length; index++) {
         let $check = $(li[index]).find('> .btn')

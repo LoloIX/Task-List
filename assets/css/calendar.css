@@ -286,7 +286,6 @@
   
   .select {
     animation: shaking .8s;
-    width: 300px;
     animation-iteration-count: infinite;
   }
 
