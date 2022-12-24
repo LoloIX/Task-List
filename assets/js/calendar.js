@@ -21,8 +21,9 @@ let currentMonth = date.getMonth()
 let currentYear = date.getFullYear()
 
 let currentDate = document.getElementById("CurrentDate")
+let arrowBtns = document.getElementsByClassName("text-btn")
 let tbody = document.getElementsByTagName("tbody")
-let buttons = $(".buttons")
+let btn = $("#buttons")
 let ul = span.find('ul')
 
 const showSpan = () => {
@@ -78,6 +79,7 @@ const dailyQuests = (item) => {
 
     let $quest = $(`
         <li>
+            <i class="btn fa-regular fa-square"></i>
             <div class="quest">
                 <div>
                     <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
@@ -189,7 +191,6 @@ const dailyQuests = (item) => {
 
     var questCheck = $quest.find(".check")
     var questDiv = $quest.find(".quest")
-
 
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
@@ -310,22 +311,18 @@ const selectQuest = () => {
     let li = ul.find('li')
     let findQuests = $('.quest')
     
-    li.find('> .btn').remove()
-    
-    findQuests.addClass("select")
-    findQuests.css("margin-left", "auto")
+    findQuests
+        .animate({width: "300px", margin: "20px 20px 20px auto"}, 500)
+        .addClass("select")
 
     for (let index = 0; index < li.length; index++) {
-        selector[index] = {"element": li[index], "selected": false}
-
-        let $check = $(`
-            <i class="btn fa-regular fa-square"></i>
-        `)
+        let $check = $(li[index]).find('> .btn')
+        console.log($check)
     
         $check.hover(
             () => {$check.removeClass("fa-square").addClass("fa-square-check")},
             () => {
-                if (!selector[index].selected) {
+                if (!selector.includes(index)) {
                     $check.addClass("fa-square")
                 }
             },
@@ -337,56 +334,68 @@ const selectQuest = () => {
                 .addClass("fa-square")
                 .toggleClass("fa-regular fa-square fa-solid fa-square-check")
 
-            selector[index].selected = !selector[index].selected
+            selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
         })
-    
-        li[index].prepend($check[0])
+        
+        $check.animate({translate: "0px"}, 1)
     }
 
-    let buttons = document.getElementsByClassName("buttons")
-    buttons[0].innerHTML = ""
+    let buttons = document.getElementById("buttons")
+    let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
+    mainsBtn[0].classList.add("d-none")
+    mainsBtn[1].classList.add("d-none")
 
     let $optionsBtn = $(`
         <button class="options-select-all option-btn">
             <p>Select all</p>
         </button>
-        <button class="options-check option-btn">
-            <p>Check</p>
+        <button class="options-complete option-btn">
+            <p>Complete</p>
         </button>
         <button class="options-delete option-btn">
             <p>Delete</p>
         </button>
     `)
-    
-    buttons[0].append(...$optionsBtn)
+
+    buttons.append(...$optionsBtn)
+
+    const btnsHandler = (bool) => {
+        selector.map((e) => {
+            bool ? quests[e].check = true : quests[e] = "placeholder"
+        })
+
+        if (selector.length !== 0) {
+            refresh()
+            mainsBtn[0].classList.remove("d-none")
+            mainsBtn[1].classList.remove("d-none")
+            $optionsBtn.remove()
+        }
+    }
 
     $('.options-select-all').click(() => {
         li.find('> .btn')
-            .removeClass("fa-regular fa-square")
-            .addClass("fa-solid fa-square-check")
+            .toggleClass("fa-regular fa-square fa-solid fa-square-check")
 
-        selector.map((e) => {
-            e.selected = true
-        })
+        selector = []
+
+        for (let index = 0; index < li.length; index++) selector.push(index)
     })
 
-    $('.options-delete').click(() => {
-        selector.map((e, i) => {
-            if (e.selected) {
-                quests.splice(i, 1, "placeholder")
-            }
-        })
-        refresh()
-    })
-
-    $('.options-check').click(() => {
-        selector.map((e, i) => {
-            if (e.selected) {
-                quests[i].check = true
-            }
-        })
-        refresh()
-    })
+    $('.options-delete').click(() => {btnsHandler(false)})
+    
+    $('.options-complete').click(() => {btnsHandler(true)})
 }
+
+const keyArrow = (e) => {
+    if (e.key === "ArrowRight") {
+        changeMonth(true)
+    }
+    if (e.key === "ArrowLeft") {
+        changeMonth(false)
+    }
+}
+
+arrowBtns[0].addEventListener("keyup", keyArrow)
+arrowBtns[1].addEventListener("keyup", keyArrow)
 
 createCalendar(currentMonth, currentYear)
