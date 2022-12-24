@@ -301,6 +301,8 @@
 
   #daily-quests ul > li > i {
     margin: auto;
+    translate: -100px;
+    transition: all .3s;
   }
 
   @keyframes shaking {

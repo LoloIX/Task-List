@@ -79,6 +79,7 @@ const dailyQuests = (item) => {
 
     let $quest = $(`
         <li>
+            <i class="btn fa-regular fa-square"></i>
             <div class="quest">
                 <div>
                     <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>
@@ -310,15 +311,12 @@ const selectQuest = () => {
     let li = ul.find('li')
     let findQuests = $('.quest')
     
-    li.find('> .btn').remove()
-    
     findQuests.addClass("select")
     findQuests.css("margin-left", "auto")
 
     for (let index = 0; index < li.length; index++) {
-        let $check = $(`
-            <i class="btn fa-regular fa-square"></i>
-        `)
+        let $check = $(li[index]).find('> .btn')
+        console.log($check)
     
         $check.hover(
             () => {$check.removeClass("fa-square").addClass("fa-square-check")},
@@ -337,14 +335,15 @@ const selectQuest = () => {
 
             selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
         })
-    
-        li[index].prepend($check[0])
+        
+        $check.animate({translate: "0px"}, 1)
     }
 
     let buttons = document.getElementById("buttons")
     let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
     mainsBtn[0].classList.add("d-none")
     mainsBtn[1].classList.add("d-none")
+
     let $optionsBtn = $(`
         <button class="options-select-all option-btn">
             <p>Select all</p>
@@ -377,9 +376,7 @@ const selectQuest = () => {
 
         selector = []
 
-        for (let index = 0; index < li.length; index++) {
-            selector.push(index)
-        }
+        for (let index = 0; index < li.length; index++) selector.push(index)
     })
 
     $('.options-delete').click(() => {
