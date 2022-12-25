@@ -42,7 +42,7 @@ const addTask = (task) => {
                         <p>${parseInt(percent)}%</p>
                     </div>
                 </div>
-                <i class="btn fa-xs fa-solid fa-pen" style="margin: 0px 3% 0px auto"></i>
+                <i class="btn fa-xs fa-solid fa-pen" style="margin: 0px 3% 0px 5%"></i>
                 <i class="btn fa-xs fa-solid ${task.lock ? "fa-lock" : "fa-lock-open"}" style="margin-right: 3%"></i>
                 <button class="btn" style="margin-right: 1%;">⁝</button>
             </div>

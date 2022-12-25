@@ -21,24 +21,22 @@ const setInput = (bool) => {
         </div>
     `)
 
-    let append = bool ? main : btn 
-
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
-        append.append($mainButton)
+        bool ? main.append($mainButton) : ""
     })
-
-    $('#set-input').remove()
+ 
+    bool ? $('#set-input').remove() : ""
 
     $textBox.find('#input-data').keydown((e) => {
         if (e.keyCode === 13) {
             handlerAddTask(undefined, bool)
             $textBox.remove()
-            append.append($mainButton)
+            bool ? main.append($mainButton) : ""
         }
     })
 
-    bool ? main.append($textBox) : btn.prepend($textBox)
+    bool ? main.append($textBox) : ul.append($textBox)
 
     $('#input-data').focus()
 }

@@ -215,6 +215,7 @@
   body[data-quests="false"] #daily-quests,
   body[data-quests="false"] .close-btn {
     width: 0px;
+    border: 0px solid;
   }
 
   body[data-menu="false"][data-quests="false"] #main {
