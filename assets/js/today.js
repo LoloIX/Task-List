@@ -9,7 +9,8 @@ const addTask = (task) => {
     i++
     let il = i
 
-    if (task === "placeholder") return
+    if (task === "placeholder") {itemlist.splice(il, 1); i--; return}
+
     let query = $('#sort-input').val().replace(/.(?<![A-Za-z0-9 áéíóú])/g, '\\$&')
     let regex = new RegExp(query, "i")
     
@@ -42,7 +43,7 @@ const addTask = (task) => {
                         <p>${parseInt(percent)}%</p>
                     </div>
                 </div>
-                <i class="btn fa-xs fa-solid fa-pen" style="margin: 0px 3% 0px auto"></i>
+                <i class="btn fa-xs fa-solid fa-pen" style="margin: 0px 3% 0px 5%"></i>
                 <i class="btn fa-xs fa-solid ${task.lock ? "fa-lock" : "fa-lock-open"}" style="margin-right: 3%"></i>
                 <button class="btn" style="margin-right: 1%;">⁝</button>
             </div>
@@ -370,12 +371,6 @@ const refresh = () => {
     canvasPrinted = 0
 
     $('.elements > li:not(.unlockedTask)').remove()
-
-    itemlist.map((e, i) => {
-        if (e === "placeholder") {
-            itemlist.splice(i, 1)
-        }
-    })
 
     let refreshList = itemlist
     itemlist = []

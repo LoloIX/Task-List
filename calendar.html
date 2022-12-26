@@ -95,11 +95,13 @@
             </button>
         </div>
         <span id="daily-quests">
-            <ul>
-            </ul>
+            <ul></ul>
+            <button title="Add Quest" id="set-input" onclick={setInput(false)}>
+                <i class="fa-solid fa-plus"></i>
+            </button>
             <div id="buttons">
-                <button id="selector-btn" class="option-btn" onclick=selectQuest()>
-                    <p>Select</p>
+                <button title="Quest selector" id="selector-btn" class="option-btn" onclick=selectQuest()>
+                    <i class="fa-solid fa-list-check"></i>
                 </button>
             </div>
         </span>

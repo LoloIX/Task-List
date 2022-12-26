@@ -166,7 +166,12 @@
 
   .btn:hover {
     cursor: pointer;
-    transform: scale(1.15);
+    transform: scale(1.1);
+  }
+
+  .btn:active {
+    cursor: pointer;
+    transform: scale(0.9);
   }
 
   .text-btn {
@@ -249,8 +254,8 @@
   .bar {
     border: solid;
     border-radius: 60px;
-    width: 35%;
-    margin-left: 5%;
+    width: 25%;
+    margin-left: auto;
     background: var(--secondary);
   }
 

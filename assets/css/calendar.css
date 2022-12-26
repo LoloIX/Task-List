@@ -3,6 +3,7 @@
     --span: #6eb8f5;
     --quest: #0a5cb8;
     --buttons: #2170f3;
+    --check-box: #001939;
   }
   
   #main {
@@ -18,7 +19,12 @@
   #set-input {
     background-color: var(--buttons);
     border-color: var(--buttons);
-    margin-left: 0px;
+    margin: 10px auto;
+    padding: 0px;
+  }
+
+  #set-input *{
+    padding: 6px 14.14px;
   }
 
  .option-btn {
@@ -27,7 +33,6 @@
     transition: all .5s;
     background-color: var(--buttons);
     border-color: var(--buttons);
-    margin-top: 40px;
     box-shadow: var(--shadow);
   }
 
@@ -40,14 +45,29 @@
     transform: scale(0.95);
   }
 
-  .option-btn p {
+  .option-btn * {
     padding: 5px;
+  }
+
+  #input-data {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--background);
+    display: block;
   }
 
   #input-data:focus + .form-label,
   #input-data:not(:placeholder-shown) + .form-label {
     color: BLACK;
     font-weight: 300;
+  }
+
+  .form-label {
+    font-size: 22px;
+    transform: translateY(-24px);
+    transform-origin: top left;
   }
   /* CALENDAR */
 
@@ -138,12 +158,16 @@
   /* CALENDAR DONE  */
 
   #daily-quests {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     right: 0px;
     background-color: var(--span);
-    top: 100px;
-    width: 450px;
-    min-height: calc(100vh - 100px);
+    top: 92.5px;
+    width: 442.5px;
+    border: 7.5px solid var(--tertiary);
+    --daily-height: calc(100vh - 100px);
+    min-height: var(--daily-height);
     transition: all .5s;
     overflow: hidden;
     z-index: 2;
@@ -165,14 +189,15 @@
     position: absolute;
     background-color: transparent;
     width: 50px;
-    height: calc(100vw - 100px);
+    height: calc(100vh - 100px);
     margin-top: 100px;
     margin-left: calc(100vw - 500px);
+    display: flex;
+    align-items: center;
     z-index: 0;
   }
 
   .close-btn > button {
-    top: 20%;
     transform: translateX(500px);
     transition: all .2s;
   }
@@ -184,6 +209,7 @@
   body[data-quests="false"] #daily-quests,
   body[data-quests="false"] .close-btn {
     width: 0px;
+    border: 0px solid;
   }
 
   body[data-menu="false"][data-quests="false"] #main {
@@ -208,7 +234,7 @@
   /* QUEST */
 
   #daily-quests ul {
-    max-height: 550px;
+    height: 550px;
     overflow-y: scroll;
     overflow-x: hidden;
   }
@@ -298,10 +324,41 @@
     align-items: center;
   }
 
-  #daily-quests ul > li > i {
+  #daily-quests ul > li > input {
     margin: auto;
     translate: -100px;
     transition: all .3s;
+    border: 2px solid var(--check-box);
+    border-radius: 50%;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    background-color: WHITE;
+    --scale: scale(0)
+  }
+
+  #daily-quests ul > li > input::before {
+    content: "";
+    margin: auto;
+    display: block;
+    width: 70%;
+    height: 70%;
+    background-color: var(--buttons);
+    border-radius: 50%;
+    transition: all .3s;
+    transform: var(--scale);
+  }
+
+  #daily-quests ul > li > input:checked {
+    animation: shadow .3s;
+    --scale: scale(1)
+  }
+
+  @keyframes shadow {
+    50% {
+      box-shadow: 0px 0px 20px var(--buttons);
+    }
   }
 
   @keyframes shaking {
@@ -332,3 +389,25 @@
   }
 
   /* SELECTOR DONE */
+
+  /* BUTTON */
+
+  #buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--tertiary);
+    width: 100%;
+    height: calc(var(--daily-height) - 660px - 1em);
+    margin-top: auto;
+  }
+
+  #buttons > button {
+    margin: 10px;
+  }
+
+  #daily-quests ul:empty ~ #buttons > #selector-btn {
+    display: none;
+  }
+
+  /* BUTTONS DONE */
