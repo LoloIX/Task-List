@@ -195,7 +195,7 @@ const dailyQuests = (item) => {
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
         () => {
-            if (quests[il].check !== undefined && !quests[il].check) {
+            if (quests[il]?.check !== undefined && !quests[il].check) {
                 questCheck.addClass("fa-square")
             }
         },
@@ -332,13 +332,13 @@ const selectQuest = () => {
 
     let $optionsBtn = $(`
         <button class="options-select-all option-btn">
-            <p>Select all</p>
+            <i title= "Select all" class="fa-solid fa-list-ul"></i>
         </button>
         <button class="options-complete option-btn">
-            <p>Complete</p>
+            <i title="Complete Quest" class="fa-regular fa-circle-check"></i>
         </button>
         <button class="options-delete option-btn">
-            <p>Delete</p>
+            <i title="Delete Quest" class="fa-solid fa-trash"></i>
         </button>
     `)
 
@@ -368,7 +368,13 @@ const selectQuest = () => {
         }
     })
 
-    $('.options-delete').click(() => {btnsHandler(false)})
+    $('.options-delete').click(() => {
+        selector.map((e, i) => {
+            quests[e] = "placeholder"
+            console.log(li, i)
+        })
+
+    })
     
     $('.options-complete').click(() => {btnsHandler(true)})
 }
