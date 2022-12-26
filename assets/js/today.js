@@ -9,7 +9,8 @@ const addTask = (task) => {
     i++
     let il = i
 
-    if (task === "placeholder") return
+    if (task === "placeholder") {itemlist.splice(il, 1); i--; return}
+
     let query = $('#sort-input').val().replace(/.(?<![A-Za-z0-9 áéíóú])/g, '\\$&')
     let regex = new RegExp(query, "i")
     
@@ -370,12 +371,6 @@ const refresh = () => {
     canvasPrinted = 0
 
     $('.elements > li:not(.unlockedTask)').remove()
-
-    itemlist.map((e, i) => {
-        if (e === "placeholder") {
-            itemlist.splice(i, 1)
-        }
-    })
 
     let refreshList = itemlist
     itemlist = []

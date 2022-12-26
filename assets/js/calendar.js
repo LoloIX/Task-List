@@ -50,12 +50,6 @@ const handlerSetInput = (event) => {
 
 const refresh = () => {
     ul.find('li').remove()
-    
-    quests.map((e, i) => {
-        if (e === "placeholder") {
-            quests.splice(i, 1)
-        }
-    })
                     
     let refreshList = quests
     quests = []
@@ -68,7 +62,7 @@ const dailyQuests = (item) => {
     i++
     let il = i
 
-    if (item === "placeholder") return
+    if (item === "placeholder") {quests.splice(il, 1); i--; return}
 
     quests[il] = {
         name: item.name,
@@ -306,7 +300,23 @@ const changeMonth = (bool) => {
 }
 
 const selectQuest = () => {
+    let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
+    let $listCheck = mainsBtn[1].querySelector("i")
+    let $optionsBtn = document.querySelectorAll(".options-select-all, .options-complete, .options-delete, .options-repeat")
+
+    if ($listCheck.classList.contains("fa-xmark")) {
+        for (let index = 0; index < $optionsBtn.length; index++) $optionsBtn[index].remove()
+        $listCheck.classList.toggle("fa-xmark")
+
+        refresh()
+
+        return
+    }
+    
+    $listCheck.classList.toggle("fa-xmark")
+
     let selector = []
+    let buttons = document.getElementById("buttons")
 
     let li = ul.find('li')
     let findQuests = $('.quest')
@@ -325,24 +335,28 @@ const selectQuest = () => {
         $check.animate({translate: "0px"}, 1)
     }
 
-    let buttons = document.getElementById("buttons")
-    let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
     mainsBtn[0].classList.add("d-none")
-    mainsBtn[1].classList.add("d-none")
 
-    let $optionsBtn = $(`
-        <button class="options-select-all option-btn">
-            <i title= "Select all" class="fa-solid fa-list-ul"></i>
-        </button>
-        <button class="options-complete option-btn">
-            <i title="Complete Quest" class="fa-regular fa-circle-check"></i>
-        </button>
+    let $optionsBtn1 = $(`
         <button class="options-delete option-btn">
             <i title="Delete Quest" class="fa-solid fa-trash"></i>
         </button>
+        <button class="options-complete option-btn">
+            <i title="Complete Quest" class="fa-regular fa-circle-check"></i>
+        </button>  
+    `)
+    
+    let $optionsBtn2 = $(`
+        <button class="options-select-all option-btn">
+            <i title= "Select all" class="fa-solid fa-list-ul"></i>
+        </button>
+        <button class="option-btn options-repeat">
+            <i class="fa-solid fa-repeat"></i>
+        </button>
     `)
 
-    buttons.append(...$optionsBtn)
+    buttons.append(...$optionsBtn1)
+    buttons.prepend(...$optionsBtn2)
 
     const btnsHandler = (bool) => {
         selector.map((e) => {
@@ -357,26 +371,42 @@ const selectQuest = () => {
         }
     }
 
-    $('.options-select-all').click(() => {
-        li.find('> input').click()
-
-        if (selector.length !== 0) {
-            selector = []
-            for (let index = 0; index < li.length; index++) selector.push(index)
-        } else {
-            selector = []
-        }
-    })
+    $('.options-select-all').click(() => {li.find('> input').click()})
 
     $('.options-delete').click(() => {
-        selector.map((e, i) => {
+        selector.map((e) => {
             quests[e] = "placeholder"
-            console.log(li, i)
+            li[e].remove()
+            li.splice(e, 1, "placeholder")
         })
 
+        if (selector.length === quests.length) {
+            mainsBtn[0].classList.remove("d-none")
+            $listCheck.classList.remove("fa-xmark")
+
+            $optionsBtn1.remove()
+            $optionsBtn2.remove()
+
+            refresh()
+        }
     })
     
-    $('.options-complete').click(() => {btnsHandler(true)})
+    $('.options-complete').click(() => {
+        selector.map((e) => {
+            quests[e].check = !quests[e].check
+            let element = $(li[e]).find('.check')
+
+            if (quests[e].check) {
+                element
+                    .removeClass("fa-regular fa-square")
+                    .addClass("fa-solid fa-square-check")
+            } else {
+                element
+                    .removeClass("fa-solid fa-square-check")
+                    .addClass("fa-regular fa-square")
+            }
+        })
+    })
 }
 
 const keyArrow = (e) => {

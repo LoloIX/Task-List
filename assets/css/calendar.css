@@ -184,23 +184,6 @@
     box-shadow: var(--shadow);
   }
 
-  #buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--tertiary);
-    width: 100%;
-    height: calc(var(--daily-height) - 600px - 1em);
-  }
-
-  #buttons > button {
-    margin: 10px;
-  }
-
-  #daily-quests ul:empty ~ #buttons > button{
-    display: none;
-  }
-
   .close-btn {
     overflow: hidden;
     position: absolute;
@@ -406,3 +389,25 @@
   }
 
   /* SELECTOR DONE */
+
+  /* BUTTON */
+
+  #buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--tertiary);
+    width: 100%;
+    height: calc(var(--daily-height) - 660px - 1em);
+    margin-top: auto;
+  }
+
+  #buttons > button {
+    margin: 10px;
+  }
+
+  #daily-quests ul:empty ~ #buttons > #selector-btn {
+    display: none;
+  }
+
+  /* BUTTONS DONE */
