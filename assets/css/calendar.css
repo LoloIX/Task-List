@@ -121,6 +121,7 @@
     border: 2px solid WHITE;
     transform: scale(1.05);
     cursor: pointer;
+    box-shadow: 1px 1px 50px;
   }
 
   td:active {

@@ -279,7 +279,7 @@ const createCalendar = (month, year) => {
                 td.innerHTML = ""
             } else {
                 if (Object.keys(storagedQuests).includes(`${days}`)) {
-                    td.style.backgroundColor = "red"
+                    td.style.backgroundColor = "var(--quest)"
                 }
                 
                 td.addEventListener("click", handlerSetInput)
