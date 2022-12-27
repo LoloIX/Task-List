@@ -30,12 +30,7 @@ let ul = span.find('ul')
 const showSpan = () => {
     document.body.dataset.quests = "false"
 
-    let save = tbody[0].children[0]
-
-    tbody[0].innerHTML = ""
-    tbody[0].append(save)
-
-    createCalendar(currentMonth, currentYear)
+    refreshCalendar()
 }
 
 const monthLength = (month, year) => {
@@ -52,13 +47,15 @@ const handlerSetInput = (event) => {
 
     $date.innerText = event.path[0].innerText + " " + currentDate.innerText
     span.prepend($date)
-
+    
+    refreshCalendar()
+    
     handlerAddTask(storagedQuests[event.path[0].innerText], false)
 
     setInput(false)
 }
 
-const refresh = () => {
+const refreshList = () => {
     ul.find('li').remove()
                     
     let refreshList = quests
@@ -183,7 +180,7 @@ const dailyQuests = (item) => {
                     quests[il].data.push({"text": subText[0].innerText, "check": false})
                     quests[il].check = false
 
-                    refresh()
+                    refreshList()
                 }
             })
 
@@ -330,7 +327,7 @@ const selectQuest = () => {
         mainsBtn[0].classList.remove("d-none")
         $listCheck.classList.toggle("fa-xmark")
 
-        refresh()
+        refreshList()
 
         return
     }
@@ -391,7 +388,7 @@ const selectQuest = () => {
 
             $optionsBtn.remove()
 
-            refresh()
+            refreshList()
         }
     })
     
@@ -411,6 +408,18 @@ const selectQuest = () => {
             }
         })
     })
+}
+
+const refreshCalendar = () => {
+    let save = tbody[0].children[0]
+
+    ul.find("*").remove()
+    tbody[0].innerHTML = ""
+    tbody[0].append(save)
+
+    quests = []
+
+    createCalendar(currentMonth, currentYear)
 }
 
 const keyArrow = (e) => {

@@ -54,11 +54,10 @@ const handlerAddTask = (array, bool) => {
         {"cycle": undefined}
     ]
     let owo = bool ? entry[0] : entry[1]
-    
+
     if (array === undefined) {
         if ($('#input-data').val() !== "" && $('#input-data').val() !== undefined) {
             result({"name": $('#input-data').val(), "check": false, "expanded": false, owo})
-            console.log("wola")
         }
     } else {
         Object.keys(array).map((key) => {
