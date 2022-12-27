@@ -402,12 +402,119 @@
     margin-top: auto;
   }
 
-  #buttons > button {
+  #selector-btn {
+    z-index: 1;
+  }
+
+  #selector-btn > i {
+    transition: all .3s;
+  }
+
+  .option-btn:not(.options-repeat, .options-delete) {
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+    animation-delay: .8s;
+    animation-timing-function: cubic-bezier(0, 0, 0, 1);
+  }
+
+  .option-btn:not(.options-select-all, .options-complete) {
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+    animation-delay: .5s;
+    animation-timing-function: cubic-bezier(0, 0, 0, 1);
+  }
+
+  #selector-btn > .fa-list-check.fa-xmark {
     margin: 10px;
+    animation: forwards selector-btn .9s;
+    animation-delay: .3s;
+    animation-timing-function: cubic-bezier(0, 0, 0, 1);
+  }
+
+  .options-repeat {
+    animation: opts-repeat;
+  }
+  
+  .options-select-all {
+    animation: opts-select-all;
+  }
+
+  .options-delete {
+    animation: opts-delete;
+  }
+
+  .options-complete {
+    animation: opts-complete;
+  }
+
+  #buttons > button {
+    position: absolute;
   }
 
   #daily-quests ul:empty ~ #buttons > #selector-btn {
     display: none;
+  }
+
+  @keyframes opts-repeat {
+    0% {
+      padding: 0px;
+      rotate: 0deg;
+      border-radius: 50%;
+    }
+    100% {
+      padding: 5px;
+      margin-right: 150px;
+      rotate: 360deg;
+      border-radius: 6px;
+    }
+  }
+
+  @keyframes opts-select-all {
+    0% {
+      padding: 0px;
+      rotate: 0deg;
+      border-radius: 50%;
+    }
+    100% {
+      padding: 5px;
+      margin-right: 300px;
+      rotate: 360deg;
+      border-radius: 6px;
+    }
+  }
+
+  @keyframes opts-delete {
+    0% {
+      padding: 0px;
+      rotate: 0deg;
+      border-radius: 50%;
+    }
+    100% {
+      padding: 5px;
+      margin-left: 150px;
+      rotate: 360deg;
+      border-radius: 6px;
+    }
+  }
+
+  @keyframes opts-complete {
+    0% {
+      padding: 0px;
+      rotate: 0deg;
+      border-radius: 50%;
+    }
+    100% {
+      padding: 5px;
+      margin-left: 300px;
+      rotate: 360deg;
+      border-radius: 6px;
+    }
+  }
+
+  @keyframes selector-btn {
+    100% {
+      margin: 4px 3.7px;
+    }
   }
 
   /* BUTTONS DONE */

@@ -12,7 +12,27 @@ let months = [
     "November",
     "December"
 ]
-let quests = []
+let quests = [
+   {name: "wola",
+    check: true,
+    cycle: undefined,
+    data:[]},
+   {name: "nyasu",
+    check: false,
+    cycle: undefined,
+    data:[]}
+]
+let storagedQuests = {
+    "9": 
+        [{name: "wola",
+        check: true,
+        cycle: undefined,
+        data:[]},
+        {name: "nyasu",
+        check: false,
+        cycle: undefined,
+        data:[]}]
+}
 
 let i = -1
 let days
@@ -248,7 +268,7 @@ const createCalendar = (month, year) => {
     let InitialDay = (new Date(year, month)).getDay()
     days = 1
     let maxDays = monthLength(month, year)
-    
+
     for (let i = 0; i < 6; i++) {
         let row = document.createElement("tr")
 
@@ -261,8 +281,12 @@ const createCalendar = (month, year) => {
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
             } else {
-                days++
+                if (Object.keys(storagedQuests).includes(`${days}`)) {
+                    td.style.backgroundColor = "red"
+                }
+                
                 td.addEventListener("click", handlerSetInput)
+                days++
             }
 
             row.append(td)
@@ -302,10 +326,12 @@ const changeMonth = (bool) => {
 const selectQuest = () => {
     let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
     let $listCheck = mainsBtn[1].querySelector("i")
-    let $optionsBtn = document.querySelectorAll(".options-select-all, .options-complete, .options-delete, .options-repeat")
+    let $selectorOpts = document.querySelectorAll(".options-select-all, .options-complete, .options-delete, .options-repeat")
 
     if ($listCheck.classList.contains("fa-xmark")) {
-        for (let index = 0; index < $optionsBtn.length; index++) $optionsBtn[index].remove()
+        for (let index = 0; index < $selectorOpts.length; index++) $selectorOpts[index].remove()
+
+        mainsBtn[0].classList.remove("d-none")
         $listCheck.classList.toggle("fa-xmark")
 
         refresh()
@@ -337,16 +363,13 @@ const selectQuest = () => {
 
     mainsBtn[0].classList.add("d-none")
 
-    let $optionsBtn1 = $(`
+    let $optionsBtn = $(`
         <button class="options-delete option-btn">
             <i title="Delete Quest" class="fa-solid fa-trash"></i>
         </button>
         <button class="options-complete option-btn">
             <i title="Complete Quest" class="fa-regular fa-circle-check"></i>
-        </button>  
-    `)
-    
-    let $optionsBtn2 = $(`
+        </button>
         <button class="options-select-all option-btn">
             <i title= "Select all" class="fa-solid fa-list-ul"></i>
         </button>
@@ -355,21 +378,7 @@ const selectQuest = () => {
         </button>
     `)
 
-    buttons.append(...$optionsBtn1)
-    buttons.prepend(...$optionsBtn2)
-
-    const btnsHandler = (bool) => {
-        selector.map((e) => {
-            bool ? quests[e].check = true : quests[e] = "placeholder"
-        })
-
-        if (selector.length !== 0) {
-            refresh()
-            mainsBtn[0].classList.remove("d-none")
-            mainsBtn[1].classList.remove("d-none")
-            $optionsBtn.remove()
-        }
-    }
+    buttons.append(...$optionsBtn)
 
     $('.options-select-all').click(() => {li.find('> input').click()})
 
@@ -384,8 +393,7 @@ const selectQuest = () => {
             mainsBtn[0].classList.remove("d-none")
             $listCheck.classList.remove("fa-xmark")
 
-            $optionsBtn1.remove()
-            $optionsBtn2.remove()
+            $optionsBtn.remove()
 
             refresh()
         }

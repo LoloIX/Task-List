@@ -15,15 +15,17 @@ const setInput = (bool) => {
             <div class="form">
                 <div class="form-group">
                     <input type="text" id="input-data" placeholder=" ">
-                    <label for="name" class="form-label">${bool ? "Task name" : "Quest name"}</label>
+                    <label for="name" class="form-label">${bool ? "Task" : "Quest"} name</label>
                 </div>
             </div>
         </div>
     `)
 
+    let append = bool ? main.append($mainButton) : ""
+
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
-        bool ? main.append($mainButton) : ""
+        append
     })
  
     bool ? $('#set-input').remove() : ""
@@ -32,7 +34,7 @@ const setInput = (bool) => {
         if (e.keyCode === 13) {
             handlerAddTask(undefined, bool)
             $textBox.remove()
-            bool ? main.append($mainButton) : ""
+            append
         }
     })
 
