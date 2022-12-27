@@ -28,7 +28,7 @@ const setInput = (bool) => {
         append
     })
  
-    bool ? $('#set-input').remove() : ""
+    if (bool) {$('#set-input').remove()}
 
     $textBox.find('#input-data').keydown((e) => {
         if (e.keyCode === 13) {
@@ -54,9 +54,12 @@ const handlerAddTask = (array, bool) => {
         {"cycle": undefined}
     ]
     let owo = bool ? entry[0] : entry[1]
-
-    if ($('#input-data').val() !== undefined && $('#input-data').val() !== "") {
-        result({"name": $('#input-data').val(), "check": false, "expanded": false, owo})
+    
+    if (array === undefined) {
+        if ($('#input-data').val() !== "" && $('#input-data').val() !== undefined) {
+            result({"name": $('#input-data').val(), "check": false, "expanded": false, owo})
+            console.log("wola")
+        }
     } else {
         Object.keys(array).map((key) => {
             return result(array[key])

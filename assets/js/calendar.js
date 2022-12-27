@@ -12,27 +12,8 @@ let months = [
     "November",
     "December"
 ]
-let quests = [
-   {name: "wola",
-    check: true,
-    cycle: undefined,
-    data:[]},
-   {name: "nyasu",
-    check: false,
-    cycle: undefined,
-    data:[]}
-]
-let storagedQuests = {
-    "9": 
-        [{name: "wola",
-        check: true,
-        cycle: undefined,
-        data:[]},
-        {name: "nyasu",
-        check: false,
-        cycle: undefined,
-        data:[]}]
-}
+let quests = []
+let storagedQuests = {}
 
 let i = -1
 let days
@@ -48,6 +29,13 @@ let ul = span.find('ul')
 
 const showSpan = () => {
     document.body.dataset.quests = "false"
+
+    let save = tbody[0].children[0]
+
+    tbody[0].innerHTML = ""
+    tbody[0].append(save)
+
+    createCalendar(currentMonth, currentYear)
 }
 
 const monthLength = (month, year) => {
@@ -64,6 +52,8 @@ const handlerSetInput = (event) => {
 
     $date.innerText = event.path[0].innerText + " " + currentDate.innerText
     span.prepend($date)
+
+    handlerAddTask(storagedQuests[event.path[0].innerText], false)
 
     setInput(false)
 }
@@ -84,12 +74,17 @@ const dailyQuests = (item) => {
 
     if (item === "placeholder") {quests.splice(il, 1); i--; return}
 
-    quests[il] = {
+    quests.push({
         name: item.name,
         check: item.check,
         cycle: item.cycle,
         data:[]
-    }
+    })
+
+    let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
+
+    storagedQuests[num] = []
+    storagedQuests[num].push(...quests)
 
     let $quest = $(`
         <li>
@@ -247,6 +242,8 @@ const dailyQuests = (item) => {
     $quest.find('.delete').click((e) => {
         $quest.remove()
         quests.splice(il, 1)
+        storagedQuests[num] = []
+        storagedQuests[num].push(...quests)
     })
 
     if(item.data !== undefined) {
@@ -317,7 +314,6 @@ const changeMonth = (bool) => {
     let save = tbody[0].children[0]
 
     tbody[0].innerHTML = ""
-
     tbody[0].append(save)
 
     createCalendar(currentMonth, currentYear)
