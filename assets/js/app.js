@@ -15,24 +15,26 @@ const setInput = (bool) => {
             <div class="form">
                 <div class="form-group">
                     <input type="text" id="input-data" placeholder=" ">
-                    <label for="name" class="form-label">${bool ? "Task name" : "Quest name"}</label>
+                    <label for="name" class="form-label">${bool ? "Task" : "Quest"} name</label>
                 </div>
             </div>
         </div>
     `)
 
+    let append = bool ? main.append($mainButton) : ""
+
     $textBox.find('#input-data').blur(() => {
         $textBox.remove()
-        bool ? main.append($mainButton) : ""
+        append
     })
  
-    bool ? $('#set-input').remove() : ""
+    if (bool) {$('#set-input').remove()}
 
     $textBox.find('#input-data').keydown((e) => {
         if (e.keyCode === 13) {
             handlerAddTask(undefined, bool)
             $textBox.remove()
-            bool ? main.append($mainButton) : ""
+            append
         }
     })
 
@@ -53,8 +55,10 @@ const handlerAddTask = (array, bool) => {
     ]
     let owo = bool ? entry[0] : entry[1]
 
-    if ($('#input-data').val() !== undefined && $('#input-data').val() !== "") {
-        result({"name": $('#input-data').val(), "check": false, "expanded": false, owo})
+    if (array === undefined) {
+        if ($('#input-data').val() !== "" && $('#input-data').val() !== undefined) {
+            result({"name": $('#input-data').val(), "check": false, "expanded": false, owo})
+        }
     } else {
         Object.keys(array).map((key) => {
             return result(array[key])
