@@ -49,7 +49,7 @@ const handlerSetInput = (event) => {
     span.prepend($date)
     
     refreshCalendar()
-    
+
     handlerAddTask(storagedQuests[event.path[0].innerText], false)
 
     setInput(false)
@@ -77,6 +77,9 @@ const dailyQuests = (item) => {
         cycle: item.cycle,
         data:[]
     })
+
+    console.log(quests)
+    console.log(il)
 
     let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
 
@@ -418,6 +421,7 @@ const refreshCalendar = () => {
     tbody[0].append(save)
 
     quests = []
+    i = -1
 
     createCalendar(currentMonth, currentYear)
 }
