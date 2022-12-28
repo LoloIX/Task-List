@@ -37,7 +37,7 @@ const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-const handlerSetInput = (event) => {
+const handlerSetInput = (event, day) => {
     let findDate = span.find('h3')
     let $date = document.createElement('h3')
 
@@ -45,12 +45,12 @@ const handlerSetInput = (event) => {
 
     if (findDate !== undefined) findDate.remove()
 
-    $date.innerText = event.path[0].innerText + " " + currentDate.innerText
+    $date.innerText = day + " " + currentDate.innerText
     span.prepend($date)
     
     refreshCalendar()
 
-    handlerAddTask(storagedQuests[event.path[0].innerText], false)
+    handlerAddTask(storagedQuests[day], false)
 
     setInput(false)
 }
@@ -77,9 +77,6 @@ const dailyQuests = (item) => {
         cycle: item.cycle,
         data:[]
     })
-
-    console.log(quests)
-    console.log(il)
 
     let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
 
@@ -193,9 +190,7 @@ const dailyQuests = (item) => {
                 }
             })
             
-        } else {
-            quests[il].data.push(subquest)
-        }
+        } else quests[il].data.push(subquest)
     }
 
     var questCheck = $quest.find(".check")
@@ -249,12 +244,8 @@ const dailyQuests = (item) => {
     if(item.data !== undefined) {
         questDiv.css("opacity", "1")
         questDiv.css("margin", "20px")
-        item.data.map((e) => {
-            addSubQuest(e)
-        })
-    } else {
-        questDiv.animate({opacity: 1, margin: "20px"}, 300)
-    }
+        item.data.map((e) => {addSubQuest(e)})
+    } else questDiv.animate({opacity: 1, margin: "20px"}, 300)
     
     ul.append($quest)
 }
@@ -272,17 +263,29 @@ const createCalendar = (month, year) => {
         for (let j = 0; j < 7; j++) {
 
             let td = document.createElement("td")
-
-            td.innerText = days
             
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
             } else {
+                let text = document.createElement("div")
+                let day = document.createElement("p")
+
+                day.className = "calendar-day"
+                day.innerText = days
+                text.append(day)
+                td.append(text)
+
                 if (Object.keys(storagedQuests).includes(`${days}`)) {
-                    td.style.backgroundColor = "var(--quest)"
+                    let mainQuest = document.createElement("p")
+                    day.style.fontSize = "25px"
+                    mainQuest.innerText = storagedQuests[days][0].name
+
+                    td.querySelector("div").append(mainQuest)
+
+                    td.style.backgroundColor = "var(--busy-day)"
                 }
                 
-                td.addEventListener("click", handlerSetInput)
+                td.addEventListener("click", () => {handlerSetInput(event, day.innerText)})
                 days++
             }
 
@@ -307,9 +310,7 @@ const changeMonth = (bool) => {
     if (currentMonth === num) {
         currentYear += sign
         currentMonth = newMonth
-    } else {
-        currentMonth += sign
-    }
+    } else currentMonth += sign
 
     let save = tbody[0].children[0]
 
@@ -345,11 +346,13 @@ const selectQuest = () => {
     
     findQuests
         .animate({width: "300px", margin: "20px 20px 20px auto"}, 500)
-        .addClass("select")
+        .addClass("quest-select")
 
     for (let index = 0; index < li.length; index++) {
         let $check = $(li[index]).find('> .btn')
-    
+        
+        $(li[index]).addClass("selector-active")
+
         $check.click(() => {
             selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
         })
