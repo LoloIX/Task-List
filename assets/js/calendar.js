@@ -278,14 +278,15 @@ const createCalendar = (month, year) => {
                 if (Object.keys(storagedQuests).includes(`${days}`)) {
                     let $mainQuest = td.querySelector(".printed-quest")
                     let $calendarDay = td.querySelector(".calendar-day")
+
+                    console.log($mainQuest)
+                    console.log($calendarDay)
                     $mainQuest.style.display = "block"
                     $calendarDay.style.fontSize = "25px"
-                    
+
                     $mainQuest.innerText = storagedQuests[days][0].name
 
-                    td.querySelector("div").append(mainQuest)
-
-                    td.style.backgroundColor = "var(--busy-day)"
+                    td.classList.add("filled-td")
                 }
 
                 let save = days

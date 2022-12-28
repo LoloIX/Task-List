@@ -120,6 +120,11 @@
     padding: 0px 5px;
   }
 
+  .filled-td {
+    border: 2px solid transparent;
+    background-color: var(--busy-day);
+  }
+
   td:hover {
     border: 2px solid WHITE;
     transform: scale(1.05);
