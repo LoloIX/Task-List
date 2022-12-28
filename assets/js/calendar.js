@@ -267,25 +267,30 @@ const createCalendar = (month, year) => {
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
             } else {
-                let text = document.createElement("div")
-                let day = document.createElement("p")
-
-                day.className = "calendar-day"
-                day.innerText = days
-                text.append(day)
-                td.append(text)
+                let $text = `
+                    <div>
+                        <p class="calendar-day">${days}</p>
+                        <p class="printed-quest"><p>
+                    </div>
+                `
+                td.innerHTML = $text
 
                 if (Object.keys(storagedQuests).includes(`${days}`)) {
-                    let mainQuest = document.createElement("p")
-                    day.style.fontSize = "25px"
-                    mainQuest.innerText = storagedQuests[days][0].name
+                    let $mainQuest = td.querySelector(".printed-quest")
+                    let $calendarDay = td.querySelector(".calendar-day")
+                    $mainQuest.style.display = "block"
+                    $calendarDay.style.fontSize = "25px"
+                    
+                    $mainQuest.innerText = storagedQuests[days][0].name
 
                     td.querySelector("div").append(mainQuest)
 
                     td.style.backgroundColor = "var(--busy-day)"
                 }
+
+                let save = days
                 
-                td.addEventListener("click", () => {handlerSetInput(event, day.innerText)})
+                td.addEventListener("click", () => {handlerSetInput(event, save)})
                 days++
             }
 

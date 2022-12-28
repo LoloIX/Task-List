@@ -143,13 +143,13 @@
     font-size: 35px;
   }
 
-  td div > p:last-child:not(.calendar-day) {
+  .printed-quest {
+    display: none;
     margin: 5px 0px 25px;
     background-color: var(--days-color);
     border-radius: 15px;
-    max-width: 100%;
-    overflow: scroll;
-    word-break:break-all;
+    width: 100%;
+    word-break: break-all;
   }
 
   .header {
@@ -172,7 +172,7 @@
   .text-btn:hover {
     transform: scale(1);
     transition: all .3s;
-    border: 1px solid var(--quart-bright);
+    border: 1px solid var(--quart-bright) !important;
     color: WHITE;
   }
 
