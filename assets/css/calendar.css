@@ -392,7 +392,7 @@
   #daily-quests ul > li > input {
     margin: auto;
     translate: -100px;
-    transition: all .3s;
+    transition: all .3s, translate 1s;
     border: 2px solid var(--check-box);
     border-radius: 50%;
     appearance: none;
@@ -418,6 +418,10 @@
   #daily-quests ul > li > input:checked {
     animation: shadow .3s;
     --scale: scale(1)
+  }
+
+  #daily-quests ul > li.selector-active > input {
+    translate: 0px !important;
   }
 
   @keyframes shadow {

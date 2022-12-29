@@ -86,7 +86,7 @@ const handlerSetInput = (day) => {
 }
 
 const refreshList = () => {
-    ul.querySelector("li").remove()
+    ul.innerHTML = ""
                     
     let refreshList = quests
     quests = []
@@ -384,7 +384,7 @@ const selectQuest = () => {
 
     let selector = []
 
-    let li = ul.find('li')
+    let li = ul.querySelectorAll("li")
     let findQuests = $('.quest')
     
     findQuests
@@ -392,15 +392,14 @@ const selectQuest = () => {
         .addClass("quest-select")
 
     for (let index = 0; index < li.length; index++) {
-        let $check = $(li[index]).find('> .btn')
+        let $check = li[index].querySelector('.btn')
+        console.log($check)
         
-        $(li[index]).addClass("selector-active")
+        li[index].classList.add("selector-active")
 
-        $check.click(() => {
+        $check.addEventListener("click", () => {
             selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
         })
-        
-        $check.animate({translate: "0px"}, 1)
     }
 
     mainsBtn[0].classList.add("d-none")
@@ -433,7 +432,7 @@ const selectQuest = () => {
 
     buttons.append(...$optionsBtn)
 
-    $('.options-select-all').click(() => {li.find('> input').click()})
+    $('.options-select-all').click(() => {li.querySelector("input").click()})
 
     $('.options-delete').click(() => {
         selector.map((e) => {
@@ -455,7 +454,7 @@ const selectQuest = () => {
     $('.options-complete').click(() => {
         selector.map((e) => {
             quests[e].check = !quests[e].check
-            let element = $(li[e]).find('.check')
+            let element = li.querySelectorAll(".check")
 
             if (quests[e].check) {
                 element
