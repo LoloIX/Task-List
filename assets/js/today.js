@@ -118,8 +118,6 @@ const addTask = (task) => {
         })
 
         $subtask.on('dragstart', () => {subdragging = itemlist[il].data.indexOf(subtask)})
-        
-        // $subtask.on('dragenter', (e) => {$('.subtask').addClass("drag-over")})
 
         $subtask.on('drop', () => {
             let index = itemlist[il].data.indexOf(subtask)
