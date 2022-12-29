@@ -86,7 +86,7 @@ const handlerSetInput = (day) => {
 }
 
 const refreshList = () => {
-    ul.find('li').remove()
+    ul.querySelector("li").remove()
                     
     let refreshList = quests
     quests = []
@@ -98,16 +98,16 @@ const refreshList = () => {
 const dailyQuests = (item) => {
     i++
     let il = i
-
+    
     if (item === "placeholder") {quests.splice(il, 1); i--; return}
-
+    
     quests.push({
         name: item.name,
         check: item.check,
         cycle: item.cycle,
         data:[]
     })
-
+    
     let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
 
     storagedQuests[num] = []
@@ -477,7 +477,7 @@ const selectQuest = () => {
 const refreshCalendar = () => {
     let save = $tbody[0].children[0]
 
-    ul.querySelector("*")?.remove()
+    ul.innerHTML = ""
     $tbody[0].innerHTML = ""
     $tbody[0].append(save)
 
