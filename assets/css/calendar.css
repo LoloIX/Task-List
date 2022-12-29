@@ -4,6 +4,8 @@
     --quest: #0a5cb8;
     --buttons: #2170f3;
     --check-box: #001939;
+    --busy-day: #004fad87; 
+    --days-color: #53a6e8;
   }
   
   #main {
@@ -97,7 +99,7 @@
   }
 
   tr {
-    background-color: #53a6e8;
+    background-color: var(--days-color);
     color: WHITE;
 
   }
@@ -113,8 +115,9 @@
   th, td {
     border: 25px solid transparent;
     font-size: 35px;
-    height: 45px;
+    height: 50px;
     transition: all .3s;
+    padding: 0px 5px;
   }
 
   td:hover {
@@ -126,6 +129,44 @@
 
   td:active {
     transform: scale(0.9);
+  }
+
+  td div {
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  td div > p:last-child:not(.printed-quest) {
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  td div > p:last-child:not(:empty, .printed-quest)::before {
+    content: ". . .";
+    rotate: 90deg;
+  }
+
+  .filled-td {
+    border: 2px solid transparent;
+    background-color: var(--busy-day);
+  }
+
+  .calendar-day {
+    font-size: 35px;
+  }
+
+  .printed-quest {
+    display: none;
+    margin: 3px 0px;
+    background-color: var(--days-color);
+    border-radius: 15px;
+    width: 100%;
+    word-break: break-all;
   }
 
   .header {
@@ -148,7 +189,7 @@
   .text-btn:hover {
     transform: scale(1);
     transition: all .3s;
-    border: 1px solid var(--quart-bright);
+    border: 1px solid var(--quart-bright) !important;
     color: WHITE;
   }
 
@@ -311,9 +352,17 @@
 
   /* SELECTOR */
   
-  .select {
+  .quest-select {
     animation: shaking .8s;
     animation-iteration-count: infinite;
+  }
+  
+  .selector-active {
+    transition: all .3s;
+  }
+
+  .selector-active:hover {
+    background-color: var(--quart-bright);
   }
 
   #daily-quests ul > li:nth-child(odd) > .select {
