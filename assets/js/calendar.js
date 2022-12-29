@@ -393,7 +393,6 @@ const selectQuest = () => {
 
     for (let index = 0; index < li.length; index++) {
         let $check = li[index].querySelector('.btn')
-        console.log($check)
         
         li[index].classList.add("selector-active")
 
@@ -432,13 +431,16 @@ const selectQuest = () => {
 
     buttons.append(...$optionsBtn)
 
-    $('.options-select-all').click(() => {li.querySelector("input").click()})
+    $('.options-select-all').click(() => {
+        for (let index = 0; index < li.length; index++) {
+            li[index].querySelector("input").click()
+        }
+    })
 
     $('.options-delete').click(() => {
         selector.map((e) => {
             quests[e] = "placeholder"
             li[e].remove()
-            li.splice(e, 1, "placeholder")
         })
 
         if (selector.length === quests.length) {
@@ -454,16 +456,19 @@ const selectQuest = () => {
     $('.options-complete').click(() => {
         selector.map((e) => {
             quests[e].check = !quests[e].check
-            let element = li.querySelectorAll(".check")
 
             if (quests[e].check) {
-                element
-                    .removeClass("fa-regular fa-square")
-                    .addClass("fa-solid fa-square-check")
+                for (let index = 0; index < li.length; index++) {
+                    let element = li[index].querySelector(".check")
+                    element.classList.remove("fa-regular", "fa-square")
+                    element.classList.add("fa-solid", "fa-square-check")
+                }
             } else {
-                element
-                    .removeClass("fa-solid fa-square-check")
-                    .addClass("fa-regular fa-square")
+                for (let index = 0; index < li.length; index++) {
+                    let element = li[index].querySelector(".check")
+                    element.classList.remove("fa-solid", "fa-square-check")
+                    element.classList.add("fa-regular", "fa-square")
+                }
             }
         })
     })
