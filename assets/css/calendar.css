@@ -3,6 +3,7 @@
     --span: #6eb8f5;
     --quest: #0a5cb8;
     --buttons: #2170f3;
+    --btn-hover: #2a7dc4;
     --check-box: #001939;
     --busy-day: #004fad87; 
     --days-color: #53a6e8;
@@ -166,7 +167,8 @@
     margin: 3px 0px;
     background-color: var(--days-color);
     border-radius: 15px;
-    width: 100%;
+    width: calc(100% - 15px);
+    padding: 0px 10px;
     min-height: 24px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -499,6 +501,57 @@
 
   .options-complete {
     animation: opts-complete;
+  }
+
+  .cycle-options {
+    height: 0px;
+    width: 300px;
+    background-color: var(--background);
+    position: absolute;
+    top: -95px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    transform: scale(0);
+    opacity: 0;
+    transition: all .3s;
+  }
+
+  .show-options {
+    height: 75px;
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .cycle-options::after {
+    content: "";
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    background-color: var(--background);
+    bottom: -7.5px;
+    box-sizing: border-box;
+    left: 25px;
+    rotate: 45deg;
+    z-index: -1;
+  }
+
+  .cycle-options > button {
+    transition: all .3s;
+    color: WHITE;
+    width: 35px;
+    height: 35px;
+    font-size: 17px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--tertiary);
+  }
+
+  .cycle-options > button:hover {
+    border: 2px solid var(--primary) ;
+    background-color: var(--btn-hover);
   }
 
   #buttons > button {

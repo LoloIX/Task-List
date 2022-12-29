@@ -1,46 +1,74 @@
+// let $mainButton = $(`
+//         <button id="set-input" onclick={setInput(${bool})}>
+//             <i class="fa-solid fa-plus"></i>
+//             "Add task"
+//         </button>
+//     `)
+
+//     let $textBox = $(`
+//         <div style="margin: 40px 17% 0px">
+//             <div class="form">
+//                 <div class="form-group">
+//                     <input type="text" id="input-data" placeholder=" ">
+//                     <label for="name" class="form-label">${bool ? "Task" : "Quest"} name</label>
+//                 </div>
+//             </div>
+//         </div>
+//     `)
+// $textBox.find('#input-data').blur(() => {
+//         $textBox.remove()
+//         append
+//     })
+
+//     $textBox.find('#input-data').keydown((e) => {
+//         if (e.keyCode === 13) {
+//             handlerAddTask(undefined, bool)
+//             $textBox.remove()
+//             append
+//         }
+//     })
+
 var body = $('body')
-var main = $('#main')
 var span = $('#daily-quests')
 
-const setInput = (bool) => {
-    let $mainButton = $(`
-        <button id="set-input" onclick={setInput(${bool})}>
+const setInput = () => {
+    let $main = document.getElementById("main")
+    let $setInput = document.getElementById("set-input")
+
+    $setInput.remove()
+
+    let $mainButton = `
+        <button id="set-input" onclick={setInput()}>
             <i class="fa-solid fa-plus"></i>
-            ${bool ? "Add task" : ""}
+            Add task
         </button>
-    `)
+    `
 
-    let $textBox = $(`
-        <div style="margin: 40px 17% 0px">
-            <div class="form">
-                <div class="form-group">
-                    <input type="text" id="input-data" placeholder=" ">
-                    <label for="name" class="form-label">${bool ? "Task" : "Quest"} name</label>
-                </div>
-            </div>
+    let $textBox = `
+        <div class="input-task">
+            <input type="text" id="input-data" placeholder=" ">
+            <label for="name">Task name</label>
         </div>
-    `)
+    `
 
-    let append = bool ? main.append($mainButton) : ""
+    $main.innerHTML += $textBox
 
-    $textBox.find('#input-data').blur(() => {
-        $textBox.remove()
-        append
+    let $inputData = $main.querySelector('#input-data')
+
+    $inputData.addEventListener("blur", () => {
+        $main.querySelector('div:last-child:not(.progress, .hidden)').remove()
+        $main.innerHTML += $mainButton
     })
- 
-    if (bool) {$('#set-input').remove()}
-
-    $textBox.find('#input-data').keydown((e) => {
+    
+    $inputData.addEventListener("keyup", (e) => {
         if (e.keyCode === 13) {
-            handlerAddTask(undefined, bool)
-            $textBox.remove()
-            append
+            handlerAddTask(undefined, true)
+            $main.querySelector('div:last-child:not(.progress, .hidden)').remove()
+            $main.innerHTML += $mainButton
         }
     })
 
-    bool ? main.append($textBox) : ul.append($textBox)
-
-    $('#input-data').focus()
+    $inputData.focus()
 }
 
 const showMenu = () => {

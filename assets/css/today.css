@@ -30,7 +30,7 @@
   }
 
   .elements {
-    padding: 5px 15% 100px;
+    padding: 5px 15% 25px;
     overflow-x: hidden;
     overflow-y: scroll;
     max-height: calc(100vh - 336px);

@@ -24,7 +24,7 @@ let currentYear = date.getFullYear()
 let currentDate = document.getElementById("CurrentDate")
 let arrowBtns = document.getElementsByClassName("text-btn")
 let tbody = document.getElementsByTagName("tbody")
-let btn = $("#buttons")
+let buttons = document.getElementById("buttons")
 let ul = span.find('ul')
 
 const showSpan = () => {
@@ -37,7 +37,7 @@ const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-const handlerSetInput = (event, day) => {
+const handlerSetInput = (day) => {
     let findDate = span.find('h3')
     let $date = document.createElement('h3')
 
@@ -282,12 +282,9 @@ const createCalendar = (month, year) => {
                         <p class="calendar-day">${days}</p>
                         <p class="printed-quest"></p>
                         <p>${storagedQuests[days].length !== 1 ? percent : ""}</p>
-                    </div>
-                    `
+                    </div>`
 
-                    console.log(td.innerHTML)
                     td.innerHTML = $text
-                    console.log(td.innerHTML)
 
                     let $mainQuest = td.querySelector(".printed-quest")
                     let $calendarDay = td.querySelector(".calendar-day")
@@ -302,7 +299,7 @@ const createCalendar = (month, year) => {
 
                 let save = days
                 
-                td.addEventListener("click", () => {handlerSetInput(event, save)})
+                td.addEventListener("click", () => {handlerSetInput(save)})
                 days++
             }
 
@@ -340,23 +337,22 @@ const changeMonth = (bool) => {
 const selectQuest = () => {
     let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
     let $listCheck = mainsBtn[1].querySelector("i")
-    let $selectorOpts = document.querySelectorAll(".options-select-all, .options-complete, .options-delete, .options-repeat")
+    let $selectorOpts = buttons.querySelectorAll(".options-select-all, .options-complete, .options-delete, div")
 
     if ($listCheck.classList.contains("fa-xmark")) {
         for (let index = 0; index < $selectorOpts.length; index++) $selectorOpts[index].remove()
 
         mainsBtn[0].classList.remove("d-none")
-        $listCheck.classList.toggle("fa-xmark")
+        $listCheck.classList.remove("fa-xmark")
 
         refreshList()
 
         return
     }
     
-    $listCheck.classList.toggle("fa-xmark")
+    $listCheck.classList.add("fa-xmark")
 
     let selector = []
-    let buttons = document.getElementById("buttons")
 
     let li = ul.find('li')
     let findQuests = $('.quest')
@@ -380,19 +376,30 @@ const selectQuest = () => {
     mainsBtn[0].classList.add("d-none")
 
     let $optionsBtn = $(`
+        <button class="options-select-all option-btn">
+            <i title= "Select all" class="fa-solid fa-list-ul"></i>
+        </button>
+        <div style="position: absolute;">
+            <div class="cycle-options">
+                <button>S</button>
+                <button>M</button>
+                <button>T</button>
+                <button>W</button>
+                <button>T</button>
+                <button>F</button>
+                <button>S</button>
+            </div>
+            <button class="option-btn options-repeat">
+                <i class="fa-solid fa-repeat"></i>
+            </button>
+        </div>
         <button class="options-delete option-btn">
             <i title="Delete Quest" class="fa-solid fa-trash"></i>
         </button>
         <button class="options-complete option-btn">
             <i title="Complete Quest" class="fa-regular fa-circle-check"></i>
-        </button>
-        <button class="options-select-all option-btn">
-            <i title= "Select all" class="fa-solid fa-list-ul"></i>
-        </button>
-        <button class="option-btn options-repeat">
-            <i class="fa-solid fa-repeat"></i>
-        </button>
-    `)
+            </button>
+        `)
 
     buttons.append(...$optionsBtn)
 
@@ -430,6 +437,12 @@ const selectQuest = () => {
                     .addClass("fa-regular fa-square")
             }
         })
+    })
+
+    $('.options-repeat').click(() => {
+        $('.cycle-options').toggleClass("show-options")
+
+
     })
 }
 
