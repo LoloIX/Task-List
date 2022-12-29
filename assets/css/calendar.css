@@ -115,14 +115,9 @@
   th, td {
     border: 25px solid transparent;
     font-size: 35px;
-    height: 45px;
+    height: 50px;
     transition: all .3s;
     padding: 0px 5px;
-  }
-
-  .filled-td {
-    border: 2px solid transparent;
-    background-color: var(--busy-day);
   }
 
   td:hover {
@@ -144,13 +139,30 @@
     justify-content: center;
   }
 
+  td div > p:last-child:not(.printed-quest) {
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  td div > p:last-child:not(:empty, .printed-quest)::before {
+    content: ". . .";
+    rotate: 90deg;
+  }
+
+  .filled-td {
+    border: 2px solid transparent;
+    background-color: var(--busy-day);
+  }
+
   .calendar-day {
     font-size: 35px;
   }
 
   .printed-quest {
     display: none;
-    margin: 5px 0px 25px;
+    margin: 3px 0px;
     background-color: var(--days-color);
     border-radius: 15px;
     width: 100%;

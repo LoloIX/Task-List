@@ -267,20 +267,28 @@ const createCalendar = (month, year) => {
             if (j < InitialDay && i === 0 || days > maxDays) {
                 td.innerHTML = ""
             } else {
-                let $text = `
+                td.innerHTML = days
+
+                if (Object.keys(storagedQuests).includes(`${days}`)) {
+                    let count = 0
+
+                    storagedQuests[days].map((e) => {
+                        e.check ? count++ : ""
+                    })
+                    
+                    let percent = count + "/" + storagedQuests[days].length
+                    let $text = `
                     <div>
                         <p class="calendar-day">${days}</p>
                         <p class="printed-quest"><p>
+                        <p>${storagedQuests[days].length !== 1 ? percent : ""}</p>
                     </div>
-                `
-                td.innerHTML = $text
+                    `
+                    td.innerHTML = $text
 
-                if (Object.keys(storagedQuests).includes(`${days}`)) {
                     let $mainQuest = td.querySelector(".printed-quest")
                     let $calendarDay = td.querySelector(".calendar-day")
 
-                    console.log($mainQuest)
-                    console.log($calendarDay)
                     $mainQuest.style.display = "block"
                     $calendarDay.style.fontSize = "25px"
 
