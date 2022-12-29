@@ -21,11 +21,23 @@ let date = new Date()
 let currentMonth = date.getMonth()
 let currentYear = date.getFullYear()
 
-let currentDate = document.getElementById("CurrentDate")
-let arrowBtns = document.getElementsByClassName("text-btn")
-let tbody = document.getElementsByTagName("tbody")
+let $currentDate = document.getElementById("CurrentDate")
+let $arrowBtns = document.getElementsByClassName("text-btn")
+let $tbody = document.getElementsByTagName("tbody")
 let buttons = document.getElementById("buttons")
-let ul = span.find('ul')
+let $span = document.getElementById("daily-quests")
+let ul = $span.querySelector("ul")
+
+const setInput = () => {
+    let $textBox = `
+        <div class="input-task">
+            <input type="text" id="input-data" placeholder=" ">
+            <label for="name">Task name</label>
+        </div>
+    `
+
+    ul.insertAdjacentHTML("beforeend", $textBox)
+}
 
 const showSpan = () => {
     document.body.dataset.quests = "false"
@@ -38,15 +50,15 @@ const monthLength = (month, year) => {
 }
 
 const handlerSetInput = (day) => {
-    let findDate = span.find('h3')
-    let $date = document.createElement('h3')
+    let findDate = $span.querySelector("h3")
+    let $date = document.createElement("h3")
 
     document.body.dataset.quests = "true"
 
-    if (findDate !== undefined) findDate.remove()
+    if (findDate !== null) findDate.remove()
 
-    $date.innerText = day + " " + currentDate.innerText
-    span.prepend($date)
+    $date.innerText = day + " " + $currentDate.innerText
+    $span.prepend($date)
     
     refreshCalendar()
 
@@ -251,7 +263,7 @@ const dailyQuests = (item) => {
 }
 
 const createCalendar = (month, year) => {
-    currentDate.innerText = months[month] + " " + String(year)
+    $currentDate.innerText = months[month] + " " + String(year)
 
     let InitialDay = (new Date(year, month)).getDay()
     days = 1
@@ -306,7 +318,7 @@ const createCalendar = (month, year) => {
             row.append(td)
         }
 
-        tbody[0].append(row)
+        $tbody[0].append(row)
     }
 }
 
@@ -326,10 +338,10 @@ const changeMonth = (bool) => {
         currentMonth = newMonth
     } else currentMonth += sign
 
-    let save = tbody[0].children[0]
+    let save = $tbody[0].children[0]
 
-    tbody[0].innerHTML = ""
-    tbody[0].append(save)
+    $tbody[0].innerHTML = ""
+    $tbody[0].append(save)
 
     createCalendar(currentMonth, currentYear)
 }
@@ -447,11 +459,11 @@ const selectQuest = () => {
 }
 
 const refreshCalendar = () => {
-    let save = tbody[0].children[0]
+    let save = $tbody[0].children[0]
 
-    ul.find("*").remove()
-    tbody[0].innerHTML = ""
-    tbody[0].append(save)
+    ul.querySelector("*")?.remove()
+    $tbody[0].innerHTML = ""
+    $tbody[0].append(save)
 
     quests = []
     i = -1
@@ -468,7 +480,7 @@ const keyArrow = (e) => {
     }
 }
 
-arrowBtns[0].addEventListener("keyup", keyArrow)
-arrowBtns[1].addEventListener("keyup", keyArrow)
+$arrowBtns[0].addEventListener("keyup", keyArrow)
+$arrowBtns[1].addEventListener("keyup", keyArrow)
 
 createCalendar(currentMonth, currentYear)
