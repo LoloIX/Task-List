@@ -169,7 +169,8 @@
     width: 100%;
     min-height: 24px;
     overflow: hidden;
-    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header {

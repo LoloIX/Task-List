@@ -280,11 +280,14 @@ const createCalendar = (month, year) => {
                     let $text = `
                     <div>
                         <p class="calendar-day">${days}</p>
-                        <p class="printed-quest"><p>
+                        <p class="printed-quest"></p>
                         <p>${storagedQuests[days].length !== 1 ? percent : ""}</p>
                     </div>
                     `
+
+                    console.log(td.innerHTML)
                     td.innerHTML = $text
+                    console.log(td.innerHTML)
 
                     let $mainQuest = td.querySelector(".printed-quest")
                     let $calendarDay = td.querySelector(".calendar-day")
