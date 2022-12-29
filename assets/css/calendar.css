@@ -161,11 +161,14 @@
   }
 
   .printed-quest {
+    font-size: 20px;
     display: none;
     margin: 3px 0px;
     background-color: var(--days-color);
     border-radius: 15px;
     width: 100%;
+    min-height: 24px;
+    overflow: hidden;
     word-break: break-all;
   }
 
