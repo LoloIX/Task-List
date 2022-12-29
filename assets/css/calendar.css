@@ -61,16 +61,25 @@
     display: block;
   }
 
-  #input-data:focus + .form-label,
-  #input-data:not(:placeholder-shown) + .form-label {
-    color: BLACK;
-    font-weight: 300;
+  #input-data:focus + label,
+  #input-data:not(:placeholder-shown) + label {
+    transform: scale(1) translateY(-30px);
   }
 
-  .form-label {
-    font-size: 22px;
-    transform: translateY(-24px);
+  .input-quest label {
+    font-size: 20px;
+    transform: translateY(-30px);
     transform-origin: top left;
+    color: BLACK;
+    position: absolute;
+    top: 0;
+    left: 5px;
+  }
+
+  .input-quest {
+    margin: 40px 17% 0px;
+    position: relative;
+    --color: BLACK;
   }
   /* CALENDAR */
 

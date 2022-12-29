@@ -99,8 +99,6 @@
 
   #input-data:focus + label,
   #input-data:not(:placeholder-shown) + label {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 100;
     transform: translateY(-24px) scale(.7);
     transform-origin: top left;
     --color: var(--primary);
@@ -138,21 +136,6 @@
     font-style: italic;
     outline: none;
     border-bottom: .2px solid BLACK;
-  }
-
-  .input-task {
-    margin: 40px 17% 0px;
-    position: relative;
-    --color: BLACK;
-  }
-
-  .input-task label {
-    color: var(--color);
-    position: absolute;
-    top: 0;
-    left: 5px;
-    transform: translateY(10px);
-    transition: transform .5s, color .3s;
   }
 
   .btn {

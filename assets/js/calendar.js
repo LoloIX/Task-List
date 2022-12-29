@@ -30,13 +30,31 @@ let ul = $span.querySelector("ul")
 
 const setInput = () => {
     let $textBox = `
-        <div class="input-task">
+        <div class="input-quest">
             <input type="text" id="input-data" placeholder=" ">
-            <label for="name">Task name</label>
+            <label for="name">Quest name</label>
         </div>
     `
 
     ul.insertAdjacentHTML("beforeend", $textBox)
+    let $inputQuest = document.getElementsByClassName("input-quest")
+    let $inputData = document.getElementById("input-data")
+
+    $inputData.addEventListener("keyup", (e) => {
+        if (e.keyCode === 13) {
+            handlerAddTask(undefined, false)
+            $inputQuest[0].setAttribute("deleting", "true")
+            $inputQuest[0].remove()
+        }
+    })
+
+    $inputData.addEventListener("blur", () => {
+        if ($inputQuest[0].attributes?.deleting?.value !== "true") {
+            $inputQuest[0].remove()
+        }
+    })
+
+    $inputData.focus()
 }
 
 const showSpan = () => {
@@ -259,7 +277,7 @@ const dailyQuests = (item) => {
         item.data.map((e) => {addSubQuest(e)})
     } else questDiv.animate({opacity: 1, margin: "20px"}, 300)
     
-    ul.append($quest)
+    ul.append(...$quest)
 }
 
 const createCalendar = (month, year) => {
@@ -453,8 +471,6 @@ const selectQuest = () => {
 
     $('.options-repeat').click(() => {
         $('.cycle-options').toggleClass("show-options")
-
-
     })
 }
 
