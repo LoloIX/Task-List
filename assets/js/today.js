@@ -73,7 +73,7 @@ const addTask = (task) => {
         name: task.name,
         check: task.check,
         expanded: task.expanded,
-        lock: task.lock,
+        lock: task.lock !== undefined ? task.lock : false,
         data:[]
     }
 

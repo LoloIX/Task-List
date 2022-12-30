@@ -533,12 +533,6 @@
     transition: all .3s;
   }
 
-  .show-options {
-    height: 75px;
-    transform: scale(1);
-    opacity: 1;
-  }
-
   .cycle-options::after {
     content: "";
     height: 15px;
@@ -553,7 +547,7 @@
   }
 
   .cycle-options > button {
-    transition: all .3s;
+    transition: background-color .3s;
     color: WHITE;
     width: 35px;
     height: 35px;
@@ -563,9 +557,15 @@
     background-color: var(--tertiary);
   }
 
-  .cycle-options > button:hover {
+  .cycle-options > button.selected {
     border: 2px solid var(--primary) ;
     background-color: var(--btn-hover);
+  }
+  
+  .show-options {
+    height: 75px;
+    transform: scale(1);
+    opacity: 1;
   }
 
   #buttons > button {

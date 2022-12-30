@@ -9,7 +9,7 @@ const handlerAddTask = (array, bool) => {
 
     if (array === undefined) {
         if ($('#input-data').val() !== "" && $('#input-data').val() !== undefined) {
-            result({"name": $('#input-data').val(), "check": false, "expanded": false, "lock": false})
+            result({"name": $('#input-data').val(), "check": false, "expanded": false})
         }
     } else {
         Object.keys(array).map((key) => {
