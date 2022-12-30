@@ -371,20 +371,13 @@
     animation: shaking .8s;
     animation-iteration-count: infinite;
   }
-  
-  .selector-active {
-    transition: all .3s;
-  }
-
-  .selector-active:hover {
-    background-color: var(--quart-bright);
-  }
 
   #daily-quests ul > li:nth-child(odd) > .select {
     animation-direction: reverse;
   }
 
   #daily-quests ul > li {
+    transition: all .3s;
     display: flex;
     align-items: center;
   }
@@ -422,6 +415,14 @@
 
   #daily-quests ul > li.selector-active > input {
     translate: 0px !important;
+  }
+
+  #daily-quests ul > li.selector-active:hover {
+    background-color: var(--quart-bright);
+  }
+
+  .selected {
+    background-color: var(--quart-bright);
   }
 
   @keyframes shadow {

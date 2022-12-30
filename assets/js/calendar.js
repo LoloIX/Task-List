@@ -24,9 +24,9 @@ let currentYear = date.getFullYear()
 let $currentDate = document.getElementById("CurrentDate")
 let $arrowBtns = document.getElementsByClassName("text-btn")
 let $tbody = document.getElementsByTagName("tbody")
-let buttons = document.getElementById("buttons")
+let $buttons = document.getElementById("buttons")
 let $span = document.getElementById("daily-quests")
-let ul = $span.querySelector("ul")
+let $ul = $span.querySelector("ul")
 
 const setInput = () => {
     let $textBox = `
@@ -35,8 +35,7 @@ const setInput = () => {
             <label for="name">Quest name</label>
         </div>
     `
-
-    ul.insertAdjacentHTML("beforeend", $textBox)
+    $ul.insertAdjacentHTML("beforeend", $textBox)
     let $inputQuest = document.getElementsByClassName("input-quest")
     let $inputData = document.getElementById("input-data")
 
@@ -86,7 +85,7 @@ const handlerSetInput = (day) => {
 }
 
 const refreshList = () => {
-    ul.innerHTML = ""
+    $ul.innerHTML = ""
                     
     let refreshList = quests
     quests = []
@@ -274,7 +273,7 @@ const dailyQuests = (item) => {
         item.data.map((e) => {addSubQuest(e)})
     } else questDiv.animate({opacity: 1, margin: "20px"}, 300)
     
-    ul.append(...$quest)
+    $ul.append(...$quest)
 }
 
 const createCalendar = (month, year) => {
@@ -364,7 +363,7 @@ const changeMonth = (bool) => {
 const selectQuest = () => {
     let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
     let $listCheck = mainsBtn[1].querySelector("i")
-    let $selectorOpts = buttons.querySelectorAll(".options-select-all, .options-complete, .options-delete, div")
+    let $selectorOpts = $buttons.querySelectorAll(".options-select-all, .options-complete, .options-delete, div")
 
     if ($listCheck.classList.contains("fa-xmark")) {
         for (let index = 0; index < $selectorOpts.length; index++) $selectorOpts[index].remove()
@@ -381,7 +380,7 @@ const selectQuest = () => {
 
     let selector = []
 
-    let li = ul.querySelectorAll("li")
+    let li = $ul.querySelectorAll("li")
     let findQuests = $('.quest')
     
     findQuests
@@ -389,13 +388,13 @@ const selectQuest = () => {
         .addClass("quest-select")
 
     for (let index = 0; index < li.length; index++) {
-        let $check = li[index].querySelector('.btn')
+        let $check = li[index].querySelector("input")
         
         li[index].classList.add("selector-active")
 
         $check.addEventListener("click", () => {
             selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
-
+            li[index].classList.toggle("selected")
             console.log(selector)
         })
     }
@@ -426,13 +425,19 @@ const selectQuest = () => {
         <button class="options-complete option-btn">
             <i title="Complete Quest" class="fa-regular fa-circle-check"></i>
             </button>
-        `)
+    `)
 
-    buttons.append(...$optionsBtn)
+    $buttons.append(...$optionsBtn)
 
     $('.options-select-all').click(() => {
-        for (let index = 0; index < li.length; index++) {
-            li[index].querySelector("input").click()
+        if (selector.length !== 0) {
+            for (let index = 0; index < li.length; index++) {
+                if (li[index].querySelector("input:checked") !== null) li[index].querySelector("input:checked").click()
+            }
+        } else {
+            for (let index = 0; index < li.length; index++) {
+                if (li[index].querySelector("input:checked") === null) li[index].querySelector("input").click()
+            }
         }
     })
 
@@ -455,21 +460,16 @@ const selectQuest = () => {
     })
     
     $('.options-complete').click(() => {
-        selector.map((e) => {
-            quests[e].check = !quests[e].check
+        selector.map((index) => {
+            let element = li[index].querySelector(".check")
 
-            if (quests[e].check) {
-                for (let index = 0; index < li.length; index++) {
-                    let element = li[index].querySelector(".check")
-                    element.classList.remove("fa-regular", "fa-square")
-                    element.classList.add("fa-solid", "fa-square-check")
-                }
+            quests[index].check = !quests[index].check
+            if (quests[index].check) {
+                element.classList.remove("fa-regular", "fa-square")
+                element.classList.add("fa-solid", "fa-square-check")
             } else {
-                for (let index = 0; index < li.length; index++) {
-                    let element = li[index].querySelector(".check")
-                    element.classList.remove("fa-solid", "fa-square-check")
-                    element.classList.add("fa-regular", "fa-square")
-                }
+                element.classList.remove("fa-solid", "fa-square-check")
+                element.classList.add("fa-regular", "fa-square")
             }
         })
     })
@@ -482,7 +482,7 @@ const selectQuest = () => {
 const refreshCalendar = () => {
     let save = $tbody[0].children[0]
 
-    ul.innerHTML = ""
+    $ul.innerHTML = ""
     $tbody[0].innerHTML = ""
     $tbody[0].append(save)
 
