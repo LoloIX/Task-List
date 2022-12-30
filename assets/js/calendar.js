@@ -13,32 +13,7 @@ let months = [
     "December"
 ]
 let quests = []
-let storagedQuests = {
-    "9": [
-        {
-            "name": "0",
-            "check": false,
-            "cycle": [
-                0,
-                1,
-                2,
-                3
-            ],
-            "data": []
-        },
-        {
-            "name": "1",
-            "check": false,
-            "cycle": [
-                0,
-                5,
-                4,
-                6
-            ],
-            "data": []
-        }
-    ]
-}
+let storagedQuests = {}
 
 let i = -1
 let days
@@ -435,13 +410,13 @@ const selectQuest = () => {
         </button>
         <div style="position: absolute;">
             <div class="cycle-options">
-                <button weekday="Sunday">S</button>
-                <button weekday="Monday">M</button>
-                <button weekday="Tuesday">T</button>
-                <button weekday="Wednesday">W</button>
-                <button weekday="Thursday">T</button>
-                <button weekday="Friday">F</button>
-                <button weekday="Saturday">S</button>
+                <button weekday="0">S</button>
+                <button weekday="1">M</button>
+                <button weekday="2">T</button>
+                <button weekday="3">W</button>
+                <button weekday="4">T</button>
+                <button weekday="5">F</button>
+                <button weekday="6">S</button>
             </div>
             <button class="option-btn options-repeat">
                 <i class="fa-solid fa-repeat"></i>
@@ -502,19 +477,17 @@ const selectQuest = () => {
     })
 
     $buttons.getElementsByClassName("options-repeat")[0].addEventListener('click',() => {
-        let weekdays = {
-            "Sunday": 0,
-            "Monday": 1,
-            "Tuesday": 2,
-            "Wednesday": 3,
-            "Thursday": 4,
-            "Friday": 5,
-            "Saturday": 6,
+        let repeatedDay = {
+            0: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
         }
         let cycleOpts = $buttons.getElementsByClassName("cycle-options")[0]
-        let count = 0
         let max = 7
-        let repeatedDay
         let index
 
         cycleOpts.classList.toggle("show-options")
@@ -526,19 +499,18 @@ const selectQuest = () => {
             }
         })
 
-        for (let i = 0; i < selector.length; i++) {
-            if (i !== index) {
-                storagedQuests[num][index].cycle.map((e) => {
-                    if (storagedQuests[num][i].cycle.includes(e)) {
-                        repeatedDay = e
-                        count++
-                    }
-                })
-            } else count++
-        }
-        
-        if (count === selector.length) {
-            cycleOpts.querySelectorAll("button")[repeatedDay].classList.add("selected")
+        selector.map((i) => {
+            storagedQuests[num][index].cycle.map((e) => {
+                if (storagedQuests[num][i].cycle.includes(e)) {
+                    repeatedDay[e]++
+                }
+            })
+        })
+
+        for (const key in repeatedDay) {
+            if (repeatedDay[key] === selector.length) {
+                cycleOpts.querySelectorAll("button")[key].classList.add("selected")
+            }
         }
 
         cycleOpts.addEventListener("click", (e) => {
@@ -549,9 +521,9 @@ const selectQuest = () => {
             e.target.classList.toggle("selected")
 
             selector.map((i) => {
-                storagedQuests[num][index].cycle.includes(weekdays[selectedDay]) ? 
-                    storagedQuests[num][index].cycle.splice(storagedQuests[num][index].cycle.indexOf(weekdays[selectedDay]), 1) : 
-                    storagedQuests[num][index].cycle.push(weekdays[selectedDay])
+                storagedQuests[num][index].cycle.includes(selectedDay) ? 
+                    storagedQuests[num][index].cycle.splice(storagedQuests[num][index].cycle.indexOf(selectedDay), 1) : 
+                    storagedQuests[num][index].cycle.push(selectedDay)
             })
         })
     })
