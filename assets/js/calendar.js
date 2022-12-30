@@ -98,9 +98,6 @@ const refreshList = () => {
 const dailyQuests = (item) => {
     i++
     let il = i
-    
-    if (item === "placeholder") {quests.splice(il, 1); i--; return}
-    
     quests.push({
         name: item.name,
         check: item.check,
@@ -308,11 +305,11 @@ const createCalendar = (month, year) => {
                     
                     let percent = count + "/" + storagedQuests[days].length
                     let $text = `
-                    <div>
-                        <p class="calendar-day">${days}</p>
-                        <p class="printed-quest"></p>
-                        <p>${storagedQuests[days].length !== 1 ? percent : ""}</p>
-                    </div>`
+                        <div>
+                            <p class="calendar-day">${days}</p>
+                            <p class="printed-quest"></p>
+                            <p>${storagedQuests[days].length !== 1 ? percent : ""}</p>
+                        </div>`
 
                     td.innerHTML = $text
 
@@ -398,6 +395,8 @@ const selectQuest = () => {
 
         $check.addEventListener("click", () => {
             selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
+
+            console.log(selector)
         })
     }
 
@@ -438,8 +437,10 @@ const selectQuest = () => {
     })
 
     $('.options-delete').click(() => {
-        selector.map((e) => {
-            quests[e] = "placeholder"
+        let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
+        selector.sort((b, a) => {return a - b}).map((e) => {
+            quests.splice(e, 1)
+            storagedQuests[num].splice(e, 1)
             li[e].remove()
         })
 
