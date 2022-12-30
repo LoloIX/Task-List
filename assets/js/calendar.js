@@ -410,13 +410,13 @@ const selectQuest = () => {
         </button>
         <div style="position: absolute;">
             <div class="cycle-options">
-                <button weekday="0">S</button>
-                <button weekday="1">M</button>
-                <button weekday="2">T</button>
-                <button weekday="3">W</button>
-                <button weekday="4">T</button>
-                <button weekday="5">F</button>
-                <button weekday="6">S</button>
+                <button weekday=0>S</button>
+                <button weekday=1>M</button>
+                <button weekday=2>T</button>
+                <button weekday=3>W</button>
+                <button weekday=4>T</button>
+                <button weekday=5>F</button>
+                <button weekday=6>S</button>
             </div>
             <button class="option-btn options-repeat">
                 <i class="fa-solid fa-repeat"></i>
@@ -503,15 +503,10 @@ const selectQuest = () => {
             storagedQuests[num][index].cycle.map((e) => {
                 if (storagedQuests[num][i].cycle.includes(e)) {
                     repeatedDay[e]++
+                    if (repeatedDay[e] === selector.length) cycleOpts.querySelectorAll("button")[e].classList.add("selected")
                 }
             })
         })
-
-        for (const key in repeatedDay) {
-            if (repeatedDay[key] === selector.length) {
-                cycleOpts.querySelectorAll("button")[key].classList.add("selected")
-            }
-        }
 
         cycleOpts.addEventListener("click", (e) => {
             let selectedDay = e.target.getAttribute("weekday")
@@ -521,9 +516,9 @@ const selectQuest = () => {
             e.target.classList.toggle("selected")
 
             selector.map((i) => {
-                storagedQuests[num][index].cycle.includes(selectedDay) ? 
-                    storagedQuests[num][index].cycle.splice(storagedQuests[num][index].cycle.indexOf(selectedDay), 1) : 
-                    storagedQuests[num][index].cycle.push(selectedDay)
+                storagedQuests[num][i].cycle.includes(selectedDay) ? 
+                    storagedQuests[num][i].cycle.splice(storagedQuests[num][i].cycle.indexOf(selectedDay), 1) : 
+                    storagedQuests[num][i].cycle.push(selectedDay)
             })
         })
     })
