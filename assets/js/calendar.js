@@ -13,7 +13,19 @@ let months = [
     "December"
 ]
 let quests = []
-let storagedQuests = {}
+let storagedQuests = {
+    "1": [
+        {
+            "name": "comer milanesa",
+            "check": false,
+            "cycle": [
+                "0"
+            ],
+            "looped": false,
+            "data": []
+        }
+    ]
+}
 
 let i = -1
 let days
@@ -104,6 +116,7 @@ const dailyQuests = (item) => {
         name: item.name,
         check: item.check,
         cycle: item.cycle !== undefined ? item.cycle : [],
+        looped: item.looped !== undefined ? item.looped : false,
         data:[]
     })
     
@@ -280,6 +293,7 @@ const dailyQuests = (item) => {
 }
 
 const createCalendar = (month, year) => {
+    console.log("i'm working")
     $currentDate.innerText = months[month] + " " + String(year)
 
     let InitialDay = (new Date(year, month)).getDay()
@@ -298,7 +312,22 @@ const createCalendar = (month, year) => {
             } else {
                 td.innerHTML = days
 
-                if (Object.keys(storagedQuests).includes(`${days}`)) {
+                for (const key in storagedQuests) {
+                    storagedQuests[key].map((e) => {
+                        if (e.cycle.includes(j.toString()) && e.looped === false) {
+                            let item = {...e}
+                            item.looped = true
+                            if (storagedQuests[days] !== undefined) {
+                                storagedQuests[days].push(item)
+                            } else {
+                                storagedQuests[days] = []
+                                storagedQuests[days].push(item)
+                            }
+                        }
+                    })
+                }
+
+                if (Object.keys(storagedQuests).includes(days.toString())) {
                     let count = 0
 
                     storagedQuests[days].map((e) => {
@@ -526,7 +555,7 @@ const selectQuest = () => {
         })
 
     })
-    
+
     $cycleOpts.addEventListener("click", (e) => {
         let selectedDay = e.target.getAttribute("weekday")
         
