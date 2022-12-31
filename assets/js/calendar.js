@@ -13,7 +13,46 @@ let months = [
     "December"
 ]
 let quests = []
-let storagedQuests = {}
+let storagedQuests = {
+    "9": [
+        {
+            "name": "0",
+            "check": false,
+            "cycle": [0],
+            "data": []
+        },
+        {
+            "name": "1",
+            "check": false,
+            "cycle": [0],
+            "data": []
+        },
+        {
+            "name": "2",
+            "check": false,
+            "cycle": [0],
+            "data": []
+        },
+        {
+            "name": "3",
+            "check": false,
+            "cycle": [0],
+            "data": []
+        },
+        {
+            "name": "4",
+            "check": false,
+            "cycle": [0],
+            "data": []
+        },
+        {
+            "name": "5",
+            "check": false,
+            "cycle": [0],
+            "data": []
+        }
+    ]
+}
 
 let i = -1
 let days
@@ -477,24 +516,28 @@ const selectQuest = () => {
     })
 
     $buttons.getElementsByClassName("options-repeat")[0].addEventListener('click',() => {
-        let repeatedDay = {
-            0: 0,
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0,
-            6: 0,
-        }
+        let repeatedDay = [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        ]
         let cycleOpts = $buttons.getElementsByClassName("cycle-options")[0]
-        let max = 7
+        let weeklyBtns = cycleOpts.querySelectorAll("button")
+        let min = 7
         let index
 
         cycleOpts.classList.toggle("show-options")
+        for (let a = 0; a < weeklyBtns.length; a++) {
+            weeklyBtns[a].classList.remove("selected")
+        }
 
-        storagedQuests[num].map((a, i) => {
-            if (selector.includes(i) && a.cycle.length < max) {    
-                max = a.cycle.length
+        storagedQuests[num].map((e, i) => {
+            if (selector.includes(i) && e.cycle.length < min) {    
+                min = e.cycle.length
                 index = i
             }
         })
@@ -503,23 +546,31 @@ const selectQuest = () => {
             storagedQuests[num][index].cycle.map((e) => {
                 if (storagedQuests[num][i].cycle.includes(e)) {
                     repeatedDay[e]++
-                    if (repeatedDay[e] === selector.length) cycleOpts.querySelectorAll("button")[e].classList.add("selected")
+                    console.log(repeatedDay[e])
+                    if (repeatedDay[e] === selector.length) {
+                        cycleOpts.querySelectorAll("button")[e].classList.add("selected")
+                    }
                 }
             })
         })
 
         cycleOpts.addEventListener("click", (e) => {
             let selectedDay = e.target.getAttribute("weekday")
+            console.log(repeatedDay[selectedDay])
             
             if (selectedDay === null) return
             
             e.target.classList.toggle("selected")
 
-            selector.map((i) => {
-                storagedQuests[num][i].cycle.includes(selectedDay) ? 
-                    storagedQuests[num][i].cycle.splice(storagedQuests[num][i].cycle.indexOf(selectedDay), 1) : 
-                    storagedQuests[num][i].cycle.push(selectedDay)
-            })
+            if (repeatedDay[selectedDay] === selector.length){
+                selector.map((quest) => {
+                    storagedQuests[num][quest].cycle.splice(storagedQuests[num][quest].cycle.indexOf(selectedDay), 1)
+                })
+            } else {
+                selector.map((quest) => {
+                    storagedQuests[num][quest].cycle.push(selectedDay)
+                })
+            }
         })
     })
 }
