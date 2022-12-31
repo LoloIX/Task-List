@@ -13,46 +13,7 @@ let months = [
     "December"
 ]
 let quests = []
-let storagedQuests = {
-    "9": [
-        {
-            "name": "0",
-            "check": false,
-            "cycle": [0],
-            "data": []
-        },
-        {
-            "name": "1",
-            "check": false,
-            "cycle": [0],
-            "data": []
-        },
-        {
-            "name": "2",
-            "check": false,
-            "cycle": [0],
-            "data": []
-        },
-        {
-            "name": "3",
-            "check": false,
-            "cycle": [0],
-            "data": []
-        },
-        {
-            "name": "4",
-            "check": false,
-            "cycle": [0],
-            "data": []
-        },
-        {
-            "name": "5",
-            "check": false,
-            "cycle": [0],
-            "data": []
-        }
-    ]
-}
+let storagedQuests = {}
 
 let i = -1
 let days
@@ -514,9 +475,22 @@ const selectQuest = () => {
             }
         })
     })
+    
+    let $cycleOpts = $buttons.getElementsByClassName("cycle-options")[0]
+    let weeklyBtns = $cycleOpts.querySelectorAll("button")
+    let repeatedDay = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+    ]
 
     $buttons.getElementsByClassName("options-repeat")[0].addEventListener('click',() => {
-        let repeatedDay = [
+        if (selector.length === 0) return
+        repeatedDay = [
             0,
             0,
             0,
@@ -525,12 +499,10 @@ const selectQuest = () => {
             0,
             0,
         ]
-        let cycleOpts = $buttons.getElementsByClassName("cycle-options")[0]
-        let weeklyBtns = cycleOpts.querySelectorAll("button")
         let min = 7
         let index
 
-        cycleOpts.classList.toggle("show-options")
+        $cycleOpts.classList.toggle("show-options")
         for (let a = 0; a < weeklyBtns.length; a++) {
             weeklyBtns[a].classList.remove("selected")
         }
@@ -546,32 +518,33 @@ const selectQuest = () => {
             storagedQuests[num][index].cycle.map((e) => {
                 if (storagedQuests[num][i].cycle.includes(e)) {
                     repeatedDay[e]++
-                    console.log(repeatedDay[e])
                     if (repeatedDay[e] === selector.length) {
-                        cycleOpts.querySelectorAll("button")[e].classList.add("selected")
+                        $cycleOpts.querySelectorAll("button")[e].classList.add("selected")
                     }
                 }
             })
         })
 
-        cycleOpts.addEventListener("click", (e) => {
-            let selectedDay = e.target.getAttribute("weekday")
-            console.log(repeatedDay[selectedDay])
-            
-            if (selectedDay === null) return
-            
-            e.target.classList.toggle("selected")
+    })
+    
+    $cycleOpts.addEventListener("click", (e) => {
+        let selectedDay = e.target.getAttribute("weekday")
+        
+        if (selectedDay === null) return
 
-            if (repeatedDay[selectedDay] === selector.length){
-                selector.map((quest) => {
-                    storagedQuests[num][quest].cycle.splice(storagedQuests[num][quest].cycle.indexOf(selectedDay), 1)
-                })
-            } else {
-                selector.map((quest) => {
-                    storagedQuests[num][quest].cycle.push(selectedDay)
-                })
-            }
-        })
+        e.target.classList.toggle("selected")
+    
+        if (repeatedDay[selectedDay] === selector.length){
+            selector.map((quest) => {
+                storagedQuests[num][quest].cycle.splice(storagedQuests[num][quest].cycle.indexOf(selectedDay), 1)
+            })
+            repeatedDay[selectedDay] = 0
+        } else {
+            selector.map((quest) => {
+                storagedQuests[num][quest].cycle.push(selectedDay)
+                repeatedDay[selectedDay]++
+            })
+        }
     })
 }
 
