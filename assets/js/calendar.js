@@ -13,19 +13,7 @@ let months = [
     "December"
 ]
 let quests = []
-let storagedQuests = {
-    "1": [
-        {
-            "name": "comer milanesa",
-            "check": false,
-            "cycle": [
-                "0"
-            ],
-            "looped": false,
-            "data": []
-        }
-    ]
-}
+let storagedQuests = {}
 
 let i = -1
 let days
@@ -293,7 +281,6 @@ const dailyQuests = (item) => {
 }
 
 const createCalendar = (month, year) => {
-    console.log("i'm working")
     $currentDate.innerText = months[month] + " " + String(year)
 
     let InitialDay = (new Date(year, month)).getDay()
@@ -315,6 +302,8 @@ const createCalendar = (month, year) => {
                 for (const key in storagedQuests) {
                     storagedQuests[key].map((e) => {
                         if (e.cycle.includes(j.toString()) && e.looped === false) {
+                            if (storagedQuests[days] === storagedQuests[key] && e.looped === false) return
+
                             let item = {...e}
                             item.looped = true
                             if (storagedQuests[days] !== undefined) {
@@ -365,6 +354,12 @@ const createCalendar = (month, year) => {
         }
 
         $tbody[0].append(row)
+    }
+
+    for (const key in storagedQuests) {
+        storagedQuests[key].map((e) => {
+            e.looped = true
+        })
     }
 }
 
