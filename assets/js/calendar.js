@@ -267,6 +267,7 @@ const dailyQuests = (item) => {
     $quest.find('.delete').click((e) => {
         $quest.remove()
         quests.splice(il, 1)
+        if (quests.length === 0) return delete storagedQuests[num]
         storagedQuests[num] = []
         storagedQuests[num].push(...quests)
     })
@@ -298,23 +299,6 @@ const createCalendar = (month, year) => {
                 td.innerHTML = ""
             } else {
                 td.innerHTML = days
-
-                for (const key in storagedQuests) {
-                    storagedQuests[key].map((e) => {
-                        if (e.cycle.includes(j.toString()) && e.looped === false) {
-                            if (storagedQuests[days] === storagedQuests[key] && e.looped === false) return
-
-                            let item = {...e}
-                            item.looped = true
-                            if (storagedQuests[days] !== undefined) {
-                                storagedQuests[days].push(item)
-                            } else {
-                                storagedQuests[days] = []
-                                storagedQuests[days].push(item)
-                            }
-                        }
-                    })
-                }
 
                 if (Object.keys(storagedQuests).includes(days.toString())) {
                     let count = 0
@@ -354,12 +338,6 @@ const createCalendar = (month, year) => {
         }
 
         $tbody[0].append(row)
-    }
-
-    for (const key in storagedQuests) {
-        storagedQuests[key].map((e) => {
-            e.looped = true
-        })
     }
 }
 
@@ -523,7 +501,7 @@ const selectQuest = () => {
             0,
             0,
         ]
-        let min = 7
+        let min = 8
         let index
 
         $cycleOpts.classList.toggle("show-options")
@@ -532,7 +510,7 @@ const selectQuest = () => {
         }
 
         storagedQuests[num].map((e, i) => {
-            if (selector.includes(i) && e.cycle.length < min) {    
+            if (selector.includes(i) && e.cycle.length < min) {
                 min = e.cycle.length
                 index = i
             }
@@ -568,6 +546,26 @@ const selectQuest = () => {
                 storagedQuests[num][quest].cycle.push(selectedDay)
                 repeatedDay[selectedDay]++
             })
+        }
+
+        let days = 1
+
+        for (a = 0; a < 6; a++) {
+            for (let j = 0; j < 7; j++) {
+                selector.map((index) => {
+                    if (storagedQuests[num][index].looped === false && storagedQuests[num][index].cycle.includes(j.toString()) && num !== days.toString()) {    
+                        let item = {...storagedQuests[num][index]}
+                        item.looped = true
+                        if (storagedQuests[days] !== undefined) {
+                            storagedQuests[days].push(item)
+                        } else {
+                            storagedQuests[days] = []
+                            storagedQuests[days].push(item)
+                        }
+                    }
+                })
+                days++
+            }
         }
     })
 }
