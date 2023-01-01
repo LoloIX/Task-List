@@ -365,7 +365,7 @@ const changeMonth = (bool) => {
     createCalendar(currentMonth, currentYear)
 }
 
-const selectQuest = () => {
+const selectorBtn = () => {
     let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
     let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
     let $listCheck = mainsBtn[1].querySelector("i")
@@ -543,29 +543,9 @@ const selectQuest = () => {
             repeatedDay[selectedDay] = 0
         } else {
             selector.map((quest) => {
-                storagedQuests[num][quest].cycle.push(selectedDay)
+                if (!storagedQuests[num][quest].cycle.includes(selectedDay)) storagedQuests[num][quest].cycle.push(selectedDay)
                 repeatedDay[selectedDay]++
             })
-        }
-
-        let days = 1
-
-        for (a = 0; a < 6; a++) {
-            for (let j = 0; j < 7; j++) {
-                selector.map((index) => {
-                    if (storagedQuests[num][index].looped === false && storagedQuests[num][index].cycle.includes(j.toString()) && num !== days.toString()) {    
-                        let item = {...storagedQuests[num][index]}
-                        item.looped = true
-                        if (storagedQuests[days] !== undefined) {
-                            storagedQuests[days].push(item)
-                        } else {
-                            storagedQuests[days] = []
-                            storagedQuests[days].push(item)
-                        }
-                    }
-                })
-                days++
-            }
         }
     })
 }
