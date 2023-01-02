@@ -18,7 +18,7 @@ let storagedQuests = {
         {
             "name": "a",
             "check": false,
-            "cycle": ["0", "1", "2", "3", "4", "5", "6"],
+            "cycle": ["0"],
             "data": []
         }
     ]
@@ -342,9 +342,23 @@ const createCalendar = (month, year) => {
                 days++
             }
 
-            if (new Date(year, month, days).getTime() < date.getTime()) {
+            if (new Date(year, month, (days)).getTime() < date.getTime()) {
                 td.style.opacity = "0.5"
                 td.style.backgroundColor = "#80808069"
+            } else {
+                loop1:
+                for (const key in storagedQuests) {
+                    for (let index = 0; index < storagedQuests[key].length; index++) {
+                        const e = storagedQuests[key][index];
+                        
+                        if (e.cycle.includes(j.toString())) {
+                            if (storagedQuests[days - 1] === undefined) storagedQuests[days - 1] = []
+                            e.cycle = []
+                            storagedQuests[days - 1].push(e)
+                            break loop1
+                        }
+                    }
+                }
             }
 
             row.append(td)
