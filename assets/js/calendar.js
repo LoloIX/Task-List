@@ -13,7 +13,16 @@ let months = [
     "December"
 ]
 let quests = []
-let storagedQuests = {}
+let storagedQuests = {
+    1: [
+        {
+            "name": "a",
+            "check": false,
+            "cycle": ["0", "1", "2", "3", "4", "5", "6"],
+            "data": []
+        }
+    ]
+}
 
 let i = -1
 let days
@@ -104,7 +113,6 @@ const dailyQuests = (item) => {
         name: item.name,
         check: item.check,
         cycle: item.cycle !== undefined ? item.cycle : [],
-        looped: item.looped !== undefined ? item.looped : false,
         data:[]
     })
     
@@ -292,7 +300,6 @@ const createCalendar = (month, year) => {
         let row = document.createElement("tr")
 
         for (let j = 0; j < 7; j++) {
-
             let td = document.createElement("td")
             
             if (j < InitialDay && i === 0 || days > maxDays) {
@@ -301,6 +308,7 @@ const createCalendar = (month, year) => {
                 td.innerHTML = days
 
                 if (Object.keys(storagedQuests).includes(days.toString())) {
+
                     let count = 0
 
                     storagedQuests[days].map((e) => {
@@ -333,6 +341,8 @@ const createCalendar = (month, year) => {
                 td.addEventListener('click', () => {handlerSetInput(save)})
                 days++
             }
+
+            if (new Date(year, month, days).getTime() < date.getTime()) td.style.backgroundColor = "var(--quart-bright)"
 
             row.append(td)
         }
@@ -537,13 +547,13 @@ const selectorBtn = () => {
         e.target.classList.toggle("selected")
     
         if (repeatedDay[selectedDay] === selector.length){
-            selector.map((quest) => {
-                storagedQuests[num][quest].cycle.splice(storagedQuests[num][quest].cycle.indexOf(selectedDay), 1)
+            selector.map((index) => {
+                storagedQuests[num][index].cycle.splice(storagedQuests[num][index].cycle.indexOf(selectedDay), 1)
             })
             repeatedDay[selectedDay] = 0
         } else {
-            selector.map((quest) => {
-                if (!storagedQuests[num][quest].cycle.includes(selectedDay)) storagedQuests[num][quest].cycle.push(selectedDay)
+            selector.map((index) => {
+                if (!storagedQuests[num][index].cycle.includes(selectedDay)) storagedQuests[num][index].cycle.push(selectedDay)
                 repeatedDay[selectedDay]++
             })
         }
