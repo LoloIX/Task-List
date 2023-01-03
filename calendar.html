@@ -69,11 +69,13 @@
         <div id="main">
             <div id="calendar">
                 <div class="header">
-                    <div style="padding: 0px 125px;">
-                        <button class="text-btn" onclick=changeMonth(false)><i class="fa-solid fa-caret-left"></i></button>
-                        <button class="text-btn" onclick=changeMonth(true)><i class="fa-solid fa-caret-right"></i></button>
+                    <div>
+                        <button class="text-btn" onclick=changeMonth(false) style="
+                        margin-left: 100px;"><i class="fa-solid fa-caret-left"></i></button>
+                        <h3 id="CurrentDate"></h3>
+                        <button class="text-btn" onclick=changeMonth(true) style="
+                        margin-right: 100px;"><i class="fa-solid fa-caret-right"></i></button>
                     </div>
-                    <h3 id="CurrentDate"></h3>
                 </div>
                 <table>
                     <tr>
