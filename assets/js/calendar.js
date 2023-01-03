@@ -21,11 +21,40 @@ let date = new Date()
 let currentMonth = date.getMonth()
 let currentYear = date.getFullYear()
 
-let currentDate = document.getElementById("CurrentDate")
-let arrowBtns = document.getElementsByClassName("text-btn")
-let tbody = document.getElementsByTagName("tbody")
-let btn = $("#buttons")
-let ul = span.find('ul')
+let $currentDate = document.getElementById("CurrentDate")
+let $arrowBtns = document.getElementsByClassName("text-btn")
+let $tbody = document.getElementsByTagName("tbody")
+let $buttons = document.getElementById("buttons")
+let $span = document.getElementById("daily-quests")
+let $ul = $span.querySelector("ul")
+
+const setInput = () => {
+    let $textBox = `
+        <div class="input-quest">
+            <input type="text" id="input-data" placeholder=" ">
+            <label for="name">Quest name</label>
+        </div>
+    `
+    $ul.insertAdjacentHTML('beforeend', $textBox)
+    let $inputQuest = document.getElementsByClassName("input-quest")
+    let $inputData = document.getElementById("input-data")
+
+    $inputData.addEventListener('keyup', (e) => {
+        if (e.keyCode === 13) {
+            handlerAddTask(undefined, false)
+            $inputQuest[0].setAttribute("deleting", "true")
+            $inputQuest[0].remove()
+        }
+    })
+
+    $inputData.addEventListener('blur', () => {
+        if ($inputQuest[0].attributes?.deleting?.value !== "true") {
+            $inputQuest[0].remove()
+        }
+    })
+
+    $inputData.focus()
+}
 
 const showSpan = () => {
     document.body.dataset.quests = "false"
@@ -37,16 +66,16 @@ const monthLength = (month, year) => {
     return 32 - (new Date(year, month, 32)).getDate()
 }
 
-const handlerSetInput = (event, day) => {
-    let findDate = span.find('h3')
-    let $date = document.createElement('h3')
+const handlerSetInput = (day) => {
+    let findDate = $span.querySelector("h3")
+    let $date = document.createElement("h3")
 
     document.body.dataset.quests = "true"
 
-    if (findDate !== undefined) findDate.remove()
+    if (findDate !== null) findDate.remove()
 
-    $date.innerText = day + " " + currentDate.innerText
-    span.prepend($date)
+    $date.innerText = day + " " + $currentDate.innerText
+    $span.prepend($date)
     
     refreshCalendar()
 
@@ -56,7 +85,7 @@ const handlerSetInput = (event, day) => {
 }
 
 const refreshList = () => {
-    ul.find('li').remove()
+    $ul.innerHTML = ""
                     
     let refreshList = quests
     quests = []
@@ -74,14 +103,22 @@ const dailyQuests = (item) => {
     quests.push({
         name: item.name,
         check: item.check,
-        cycle: item.cycle,
+        cycle: item.cycle !== undefined ? item.cycle : [],
         data:[]
     })
-
+    
     let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
-
+    
     storagedQuests[num] = []
     storagedQuests[num].push(...quests)
+    
+    const completedSubQuest = () => {
+        let count = 0
+        quests[il].data?.map((e) => {
+            if (e.check) count++
+        })
+        return `${count + "/" + quests[il].data?.length}`
+    }
 
     let $quest = $(`
         <li>
@@ -97,8 +134,10 @@ const dailyQuests = (item) => {
                         <button class="btn delete">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
-                    </div>
+                        </div>
+                        <p class="amount-of-subquests">${completedSubQuest()}</p>
                 </div>
+                <hr>
                 <div id=${il}></div>
             </div>
         </li>
@@ -146,6 +185,8 @@ const dailyQuests = (item) => {
                     .removeClass("fa-solid fa-square-check")
                     .addClass("fa-regular fa-square")
             }
+            
+            amountOfSubquests.text(completedSubQuest())
 
             quests[il].check = !hasFalseValue
         })
@@ -153,6 +194,8 @@ const dailyQuests = (item) => {
         $subQuest.find('.delete').click(() => {
             $subQuest.remove()
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
+            
+            refreshList()
         })
 
         $quest.find(`#${il}`).append($subQuest)
@@ -190,11 +233,12 @@ const dailyQuests = (item) => {
                 }
             })
             
-        } else quests[il].data.push(subquest)
+        } else quests[il].data.push(subquest); amountOfSubquests.text(completedSubQuest())
     }
 
     var questCheck = $quest.find(".check")
     var questDiv = $quest.find(".quest")
+    var amountOfSubquests = $quest.find('.amount-of-subquests')
 
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
@@ -230,28 +274,33 @@ const dailyQuests = (item) => {
         })
     })
 
-    $quest.find(".addsubQuest").click(() => {
+    $quest.find('.addsubQuest').click(() => {
         addSubQuest({"text": "", "check": false})
     })
 
     $quest.find('.delete').click((e) => {
         $quest.remove()
         quests.splice(il, 1)
+        if (quests.length === 0) return delete storagedQuests[num]
         storagedQuests[num] = []
         storagedQuests[num].push(...quests)
     })
 
-    if(item.data !== undefined) {
+    console.log(item.data)
+
+    if(item.data !== undefined && item.data.length !== 0) {
+        amountOfSubquests.css("display", "flex")
+        $quest.find('hr').css("display", "block")
         questDiv.css("opacity", "1")
         questDiv.css("margin", "20px")
         item.data.map((e) => {addSubQuest(e)})
     } else questDiv.animate({opacity: 1, margin: "20px"}, 300)
     
-    ul.append($quest)
+    $ul.append(...$quest)
 }
 
 const createCalendar = (month, year) => {
-    currentDate.innerText = months[month] + " " + String(year)
+    $currentDate.innerText = months[month] + " " + String(year)
 
     let InitialDay = (new Date(year, month)).getDay()
     days = 1
@@ -261,7 +310,6 @@ const createCalendar = (month, year) => {
         let row = document.createElement("tr")
 
         for (let j = 0; j < 7; j++) {
-
             let td = document.createElement("td")
             
             if (j < InitialDay && i === 0 || days > maxDays) {
@@ -269,7 +317,8 @@ const createCalendar = (month, year) => {
             } else {
                 td.innerHTML = days
 
-                if (Object.keys(storagedQuests).includes(`${days}`)) {
+                if (Object.keys(storagedQuests).includes(days.toString())) {
+
                     let count = 0
 
                     storagedQuests[days].map((e) => {
@@ -278,12 +327,12 @@ const createCalendar = (month, year) => {
                     
                     let percent = count + "/" + storagedQuests[days].length
                     let $text = `
-                    <div>
-                        <p class="calendar-day">${days}</p>
-                        <p class="printed-quest"><p>
-                        <p>${storagedQuests[days].length !== 1 ? percent : ""}</p>
-                    </div>
-                    `
+                        <div>
+                            <p class="calendar-day">${days}</p>
+                            <p class="printed-quest"></p>
+                            <p>${storagedQuests[days].length !== 1 ? percent : ""}</p>
+                        </div>`
+
                     td.innerHTML = $text
 
                     let $mainQuest = td.querySelector(".printed-quest")
@@ -299,14 +348,35 @@ const createCalendar = (month, year) => {
 
                 let save = days
                 
-                td.addEventListener("click", () => {handlerSetInput(event, save)})
+                td.addEventListener('click', () => {handlerSetInput(save)})
                 days++
+            }
+
+            if (new Date(year, month, (days)).getTime() < date.getTime()) {
+                td.style.opacity = "0.5"
+                td.style.backgroundColor = "#80808069"
+            } else {
+                loop1:
+                for (const key in storagedQuests) {
+                    if (key >= date.getDate().toString()) continue
+                    for (let index = 0; index < storagedQuests[key].length; index++) {
+                        let e = storagedQuests[key][index]
+
+                        if (e.cycle.includes(j.toString())) {
+                            if (storagedQuests[days - 1] === undefined) storagedQuests[days - 1] = []
+                            let item = {...e}
+                            e.cycle = []
+                            storagedQuests[days - 1].push(item)
+                            break loop1
+                        }
+                    }
+                }
             }
 
             row.append(td)
         }
 
-        tbody[0].append(row)
+        $tbody[0].append(row)
     }
 }
 
@@ -326,36 +396,36 @@ const changeMonth = (bool) => {
         currentMonth = newMonth
     } else currentMonth += sign
 
-    let save = tbody[0].children[0]
+    let save = $tbody[0].children[0]
 
-    tbody[0].innerHTML = ""
-    tbody[0].append(save)
+    $tbody[0].innerHTML = ""
+    $tbody[0].append(save)
 
     createCalendar(currentMonth, currentYear)
 }
 
-const selectQuest = () => {
+const selectorBtn = () => {
+    let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
     let mainsBtn = document.querySelectorAll("#set-input, #selector-btn")
     let $listCheck = mainsBtn[1].querySelector("i")
-    let $selectorOpts = document.querySelectorAll(".options-select-all, .options-complete, .options-delete, .options-repeat")
+    let $selectorOpts = $buttons.querySelectorAll(".options-select-all, .options-complete, .options-delete, div")
 
     if ($listCheck.classList.contains("fa-xmark")) {
         for (let index = 0; index < $selectorOpts.length; index++) $selectorOpts[index].remove()
 
         mainsBtn[0].classList.remove("d-none")
-        $listCheck.classList.toggle("fa-xmark")
+        $listCheck.classList.remove("fa-xmark")
 
         refreshList()
 
         return
     }
     
-    $listCheck.classList.toggle("fa-xmark")
+    $listCheck.classList.add("fa-xmark")
 
     let selector = []
-    let buttons = document.getElementById("buttons")
 
-    let li = ul.find('li')
+    let li = $ul.querySelectorAll("li")
     let findQuests = $('.quest')
     
     findQuests
@@ -363,79 +433,168 @@ const selectQuest = () => {
         .addClass("quest-select")
 
     for (let index = 0; index < li.length; index++) {
-        let $check = $(li[index]).find('> .btn')
+        let $check = li[index].querySelector("input")
         
-        $(li[index]).addClass("selector-active")
+        li[index].classList.add("selector-active")
 
-        $check.click(() => {
+        $check.addEventListener('click', () => {
             selector.includes(index) ? selector.splice(selector.indexOf(index), 1) : selector.push(index)
+            li[index].classList.toggle("selected")
         })
-        
-        $check.animate({translate: "0px"}, 1)
     }
 
     mainsBtn[0].classList.add("d-none")
 
-    let $optionsBtn = $(`
+    let $optionsBtn = `
+        <button class="options-select-all option-btn">
+            <i title= "Select all" class="fa-solid fa-list-ul"></i>
+        </button>
+        <div style="position: absolute;">
+            <div class="cycle-options">
+                <button weekday=0>S</button>
+                <button weekday=1>M</button>
+                <button weekday=2>T</button>
+                <button weekday=3>W</button>
+                <button weekday=4>T</button>
+                <button weekday=5>F</button>
+                <button weekday=6>S</button>
+            </div>
+            <button class="option-btn options-repeat">
+                <i class="fa-solid fa-repeat"></i>
+            </button>
+        </div>
         <button class="options-delete option-btn">
             <i title="Delete Quest" class="fa-solid fa-trash"></i>
         </button>
         <button class="options-complete option-btn">
             <i title="Complete Quest" class="fa-regular fa-circle-check"></i>
-        </button>
-        <button class="options-select-all option-btn">
-            <i title= "Select all" class="fa-solid fa-list-ul"></i>
-        </button>
-        <button class="option-btn options-repeat">
-            <i class="fa-solid fa-repeat"></i>
-        </button>
-    `)
+            </button>
+    `
 
-    buttons.append(...$optionsBtn)
+    $buttons.insertAdjacentHTML('beforeend', $optionsBtn)
 
-    $('.options-select-all').click(() => {li.find('> input').click()})
+    $buttons.getElementsByClassName("options-select-all")[0].addEventListener('click',() => {
+        if (selector.length !== 0) {
+            for (let index = 0; index < li.length; index++) {
+                if (li[index].querySelector("input:checked") !== null) li[index].querySelector("input:checked").click()
+            }
+        } else {
+            for (let index = 0; index < li.length; index++) {
+                if (li[index].querySelector("input:checked") === null) li[index].querySelector("input").click()
+            }
+        }
+    })
 
-    $('.options-delete').click(() => {
-        selector.map((e) => {
+    $buttons.getElementsByClassName("options-delete")[0].addEventListener('click',() => {
+        selector.sort((b, a) => {return a - b}).map((e) => {
             quests[e] = "placeholder"
+            storagedQuests[num].splice(e, 1)
             li[e].remove()
-            li.splice(e, 1, "placeholder")
         })
 
-        if (selector.length === quests.length) {
+        if (quests.length === selector.length) {
             mainsBtn[0].classList.remove("d-none")
             $listCheck.classList.remove("fa-xmark")
 
-            $optionsBtn.remove()
+            $buttons.querySelectorAll(".options-select-all, .options-complete, .options-delete, div").remove()
 
             refreshList()
         }
     })
     
-    $('.options-complete').click(() => {
-        selector.map((e) => {
-            quests[e].check = !quests[e].check
-            let element = $(li[e]).find('.check')
+    $buttons.getElementsByClassName("options-complete")[0].addEventListener('click', () => {
+        selector.map((index) => {
+            let element = li[index].querySelector(".check")
 
-            if (quests[e].check) {
-                element
-                    .removeClass("fa-regular fa-square")
-                    .addClass("fa-solid fa-square-check")
+            quests[index].check = !quests[index].check
+            if (quests[index].check) {
+                element.classList.remove("fa-regular", "fa-square")
+                element.classList.add("fa-solid", "fa-square-check")
             } else {
-                element
-                    .removeClass("fa-solid fa-square-check")
-                    .addClass("fa-regular fa-square")
+                element.classList.remove("fa-solid", "fa-square-check")
+                element.classList.add("fa-regular", "fa-square")
             }
         })
+    })
+    
+    let $cycleOpts = $buttons.getElementsByClassName("cycle-options")[0]
+    let weeklyBtns = $cycleOpts.querySelectorAll("button")
+    let repeatedDay = [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+    ]
+
+    $buttons.getElementsByClassName("options-repeat")[0].addEventListener('click',() => {
+        if (selector.length === 0) return
+        repeatedDay = [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        ]
+        let min = 8
+        let index
+
+        $cycleOpts.classList.toggle("show-options")
+        for (let a = 0; a < weeklyBtns.length; a++) {
+            weeklyBtns[a].classList.remove("selected")
+        }
+
+        storagedQuests[num].map((e, i) => {
+            if (selector.includes(i) && e.cycle.length < min) {
+                min = e.cycle.length
+                index = i
+            }
+        })
+
+        selector.map((i) => {
+            storagedQuests[num][index].cycle.map((e) => {
+                if (storagedQuests[num][i].cycle.includes(e)) {
+                    repeatedDay[e]++
+                    if (repeatedDay[e] === selector.length) {
+                        $cycleOpts.querySelectorAll("button")[e].classList.add("selected")
+                    }
+                }
+            })
+        })
+
+    })
+
+    $cycleOpts.addEventListener("click", (e) => {
+        let selectedDay = e.target.getAttribute("weekday")
+        
+        if (selectedDay === null) return
+
+        e.target.classList.toggle("selected")
+    
+        if (repeatedDay[selectedDay] === selector.length){
+            selector.map((index) => {
+                storagedQuests[num][index].cycle.splice(storagedQuests[num][index].cycle.indexOf(selectedDay), 1)
+            })
+            repeatedDay[selectedDay] = 0
+        } else {
+            selector.map((index) => {
+                if (!storagedQuests[num][index].cycle.includes(selectedDay)) storagedQuests[num][index].cycle.push(selectedDay)
+                repeatedDay[selectedDay]++
+            })
+        }
     })
 }
 
 const refreshCalendar = () => {
-    let save = tbody[0].children[0]
+    let save = $tbody[0].children[0]
 
-    ul.find("*").remove()
-    tbody[0].innerHTML = ""
-    tbody[0].append(save)
+    $ul.innerHTML = ""
+    $tbody[0].innerHTML = ""
+    $tbody[0].append(save)
 
     quests = []
     i = -1
@@ -452,7 +611,7 @@ const keyArrow = (e) => {
     }
 }
 
-arrowBtns[0].addEventListener("keyup", keyArrow)
-arrowBtns[1].addEventListener("keyup", keyArrow)
+$arrowBtns[0].addEventListener('keyup', keyArrow)
+$arrowBtns[1].addEventListener('keyup', keyArrow)
 
 createCalendar(currentMonth, currentYear)

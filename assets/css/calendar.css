@@ -3,6 +3,7 @@
     --span: #6eb8f5;
     --quest: #0a5cb8;
     --buttons: #2170f3;
+    --btn-hover: #2a7dc4;
     --check-box: #001939;
     --busy-day: #004fad87; 
     --days-color: #53a6e8;
@@ -60,16 +61,25 @@
     display: block;
   }
 
-  #input-data:focus + .form-label,
-  #input-data:not(:placeholder-shown) + .form-label {
-    color: BLACK;
-    font-weight: 300;
+  #input-data:focus + label,
+  #input-data:not(:placeholder-shown) + label {
+    transform: scale(1) translateY(-30px);
   }
 
-  .form-label {
-    font-size: 22px;
-    transform: translateY(-24px);
+  .input-quest label {
+    font-size: 20px;
+    transform: translateY(-30px);
     transform-origin: top left;
+    color: BLACK;
+    position: absolute;
+    top: 0;
+    left: 5px;
+  }
+
+  .input-quest {
+    margin: 40px 17% 0px;
+    position: relative;
+    --color: BLACK;
   }
   /* CALENDAR */
 
@@ -132,7 +142,7 @@
   }
 
   td div {
-    height: 48px;
+    height: 96px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,12 +171,17 @@
   }
 
   .printed-quest {
+    font-size: 20px;
     display: none;
     margin: 3px 0px;
     background-color: var(--days-color);
     border-radius: 15px;
-    width: 100%;
-    word-break: break-all;
+    width: calc(100% - 15px);
+    padding: 0px 10px;
+    min-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header {
@@ -328,7 +343,6 @@
   }
 
   .quest:hover > div:last-child:not(:empty) {
-    margin-top: 15px;
     transition: all .3s;
     max-height: 240px;
     overflow-y: scroll;
@@ -341,6 +355,31 @@
   
   .check.fa-solid.fa-square-check + p {
     color: WHITE;
+  }
+
+  .quest > div:first-child:hover .amount-of-subquests {
+    opacity: 0;
+    font-size: 0px;
+  }
+
+  .quest hr {
+    display: none;
+    border-color: var(--subtask);
+    border: 1px solid var(--subtask);
+    margin: 15px auto 0px;
+    width: 90%;
+    transition: all .5s;
+  }
+  
+  .quest:hover hr {
+    width: 0px;
+    border-color: transparent;
+  }
+
+  .amount-of-subquests {
+    display: none;
+    font-size: 20px;
+    transition: all .3s;
   }
 
   .subquest .check.fa-solid.fa-square-check + p,
@@ -356,20 +395,13 @@
     animation: shaking .8s;
     animation-iteration-count: infinite;
   }
-  
-  .selector-active {
-    transition: all .3s;
-  }
-
-  .selector-active:hover {
-    background-color: var(--quart-bright);
-  }
 
   #daily-quests ul > li:nth-child(odd) > .select {
     animation-direction: reverse;
   }
 
   #daily-quests ul > li {
+    transition: all .3s;
     display: flex;
     align-items: center;
   }
@@ -377,7 +409,7 @@
   #daily-quests ul > li > input {
     margin: auto;
     translate: -100px;
-    transition: all .3s;
+    transition: all .3s, translate 1s;
     border: 2px solid var(--check-box);
     border-radius: 50%;
     appearance: none;
@@ -403,6 +435,18 @@
   #daily-quests ul > li > input:checked {
     animation: shadow .3s;
     --scale: scale(1)
+  }
+
+  #daily-quests ul > li.selector-active > input {
+    translate: 0px !important;
+  }
+
+  #daily-quests ul > li.selector-active:hover {
+    background-color: var(--quart-bright);
+  }
+
+  .selected {
+    background-color: var(--quart-bright);
   }
 
   @keyframes shadow {
@@ -495,6 +539,57 @@
 
   .options-complete {
     animation: opts-complete;
+  }
+
+  .cycle-options {
+    height: 0px;
+    width: 300px;
+    background-color: var(--background);
+    position: absolute;
+    top: -95px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    transform: scale(0);
+    opacity: 0;
+    transition: all .3s;
+  }
+
+  .cycle-options::after {
+    content: "";
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    background-color: var(--background);
+    bottom: -7.5px;
+    box-sizing: border-box;
+    left: 25px;
+    rotate: 45deg;
+    z-index: -1;
+  }
+
+  .cycle-options > button {
+    transition: background-color .3s;
+    color: WHITE;
+    width: 35px;
+    height: 35px;
+    font-size: 17px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--tertiary);
+  }
+
+  .cycle-options > button.selected {
+    border: 2px solid var(--primary) ;
+    background-color: var(--btn-hover);
+  }
+  
+  .show-options {
+    height: 75px;
+    transform: scale(1);
+    opacity: 1;
   }
 
   #buttons > button {
