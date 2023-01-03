@@ -304,7 +304,6 @@
     width: 100%;
     flex-direction: column;
     overflow: hidden;
-    display: flex;
   }
 
   .quest > div:first-child {
@@ -344,7 +343,6 @@
   }
 
   .quest:hover > div:last-child:not(:empty) {
-    margin-top: 15px;
     transition: all .3s;
     max-height: 240px;
     overflow-y: scroll;
@@ -359,19 +357,30 @@
     color: WHITE;
   }
 
-  .amount-of-subquests {
-    display: none;
-    margin: 5px auto 0px 60px;
-    align-items: center;
+  .quest > div:first-child:hover .amount-of-subquests {
+    opacity: 0;
+    font-size: 0px;
   }
 
-  .amount-of-subquests p {
-    font-size: 15px;
-    margin-right: 10px;
+  .quest hr {
+    display: none;
+    border-color: var(--subtask);
+    border: 1px solid var(--subtask);
+    margin: 15px auto 0px;
+    width: 90%;
+    transition: all .5s;
   }
-  .amount-of-subquests i {
-    font-size: 15px;
-    rotate: 90deg;
+  
+  
+  .quest:hover hr {
+    width: 0px;
+    border-color: transparent;
+  }
+
+  .amount-of-subquests {
+    display: none;
+    font-size: 20px;
+    transition: all .3s;
   }
 
   .subquest .check.fa-solid.fa-square-check + p,

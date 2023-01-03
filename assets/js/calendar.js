@@ -108,14 +108,17 @@ const dailyQuests = (item) => {
     })
     
     let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
-    let completedSubQuest = 0
-
+    
     storagedQuests[num] = []
     storagedQuests[num].push(...quests)
-
-    item.data?.map((e) => {
-        if (e.check) completedSubQuest++
-    })
+    
+    const completedSubQuest = () => {
+        let count = 0
+        quests[il].data?.map((e) => {
+            if (e.check) count++
+        })
+        return `${count + "/" + quests[il].data?.length}`
+    }
 
     let $quest = $(`
         <li>
@@ -131,12 +134,10 @@ const dailyQuests = (item) => {
                         <button class="btn delete">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
-                    </div>
+                        </div>
+                        <p class="amount-of-subquests">${completedSubQuest()}</p>
                 </div>
-                <div class="amount-of-subquests">
-                    <p>${completedSubQuest + "/" + item.data?.length}</p>
-                    <i class="fa-solid fa-arrow-turn-up"></i>
-                </div>
+                <hr>
                 <div id=${il}></div>
             </div>
         </li>
@@ -184,13 +185,8 @@ const dailyQuests = (item) => {
                     .removeClass("fa-solid fa-square-check")
                     .addClass("fa-regular fa-square")
             }
-
-            completedSubQuest = 0
-            item.data?.map((e) => {
-                if (e.check) completedSubQuest++
-            })
-
-            amountOfSubquests.find('p').text(completedSubQuest + "/" + item.data?.length)
+            
+            amountOfSubquests.text(completedSubQuest())
 
             quests[il].check = !hasFalseValue
         })
@@ -198,6 +194,8 @@ const dailyQuests = (item) => {
         $subQuest.find('.delete').click(() => {
             $subQuest.remove()
             quests[il].data.splice(quests[il].data.indexOf(subquest), 1)
+            
+            refreshList()
         })
 
         $quest.find(`#${il}`).append($subQuest)
@@ -235,7 +233,7 @@ const dailyQuests = (item) => {
                 }
             })
             
-        } else quests[il].data.push(subquest)
+        } else quests[il].data.push(subquest); amountOfSubquests.text(completedSubQuest())
     }
 
     var questCheck = $quest.find(".check")
@@ -276,7 +274,7 @@ const dailyQuests = (item) => {
         })
     })
 
-    $quest.find(".addsubQuest").click(() => {
+    $quest.find('.addsubQuest').click(() => {
         addSubQuest({"text": "", "check": false})
     })
 
@@ -290,6 +288,7 @@ const dailyQuests = (item) => {
 
     if(item.data !== undefined) {
         amountOfSubquests.css("display", "flex")
+        $quest.find('hr').css("display", "block")
         questDiv.css("opacity", "1")
         questDiv.css("margin", "20px")
         item.data.map((e) => {addSubQuest(e)})
