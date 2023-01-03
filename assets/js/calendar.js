@@ -13,16 +13,7 @@ let months = [
     "December"
 ]
 let quests = []
-let storagedQuests = {
-    1: [
-        {
-            "name": "a",
-            "check": false,
-            "cycle": ["0"],
-            "data": []
-        }
-    ]
-}
+let storagedQuests = {}
 
 let i = -1
 let days
@@ -349,12 +340,13 @@ const createCalendar = (month, year) => {
                 loop1:
                 for (const key in storagedQuests) {
                     for (let index = 0; index < storagedQuests[key].length; index++) {
-                        const e = storagedQuests[key][index];
-                        
-                        if (e.cycle.includes(j.toString())) {
+                        let e = storagedQuests[key][index]
+
+                        if (key < date.getDate().toString() && e.cycle.includes(j.toString())) {
                             if (storagedQuests[days - 1] === undefined) storagedQuests[days - 1] = []
+                            let item = {...e}
                             e.cycle = []
-                            storagedQuests[days - 1].push(e)
+                            storagedQuests[days - 1].push(item)
                             break loop1
                         }
                     }
