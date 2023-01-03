@@ -304,6 +304,7 @@
     width: 100%;
     flex-direction: column;
     overflow: hidden;
+    display: flex;
   }
 
   .quest > div:first-child {
@@ -356,6 +357,21 @@
   
   .check.fa-solid.fa-square-check + p {
     color: WHITE;
+  }
+
+  .amount-of-subquests {
+    display: none;
+    margin: 5px auto 0px 60px;
+    align-items: center;
+  }
+
+  .amount-of-subquests p {
+    font-size: 15px;
+    margin-right: 10px;
+  }
+  .amount-of-subquests i {
+    font-size: 15px;
+    rotate: 90deg;
   }
 
   .subquest .check.fa-solid.fa-square-check + p,

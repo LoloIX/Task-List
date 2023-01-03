@@ -108,9 +108,14 @@ const dailyQuests = (item) => {
     })
     
     let num = document.querySelector("#daily-quests h3").innerText.split(" ")[0]
+    let completedSubQuest = 0
 
     storagedQuests[num] = []
     storagedQuests[num].push(...quests)
+
+    item.data?.map((e) => {
+        if (e.check) completedSubQuest++
+    })
 
     let $quest = $(`
         <li>
@@ -127,6 +132,10 @@ const dailyQuests = (item) => {
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
+                </div>
+                <div class="amount-of-subquests">
+                    <p>${completedSubQuest + "/" + item.data?.length}</p>
+                    <i class="fa-solid fa-arrow-turn-up"></i>
                 </div>
                 <div id=${il}></div>
             </div>
@@ -176,6 +185,13 @@ const dailyQuests = (item) => {
                     .addClass("fa-regular fa-square")
             }
 
+            completedSubQuest = 0
+            item.data?.map((e) => {
+                if (e.check) completedSubQuest++
+            })
+
+            amountOfSubquests.find('p').text(completedSubQuest + "/" + item.data?.length)
+
             quests[il].check = !hasFalseValue
         })
 
@@ -224,6 +240,7 @@ const dailyQuests = (item) => {
 
     var questCheck = $quest.find(".check")
     var questDiv = $quest.find(".quest")
+    var amountOfSubquests = $quest.find('.amount-of-subquests')
 
     questCheck.hover(
         () => { questCheck.removeClass("fa-square").addClass("fa-square-check")},
@@ -272,6 +289,7 @@ const dailyQuests = (item) => {
     })
 
     if(item.data !== undefined) {
+        amountOfSubquests.css("display", "flex")
         questDiv.css("opacity", "1")
         questDiv.css("margin", "20px")
         item.data.map((e) => {addSubQuest(e)})
@@ -339,10 +357,11 @@ const createCalendar = (month, year) => {
             } else {
                 loop1:
                 for (const key in storagedQuests) {
+                    if (key >= date.getDate().toString()) continue
                     for (let index = 0; index < storagedQuests[key].length; index++) {
                         let e = storagedQuests[key][index]
 
-                        if (key < date.getDate().toString() && e.cycle.includes(j.toString())) {
+                        if (e.cycle.includes(j.toString())) {
                             if (storagedQuests[days - 1] === undefined) storagedQuests[days - 1] = []
                             let item = {...e}
                             e.cycle = []
