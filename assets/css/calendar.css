@@ -371,7 +371,6 @@
     transition: all .5s;
   }
   
-  
   .quest:hover hr {
     width: 0px;
     border-color: transparent;

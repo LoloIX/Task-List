@@ -286,7 +286,9 @@ const dailyQuests = (item) => {
         storagedQuests[num].push(...quests)
     })
 
-    if(item.data !== undefined) {
+    console.log(item.data)
+
+    if(item.data !== undefined && item.data.length !== 0) {
         amountOfSubquests.css("display", "flex")
         $quest.find('hr').css("display", "block")
         questDiv.css("opacity", "1")
