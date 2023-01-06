@@ -5,16 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <title>Today</title>
+        <title>Messages</title>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">
-        <link rel="stylesheet" href="assets/css/today.css">
-        <link rel="stylesheet" href="assets/css/side-bar.css">
         <link rel="stylesheet" href="assets/css/menu-button.css">
     </head>
 
-    <body data-menu="false">
+    <body>
 
         <nav class="d-flex">
             <!-- CREDITS TO: Himalaya Singh -->
@@ -32,13 +30,13 @@
                 <input type="text" id="sort-input">
             </div>
         </nav>
+
+        
         
         <span id="side-bar">
             <menu>
                 <li>
-                    <a href="today.html"><div style="
-                    background-color: var(--half-dark);
-                    border-radius: 10px;">
+                    <a href="today.html"><div>
                         <i class="fa-solid fa-calendar-day"></i>
                         <h3>Today</h3>
                     </div>
@@ -49,10 +47,12 @@
                     </div></a>
                 </li>
                 <li>
-                    <a href="messages.html"><div>
-                            <i class="fa-regular fa-message"></i>
-                            <h3>Messages</h3>
-                        </div></a>
+                    <a href="messages.html"><div style="
+                    background-color: var(--half-dark);
+                    border-radius: 10px;">
+                        <i class="fa-regular fa-message"></i>
+                        <h3>Messages</h3>
+                    </div></a>
                     <div>
                         <i class="fa-regular fa-address-book"></i>
                         <h3>Contact</h3>
@@ -67,27 +67,12 @@
             </menu>
         </span>
         
-        <div id="main">
-            <ul class="elements"></ul>
-
-            <div>
-                <img src="assets/img/Resting.png">
-                <h1>It seems like you're all done for today!</h1>
-                <h2>Enjoy the rest of the day.</h2>
-            </div>
-
-            <button id="set-input" onclick={setInput()}>
-                <i class="fa-solid fa-plus"></i>
-                <text>Add task</text>
-            </button>
-        </div>
-
+        <div id="main"></div>
+        
         <script src="https://code.jquery.com/jquery-3.6.1.js"
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
-        <script src="assets/js/confettis.js"></script>
         <script src="assets/js/app.js"></script>
-        <script src="assets/js/today.js"></script>
 
     </body>
 </html>

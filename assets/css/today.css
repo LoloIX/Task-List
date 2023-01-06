@@ -76,21 +76,6 @@
     height: 500px;
   }
 
-  .drag-over {
-    border: 2px var(--primary) dashed;
-  }
-
-  .drag-over.task::after {
-    content: " ";
-    height: 100px;
-    background: var(--task);
-    display: flex;
-  }
-
-  .dragging {
-    opacity: .5;
-  }
-
   .task {
     background: var(--task);
     box-shadow: var(--shadow);

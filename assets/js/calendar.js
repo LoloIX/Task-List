@@ -353,8 +353,7 @@ const createCalendar = (month, year) => {
             }
 
             if (new Date(year, month, (days)).getTime() < date.getTime()) {
-                td.style.opacity = "0.5"
-                td.style.backgroundColor = "#80808069"
+                td.classList.add("past-day")
             } else {
                 loop1:
                 for (const key in storagedQuests) {
