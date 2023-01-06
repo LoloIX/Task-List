@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Messages</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="assets/css/menu-button.css">
+    </head>
+
+    <body>
+
+        <nav class="d-flex">
+            <!-- CREDITS TO: Himalaya Singh -->
+            <div id="menu-button">
+                <input onclick={showMenu()} type="checkbox" id="menu-checkbox">
+                <label for="menu-checkbox" id="menu-label">
+                    <div id="menu-text-bar"></div>
+                </label>
+            </div>
+            <!-- CREDITS TO: Himalaya Singh 
+            https://codepen.io/himalayasingh-->
+            
+            <div>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="sort-input">
+            </div>
+        </nav>
+        
+        <div id="main"></div>
+        
+        <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
+        <script src="assets/js/app.js"></script>
+
+    </body>
+</html>
