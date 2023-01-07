@@ -4,7 +4,10 @@ function NavBar() {
     return (
         <nav className="d-flex">
             <div id="menu-button">
-                <input type="checkbox" id="menu-checkbox" />
+                <input
+                onClick={() => {
+                    document.body.dataset.menu = document.body.dataset.menu === "true" ? "false" : "true"
+                }} type="checkbox" id="menu-checkbox" />
                 <label htmlFor="menu-checkbox" id="menu-label">
                     <div id="menu-text-bar"></div>
                 </label>
