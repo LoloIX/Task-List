@@ -1,5 +1,9 @@
 import React from "react"
-import ReactDOM from "react"
+import ReactDOM from "react-dom/client"
 import App from "./messages"
+import "./styles.css"
+import "./side-bar.css"
+import "./menu-button.css"
 
-ReactDOM.render(<App />, document.getElementById("root"))
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<App />)
