@@ -308,29 +308,35 @@
 
 /* DONE KEYFRAME */
 
-.msg {
-  background: var(--secondary);
+  .msg {
+    background: var(--secondary);
     margin: 10px;
     padding: 10px;
     border-radius: 15px;
-    margin-right: auto;
-}
+    margin-left: auto;
+    max-width: 65%;
+  }
 
-.messages {
-  margin: auto 100px 10px auto;
-}
+  .msg p {
+    word-break: break-word;
+  }
 
-.form-msg {
-  margin: 10px auto;
-}
+  .messages {
+    margin: auto 100px 10px auto;
+    display: flex;
+    flex-direction: column;
+  }
 
-.form-msg input {
-  width: 75vw;
-}
+  .form-msg {
+    margin: 10px auto;
+  }
 
-#chat {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
+  .form-msg input {
+    width: 75vw;
+  }
+
+  #chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
