@@ -24,7 +24,9 @@ function Chat() {
 
     return (
         <div id="chat">
-            {messageList}
+            <div className="messages">
+                {messageList}
+            </div>
             <Form addMessage={addMessage}/>
         </div>
     )

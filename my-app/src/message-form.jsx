@@ -14,7 +14,7 @@ function Form(props) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form-msg">
             <input
                 type="text"
                 className="input-msg"

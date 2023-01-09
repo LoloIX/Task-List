@@ -307,3 +307,30 @@
   }
 
 /* DONE KEYFRAME */
+
+.msg {
+  background: var(--secondary);
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    margin-right: auto;
+}
+
+.messages {
+  margin: auto 100px 10px auto;
+}
+
+.form-msg {
+  margin: 10px auto;
+}
+
+.form-msg input {
+  width: 75vw;
+}
+
+#chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
