@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-function Form() {
+function Form(props) {
     const [name, setName] = useState("")
 
     const handleChange = (e) => {
@@ -9,8 +9,10 @@ function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        props.addMessage(name)
         setName("")
     }
+
     return (
         <form onSubmit={handleSubmit}>
             <input

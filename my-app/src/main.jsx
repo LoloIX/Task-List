@@ -1,10 +1,10 @@
 import React from "react"
-import Form from "./message-form"
+import Chat from "./chat"
 
 function Main() {
     return (
         <div id="main">
-            <Form />
+            <Chat />
         </div>
     )    
 }
