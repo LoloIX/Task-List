@@ -15,7 +15,11 @@ function NavBar() {
             
             <div>
                 <i className="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="sort-input" />
+                <input
+                    id="sort-input"
+                    type="text"
+                    autoComplete="off"
+                />
             </div>
         </nav>
     )

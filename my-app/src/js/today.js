@@ -20,7 +20,7 @@ const setInput = () => {
 
     let $textBox = `
         <div class="input-task">
-            <input type="text" id="input-data" placeholder=" ">
+            <input type="text" id="input-data" placeholder=" " autocomplete="off">
             <label for="name">Task name</label>
         </div>
     `

@@ -31,7 +31,7 @@ let $ul = $span.querySelector("ul")
 const setInput = () => {
     let $textBox = `
         <div class="input-quest">
-            <input type="text" id="input-data" placeholder=" ">
+            <input type="text" id="input-data" placeholder=" " autocomplete="off">
             <label for="name">Quest name</label>
         </div>
     `
@@ -122,7 +122,7 @@ const dailyQuests = (item) => {
 
     let $quest = $(`
         <li>
-            <input type="checkbox" class="btn"></input>
+            <input type="checkbox" class="btn" autocomplete="off"/>
             <div class="quest">
                 <div>
                     <i class="check ${item.check ? "fa-solid fa-square-check" : "fa-regular fa-square"}"></i>

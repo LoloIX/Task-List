@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./messages"
+import App from "./App"
 import "./css/styles.css"
 import "./css/side-bar.css"
 import "./css/menu-button.css"
