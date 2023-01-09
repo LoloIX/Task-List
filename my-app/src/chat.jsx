@@ -2,17 +2,29 @@ import React from "react"
 import Form from "./message-form"
 import Message from "./message"
 import { nanoid } from "nanoid"
+import { useState } from "react"
+
+const DATA = []
 
 function Chat() {
     const addMessage = (name) => {
-        alert(name)
+        const newMessage = {id: `msg-${nanoid()}`, name}
+        setMessage([...messages, newMessage])
     }
+
+    const [messages, setMessage] = useState(DATA)
+
+    const messageList = messages.map((e) => (
+        <Message
+            name={e.name}
+            id={e.id}
+            key={e.id}
+        />
+    ))
 
     return (
         <div id="chat">
-            <Message name="first message" id="msg-1"/>
-            <Message name="second message" id="msg-2"/>
-            <Message name="tirth message" id="msg-2"/>
+            {messageList}
             <Form addMessage={addMessage}/>
         </div>
     )

@@ -2,7 +2,7 @@ import React from "react"
 
 function Message(props) {
     return (
-        <div className="msg" id={props.id} key={props.id}>
+        <div className="msg" id={props.id}>
             <p>{props.name}</p>
         </div>
     )
