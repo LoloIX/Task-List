@@ -14,13 +14,15 @@ function Chat() {
 
     const [messages, setMessage] = useState(DATA)
 
-    const messageList = messages.map((e) => (
+    const messageList = messages.map((e, i) => { 
+        DATA[i] = e
+        return (
         <Message
             name={e.name}
             id={e.id}
             key={e.id}
         />
-    ))
+    )})
 
     return (
         <div id="chat">
