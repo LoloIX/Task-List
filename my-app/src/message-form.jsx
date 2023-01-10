@@ -18,9 +18,10 @@ function Form(props) {
     return (
         <form onSubmit={handleSubmit} className="form-msg">
             <input
-                type="text"
                 className="input-msg"
+                type="text"
                 autoComplete="off"
+                placeholder="Write a message..."
                 value={name}
                 onChange={handleChange}
             />
