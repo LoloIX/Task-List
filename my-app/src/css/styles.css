@@ -325,8 +325,8 @@
     flex-direction: column;
     justify-content: flex-end;
     margin: auto 0px 10px auto;
+    width: 65%;
     max-height: calc(100% - 100px);
-    max-width: 65%;
     overflow: scroll;
   }
 
