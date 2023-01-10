@@ -310,10 +310,10 @@
 
   .msg {
     background: var(--secondary);
-    margin: 10px 100px 0px 0px;
+    margin: 10px 100px 0px auto;
     padding: 10px;
     border-radius: 15px;
-    margin-left: auto;
+    position: relative;
   }
 
   .msg p {
@@ -328,6 +328,18 @@
     width: 65%;
     max-height: calc(100% - 100px);
     overflow: scroll;
+  }
+
+  .messages > .msg:last-child::after {
+    content: "";
+    position: absolute;
+    background-color: var(--secondary);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid var(--background);
+    border-right: 10px solid var(--secondary);
+    width: 0px;
+    height: 0px;
+    right: 0px;
   }
 
   .form-msg {
@@ -376,6 +388,10 @@
     transition: all .3s;
     color: var(--tertiary);
     font-size: 40px;
+  }
+
+  .form-msg button:hover * {
+    transform: scale(1.05) translateX(-0.5px) translateY(-1px);
   }
   
   .form-msg button:active * {

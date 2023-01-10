@@ -28,6 +28,7 @@ function Chat() {
             <div className="messages">
                 {messageList}
             </div>
+            
             <Form addMessage={addMessage}/>
         </div>
     )

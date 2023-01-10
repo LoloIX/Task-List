@@ -11,12 +11,16 @@ function Form(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
         if (name === "") return
+
         props.addMessage(name)
+        
         window.setInterval(() => {
             let elem = document.getElementsByClassName("messages")
             elem[0].scrollTop = elem[0].scrollHeight
         })
+
         setName("")
     }
 
@@ -30,6 +34,7 @@ function Form(props) {
                 value={name}
                 onChange={handleChange}
             />
+            
             <button type="submit" className="btn-msg">
                 <FontAwesomeIcon icon={faCircleRight} />
             </button>
