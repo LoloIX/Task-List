@@ -2,7 +2,6 @@ import React from "react"
 import Form from "./message-form"
 import Message from "./message"
 import { nanoid } from "nanoid"
-import { useState } from "react"
 
 const DATA = []
 
@@ -12,7 +11,7 @@ function Chat() {
         setMessage([...messages, newMessage])
     }
 
-    const [messages, setMessage] = useState(DATA)
+    const [messages, setMessage] = React.useState(DATA)
 
     const messageList = messages.map((e, i) => { 
         DATA[i] = e

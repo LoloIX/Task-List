@@ -1,7 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 function Form(props) {
-    const [name, setName] = useState("")
+    const [name, setName] = React.useState("")
 
     const handleChange = (e) => {
         setName(e.target.value)
@@ -23,7 +25,7 @@ function Form(props) {
                 onChange={handleChange}
             />
             <button type="submit" className="btn-msg">
-                Send
+                <FontAwesomeIcon icon={faCircleRight} />
             </button>
         </form>
     )
