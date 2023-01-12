@@ -321,16 +321,18 @@
   }
 
   .messages {
-    display: grid;
-    flex-direction: column;
-    justify-content: flex-end;
     margin: auto 0px 10px auto;
     width: 65%;
     max-height: calc(100% - 100px);
     overflow: scroll;
   }
 
-  .messages > .msg:last-child::after {
+  .messages > div {
+    display: flex;
+    align-items: center;
+  }
+
+  .messages > div:last-child > .msg:after {
     content: "";
     position: absolute;
     background-color: var(--secondary);
@@ -342,7 +344,20 @@
     right: -5px;
     bottom: -5px;
     rotate: -90deg;
+  }
 
+  .messages > div:last-child > svg {
+    font-size: 50px;
+    color: var(--tertiary);
+    margin-right: 25px;
+  }
+
+  .messages > div:not(:last-child) > svg {
+    display: none;
+  }
+
+  .messages > div:last-child > .msg {
+    margin-right: 30px;
   }
 
   .form-msg {
