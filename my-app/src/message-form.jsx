@@ -2,24 +2,17 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
-function Form(props) {
-    const [name, setName] = React.useState("")
-
-    const handleChange = (e) => {
-        setName(e.target.value)
-    }
+function Form(prop) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const name = e.target[0].value
 
         if (name === "") return
-        
-        props.addMessage(name)
 
-        setName("")
-        
-        let elem = document.getElementsByClassName("messages")[0]
-        elem.scroll(0, elem.scrollHeight)
+        prop.addMessage(name)
+
+        name = ""
     }
 
     return (
@@ -29,8 +22,6 @@ function Form(props) {
                 type="text"
                 autoComplete="off"
                 placeholder="Write a message..."
-                value={name}
-                onChange={handleChange}
             />
             
             <button type="submit" className="btn-msg">

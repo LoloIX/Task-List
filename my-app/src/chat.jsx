@@ -9,6 +9,9 @@ function Chat() {
     const addMessage = (name) => {
         const newMessage = {id: `msg-${nanoid()}`, name}
         setMessage([...messages, newMessage])
+        
+        let elem = document.getElementsByClassName("messages")[0]
+        elem.scroll(0, elem.scrollHeight)
     }
 
     const [messages, setMessage] = React.useState(DATA)
