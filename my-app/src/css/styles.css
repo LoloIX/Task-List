@@ -336,10 +336,13 @@
     background-color: var(--secondary);
     border-top: 10px solid transparent;
     border-bottom: 10px solid var(--background);
-    border-right: 10px solid var(--secondary);
+    border-left: 10px solid var(--secondary);
     width: 0px;
     height: 0px;
-    right: 0px;
+    right: -5px;
+    bottom: -5px;
+    rotate: -90deg;
+
   }
 
   .form-msg {
