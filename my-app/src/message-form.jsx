@@ -13,15 +13,13 @@ function Form(props) {
         e.preventDefault()
 
         if (name === "") return
-
-        props.addMessage(name)
         
-        window.setInterval(() => {
-            let elem = document.getElementsByClassName("messages")
-            elem[0].scrollTop = elem[0].scrollHeight
-        })
+        props.addMessage(name)
 
         setName("")
+        
+        let elem = document.getElementsByClassName("messages")[0]
+        elem.scroll(0, elem.scrollHeight)
     }
 
     return (
