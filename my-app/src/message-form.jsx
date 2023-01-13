@@ -12,7 +12,7 @@ function Form(prop) {
 
         prop.addMessage(name)
 
-        name = ""
+        e.target[0].value = ""
     }
 
     return (
