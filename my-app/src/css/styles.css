@@ -372,6 +372,7 @@
   .form-msg input {
     width: 75vw;
     margin: auto;
+    margin-left: 10px;
     border: none;
     padding: 10px;
     border-radius: 25px;
@@ -386,7 +387,7 @@
     justify-content: center;
     align-items: center;
     border: none;
-    margin-right: 100px;
+    margin: 0px 100px;
     background-color: var(--background);
     border-radius: 50%;
     width: 54px;
