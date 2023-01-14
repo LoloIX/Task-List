@@ -1,4 +1,5 @@
 import React from "react"
+import { nanoid } from "nanoid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
@@ -17,7 +18,8 @@ function Form(prop) {
         console.log("conected to: " + c.peer)
     
         c.on('data', (data) => {
-            prop.sendMessage("To you: " + data)
+            const newMessage = {id: `msg-${nanoid()}`, name: `To you: ${data}`, recieved: true}
+            prop.sendMessage(newMessage)
             console.log("Data recieved: " + data)
         })
     })
@@ -27,8 +29,9 @@ function Form(prop) {
         const name = e.target[0].value
 
         if (name === "") return
-
-        prop.sendMessage("From you: " + name)
+        
+        const newMessage = {id: `msg-${nanoid()}`, name: `From you: ${name}`, recieved: false}
+        prop.sendMessage(newMessage)
         console.log("Sent: " + name)
         conn.send(name)
 
@@ -44,7 +47,9 @@ function Form(prop) {
 
         conn.on('data', (data) => {
             console.log("Data received: " + data)
-            prop.sendMessage("To you: " + data)
+            
+            const newMessage = {id: `msg-${nanoid()}`, name: `To you: ${data}`, recieved: true}
+            prop.sendMessage(newMessage)
         })
     }
 

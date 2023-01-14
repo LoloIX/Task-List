@@ -1,7 +1,6 @@
 import React from "react"
 import Form from "./message-form"
 import Message from "./message"
-import { nanoid } from "nanoid"
 
 const DATA = []
 
@@ -9,8 +8,7 @@ function Chat() {
 
     const [messages, setMessage] = React.useState(DATA)
 
-    const sendMessage = (name) => {
-        const newMessage = {id: `msg-${nanoid()}`, name}
+    const sendMessage = (newMessage) => {
         setMessage([...messages, newMessage])
         
         let elem = document.getElementsByClassName("messages")[0]
