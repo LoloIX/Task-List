@@ -1,7 +1,6 @@
 import React from "react"
 import Form from "./message-form"
 import Message from "./message"
-import StartAConnection from "./peer"
 import { nanoid } from "nanoid"
 
 const DATA = []
@@ -10,7 +9,7 @@ function Chat() {
 
     const [messages, setMessage] = React.useState(DATA)
 
-    const addMessage = (name) => {
+    const sendMessage = (name) => {
         const newMessage = {id: `msg-${nanoid()}`, name}
         setMessage([...messages, newMessage])
         
@@ -32,10 +31,10 @@ function Chat() {
         <div id="chat">
             <div className="messages">
                 {messageList}
-                <StartAConnection />
+                {/* <StartAConnection sendMessage={sendMessage}/> */}
             </div>
             
-            <Form addMessage={addMessage}/>
+            <Form sendMessage={sendMessage}/>
         </div>
     )
 }
