@@ -18,10 +18,7 @@ function Chat() {
     })
 
     peer.on('conection', (c) => {
-        c.on('open', () => {
-            console.log("somene connect me")
-            c.send("wolaaaa")
-        })
+        c.on('open', () => {})
 
         console.log("conected to: " + c.peer)
 
@@ -35,6 +32,7 @@ function Chat() {
         const conn = peer.connect(inputRemotePeerId, {reliable: true})
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
+            conn.send("Hello!")
         })
         conn.on('data', (data) => {
             addMessage(data)
@@ -42,7 +40,6 @@ function Chat() {
     }
 
     const addMessage = (name) => {
-        console.log("im working")
         const newMessage = {id: `msg-${nanoid()}`, name}
         setMessage([...messages, newMessage])
         
@@ -68,9 +65,7 @@ function Chat() {
         <div id="chat">
             <div className="messages">
                 {messageList}
-                <input 
-                    value={inputLocalPeerId}
-                />
+                <p>{inputLocalPeerId}</p>
                 <div>
                     <input 
                         value={inputRemotePeerId}
