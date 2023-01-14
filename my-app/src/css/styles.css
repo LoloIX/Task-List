@@ -360,9 +360,9 @@
     display: none;
   }
 
-  /* .messages > div:last-child > .msg {
+  .messages > div:last-child > .msg {
     margin-right: 30px;
-  } */
+  }
 
   .msg[received="true"] {
     background-color: var(--tertiary);
@@ -376,6 +376,10 @@
     border-left: 10px solid var(--tertiary);
     background-color: transparent;
     left: -5px;
+  }
+
+  .messages > div:last-child > .msg[received="true"] {
+    margin-left: 30px;
   }
 
   .form-msg {
