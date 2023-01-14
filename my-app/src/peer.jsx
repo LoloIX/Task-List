@@ -9,8 +9,8 @@ peer.on('open', () => {
 
 peer.on('connection', (c) => {
     conn = c
-    console.log(conn)
     console.log("conected to: " + c.peer)
+
     c.on('data', (data) => {
         console.log("Data recieved: " + data)
     })
@@ -22,9 +22,13 @@ function StartAConnection() {
 
     const connect = () => {
         conn = peer.connect(inputRemotePeerId, {reliable: true})
-        console.log(conn)
+        
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
+        })
+
+        conn.on('data', (data) => {
+            console.log("Data received: " + data)
         })
     }
 
@@ -37,7 +41,6 @@ function StartAConnection() {
     }
 
     const SendMessage = () => {
-        console.log(conn)
         conn.send(msg)
         console.log("Sent: " + msg)
     }
