@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 var peer = new Peer(null, {debug: 2})
-var conn = null
+var conn
 
 function Form(prop) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
@@ -18,9 +18,9 @@ function Form(prop) {
         console.log("conected to: " + c.peer)
     
         c.on('data', (data) => {
-            const newMessage = {id: `msg-${nanoid()}`, name: `To you: ${data}`, recieved: true}
+            const newMessage = {id: `msg-${nanoid()}`, name: data, received: "true"}
             prop.sendMessage(newMessage)
-            console.log("Data recieved: " + data)
+            console.log("Data received: " + data)
         })
     })
 
@@ -30,7 +30,7 @@ function Form(prop) {
 
         if (name === "") return
         
-        const newMessage = {id: `msg-${nanoid()}`, name: `From you: ${name}`, recieved: false}
+        const newMessage = {id: `msg-${nanoid()}`, name, received: "false"}
         prop.sendMessage(newMessage)
         console.log("Sent: " + name)
         conn.send(name)
@@ -48,7 +48,7 @@ function Form(prop) {
         conn.on('data', (data) => {
             console.log("Data received: " + data)
             
-            const newMessage = {id: `msg-${nanoid()}`, name: `To you: ${data}`, recieved: true}
+            const newMessage = {id: `msg-${nanoid()}`, name: data, received: "true"}
             prop.sendMessage(newMessage)
         })
     }

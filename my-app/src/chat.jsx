@@ -22,6 +22,7 @@ function Chat() {
             name={e.name}
             id={e.id}
             key={e.id}
+            received={e.received}
         />
     )})
 
@@ -29,7 +30,6 @@ function Chat() {
         <div id="chat">
             <div className="messages">
                 {messageList}
-                {/* <StartAConnection sendMessage={sendMessage}/> */}
             </div>
             
             <Form sendMessage={sendMessage}/>
