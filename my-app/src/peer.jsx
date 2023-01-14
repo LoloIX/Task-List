@@ -1,34 +1,30 @@
 import React from "react"
 
-var peer = new Peer(null, {debug: 3})
+var peer = new Peer(null, {debug: 2})
 var conn = null
 
-function StartAConnection() {
+peer.on('open', () => {
+    console.log("ID: " + peer.id)
+})
 
-    const [inputLocalPeerId, setLocalValue] = React.useState("")
+peer.on('connection', (c) => {
+    conn = c
+    console.log(conn)
+    console.log("conected to: " + c.peer)
+    c.on('data', (data) => {
+        console.log("Data recieved: " + data)
+    })
+})
+
+function StartAConnection() {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
     const [msg, setMsg] = React.useState("")
 
-    peer.on('open', id => {
-        setLocalValue(id)
-        console.log("ID: " + peer.id)
-    })
-
-    peer.on('connection', (c) => {
-        console.log("conected to: " + c.peer)
-        c.on('data', (data) => {
-            console.log("Data recieved: " + data)
-        })
-    })
-
     const connect = () => {
         conn = peer.connect(inputRemotePeerId, {reliable: true})
+        console.log(conn)
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
-            conn.send("HELLOO!!!")
-        })
-        conn.on('data', (data) => {
-            addMessage(data)
         })
     }
 
@@ -41,15 +37,13 @@ function StartAConnection() {
     }
 
     const SendMessage = () => {
+        console.log(conn)
         conn.send(msg)
         console.log("Sent: " + msg)
     }
 
     return (
         <div className="Peer">
-            <div>
-                <p>Your PeerJS ID is: {inputLocalPeerId}</p>
-            </div>
             <div>
                 <p>Connect to: </p>
                 <input 
