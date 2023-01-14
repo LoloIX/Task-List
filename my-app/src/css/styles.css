@@ -422,3 +422,8 @@
     flex-direction: column;
     height: 100%;
   }
+
+
+  .Peer > div{
+    margin: 25px;
+  }
