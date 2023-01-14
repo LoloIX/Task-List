@@ -14,18 +14,18 @@ function StartAConnection() {
         console.log("ID: " + peer.id)
     })
 
-    peer.on('conection', (c) => {
-        conn = c
-        console.log("conected to: " + conn.peer)
-        conn.on('data', (data) => {
+    peer.on('connection', (c) => {
+        console.log("conected to: " + c.peer)
+        c.on('data', (data) => {
             console.log("Data recieved: " + data)
         })
     })
 
     const connect = () => {
-        const conn = peer.connect(inputRemotePeerId, {reliable: true})
+        conn = peer.connect(inputRemotePeerId, {reliable: true})
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
+            conn.send("HELLOO!!!")
         })
         conn.on('data', (data) => {
             addMessage(data)
