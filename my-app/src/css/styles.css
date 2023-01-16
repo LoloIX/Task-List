@@ -310,7 +310,7 @@
 
   .msg {
     background: var(--secondary);
-    margin: 10px 30px 0px auto;
+    margin: 10px 100px 0px auto;
     padding: 15px;
     border-radius: 15px;
     position: relative;
@@ -361,21 +361,13 @@
     display: none;
   }
 
-  .messages > blockquote:not(:last-of-type) > div > svg {
-    margin-right: 0px;
-  }
-
-  .messages > div:not(:last-of-type) > div > svg {
-    margin-left: 0px;
-  }
-
   .messages > blockquote:last-of-type > div {
     flex-direction: row-reverse;
   }
 
-  .msg[received="true"] {
+  .messages > blockquote .msg {
     margin-right: auto;
-    margin-left: 30px;
+    margin-left: 100px;
   }
 
   .messages > blockquote:last-of-type .msg:after {
@@ -389,6 +381,14 @@
     background-color: transparent;
     left: -5px;
     rotate: -90deg;
+  }
+
+  .messages > blockquote:last-of-type .msg {
+    margin-left: 0px;
+  }
+
+  .messages > div:last-of-type .msg {
+    margin-right: 0px;
   }
 
   .form-msg {
