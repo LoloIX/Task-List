@@ -310,7 +310,7 @@
 
   .msg {
     background: var(--secondary);
-    margin: 10px 10px 0px auto;
+    margin: 10px 30px 0px auto;
     padding: 15px;
     border-radius: 15px;
     position: relative;
@@ -332,7 +332,7 @@
     align-items: center;
   }
 
-  .messages > div:last-child > .msg:after {
+  .messages > div:has(.msg[received="false"]):last-child > .msg:after {
     content: "";
     position: absolute;
     background-color: var(--secondary);
@@ -346,40 +346,32 @@
     rotate: -90deg;
   }
 
-  .messages > div:last-child > svg {
+  .messages > div > svg {
     font-size: 50px;
     color: var(--tertiary);
     margin-right: 25px;
-  }
-
-  .messages > div:not(:last-child) > svg {
-    display: none;
   }
 
   .messages > div > svg {
     display: none;
   }
 
-  .messages > div:last-child > .msg {
-    margin-right: 30px;
-  }
-
   .msg[received="true"] {
-    background-color: var(--tertiary);
     margin-right: auto;
-    margin-left: 10px;
+    margin-left: 30px;
   }
 
-  .messages > div:last-child > .msg[received="true"]:after {
+  .messages > div:has(.msg[received="true"]):last-child > .msg:after {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
     border-top: 10px solid transparent;
-    border-bottom: 10px solid var(--tertiary);
-    border-left: 10px solid var(--tertiary);
+    border-bottom: 10px solid var(--secondary);
+    border-left: 10px solid var(--secondary);
     background-color: transparent;
     left: -5px;
-  }
-
-  .messages > div:last-child > .msg[received="true"] {
-    margin-left: 30px;
+    rotate: -90deg;
   }
 
   .form-msg {
