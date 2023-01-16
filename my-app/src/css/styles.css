@@ -327,12 +327,17 @@
     overflow: scroll;
   }
 
-  .messages > div {
+  .messages > * {
+    display: block;
+    margin: 0px;
+  }
+
+  .messages > * > div {
     display: flex;
     align-items: center;
   }
 
-  .messages > div:has(.msg[received="false"]):last-child > .msg:after {
+  .messages > div:last-of-type .msg:after {
     content: "";
     position: absolute;
     background-color: var(--secondary);
@@ -346,14 +351,26 @@
     rotate: -90deg;
   }
 
-  .messages > div > svg {
+  .messages > * > div > svg {
     font-size: 50px;
     color: var(--tertiary);
-    margin-right: 25px;
+    margin: 0px 25px;
   }
 
-  .messages > div > svg {
+  .messages > *:not(:last-of-type) > div > svg {
     display: none;
+  }
+
+  .messages > blockquote:not(:last-of-type) > div > svg {
+    margin-right: 0px;
+  }
+
+  .messages > div:not(:last-of-type) > div > svg {
+    margin-left: 0px;
+  }
+
+  .messages > blockquote:last-of-type > div {
+    flex-direction: row-reverse;
   }
 
   .msg[received="true"] {
@@ -361,7 +378,7 @@
     margin-left: 30px;
   }
 
-  .messages > div:has(.msg[received="true"]):last-child > .msg:after {
+  .messages > blockquote:last-of-type .msg:after {
     content: "";
     position: absolute;
     width: 0px;

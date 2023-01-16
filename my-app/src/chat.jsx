@@ -17,14 +17,32 @@ function Chat() {
 
     const messageList = messages.map((e, i) => { 
         DATA[i] = e
-        return (
-        <Message
-            name={e.name}
-            id={e.id}
-            key={e.id}
-            received={e.received}
-        />
-    )})
+        if (e.received === "true"){
+            return (
+                <blockquote
+                    key={e.id}
+                >
+                    <Message
+                        name={e.name}
+                        id={e.id}
+                        received={e.received}
+                    />
+                </blockquote>
+            )
+        } else {
+            return  (
+                <div
+                    key={e.id}
+                >
+                    <Message
+                        name={e.name}
+                        id={e.id}
+                        received={e.received}
+                    />
+                </div>
+            )
+        }
+    })
 
     return (
         <div id="chat">
