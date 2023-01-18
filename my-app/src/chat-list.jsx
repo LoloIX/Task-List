@@ -1,4 +1,6 @@
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCircleUser, faEllipsisVertical, faUserGroup } from "@fortawesome/free-solid-svg-icons"
 
 function ChatList() {
     return (
@@ -6,14 +8,19 @@ function ChatList() {
             <header>
                 <div>
                     <div className="profile__photo">
-                        photo
-                        <img></img>
+                        <FontAwesomeIcon icon={faCircleUser} />
                     </div>
                 </div>
                 <div>
                     <div className="chat__options">
-                        <div>groups</div>
-                        <div>three dots</div>
+                        <div className="groups">
+                            <FontAwesomeIcon icon={faUserGroup} />
+                            <span></span>
+                        </div>
+                        <div className="options__menu">
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                            <span></span>
+                        </div>
                     </div>
                 </div>
             </header>

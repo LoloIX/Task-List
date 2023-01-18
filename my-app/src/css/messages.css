@@ -168,6 +168,41 @@
   #side > header {
     background-color: var(--primary);
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #side > header svg {
+    font-size: 25px;
+  }
+
+  #side > header div:has(.profile__photo) {
+    margin-right: auto;
+  }
+
+  .profile__photo {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+  }
+
+  .chat__options {
+    display: flex;
+  }
+
+  .chat__options div {
+    margin: 0px 6px 0px 8px;
+    border-radius: 50%;
+    padding: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chat__options div:hover {
+    background-color: var(--quart-bright);
   }
 
   /*------------ DONE CHAT LIST ------------*/
