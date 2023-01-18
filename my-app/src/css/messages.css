@@ -1,3 +1,9 @@
+  body { 
+    --side-header: #2986d6;
+    --side-background: #0065af;
+    --chat-list-svg: #8dceff;
+  }
+
 /* ------------ MESSAGE ------------*/
 
     #chat {
@@ -161,12 +167,12 @@
     position: sticky;
     width: 350px;
     height: 100vh;
-    background-color: var(--tertiary);
+    background-color: var(--side-background);
     z-index: 2;
   }
 
   #side > header {
-    background-color: var(--primary);
+    background-color: var(--side-header);
     padding: 10px;
     display: flex;
     align-items: center;
@@ -174,7 +180,8 @@
   }
 
   #side > header svg {
-    font-size: 25px;
+    font-size: 20px;
+    color: var(--chat-list-svg);
   }
 
   #side > header div:has(.profile__photo) {
@@ -185,6 +192,13 @@
     height: 40px;
     width: 40px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile__photo svg {
+    font-size: 40px !important;
   }
 
   .chat__options {
@@ -199,10 +213,8 @@
     height: 24px;
     display: flex;
     justify-content: center;
-  }
-
-  .chat__options div:hover {
-    background-color: var(--quart-bright);
+    align-items: center;
+    cursor: pointer;
   }
 
   /*------------ DONE CHAT LIST ------------*/

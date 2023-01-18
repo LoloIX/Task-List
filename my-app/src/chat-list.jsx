@@ -25,7 +25,9 @@ function ChatList() {
                 </div>
             </header>
             <div>
-                <div id="search__bar"> </div>
+                <div id="search__bar">
+                    <input />
+                </div>
                 <div id="chat__list">
                     <div className="chat">
                         Chat 1
