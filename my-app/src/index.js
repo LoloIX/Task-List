@@ -4,6 +4,7 @@ import App from "./App"
 import "./css/styles.css"
 import "./css/side-bar.css"
 import "./css/menu-button.css"
+import "./css/messages.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(<App />)
