@@ -59,6 +59,60 @@ function ChatList() {
                             <p>person 3: message</p>
                         </div>
                     </div>
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 1</h3>
+                            <p>person 1: message</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 2</h3>
+                            <p>person 2: message</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 3</h3>
+                            <p>person 3: message</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 1</h3>
+                            <p>person 1: message</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 2</h3>
+                            <p>person 2: message</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 3</h3>
+                            <p>person 3: message</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

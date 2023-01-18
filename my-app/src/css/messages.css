@@ -104,7 +104,6 @@
     background-color: var(--primary);
     width: 100%;
     height: 100px;
-    z-index: 2;
     display: flex;
     align-items: center;
   }
@@ -165,7 +164,7 @@
     display: flex;
     flex-direction: column;
     position: sticky;
-    width: 350px;
+    width: 500px;
     height: 100vh;
     background-color: var(--side-background);
     z-index: 2;
@@ -183,7 +182,7 @@
     justify-content: flex-end;
   }
 
-  #side > header svg {
+  #side svg {
     font-size: 20px;
     color: var(--chat-list-svg);
   }
@@ -222,9 +221,8 @@
   }
 
   #search__bar {
-    /* height: 50px; */
     padding: 10px;
-}
+  }
 
   #search__bar > div {
     background-color: var(--side-header);
@@ -239,6 +237,7 @@
     color: WHITE;
     border: none;
     height: 25px;
+    width: 100%;
   }
 
   #search__bar input:focus {
@@ -252,6 +251,7 @@
   }
 
   #chat__list > div {
+    margin: 5px 0px;
     width: 100%;
     cursor: pointer;
     display: flex;
