@@ -277,6 +277,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-bottom: 1px solid var(--side-header);
+  }
+
+  #chat__list > div:hover {
+    background-color: var(--quart-bright);
   }
 
   #chat__list p {
