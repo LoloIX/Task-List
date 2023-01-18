@@ -13,6 +13,8 @@
     display: flex;
     justify-content: center;
     transition: all .5s;
+    margin-top: 100px;
+    height: calc(100vh - 100px);
   }
 
   #main button i {
@@ -231,17 +233,14 @@
   #daily-quests {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    right: 0px;
+    margin: 100px 0px;
     background-color: var(--span);
-    top: 92.5px;
     width: 442.5px;
     border: 7.5px solid var(--tertiary);
     --daily-height: calc(100vh - 100px);
     min-height: var(--daily-height);
     transition: all .5s;
     overflow: hidden;
-    z-index: 2;
     text-align: center;
     box-shadow: var(--shadow);
   }
@@ -281,25 +280,6 @@
   body[data-quests="false"] .close-btn {
     width: 0px;
     border: 0px solid;
-  }
-
-  body[data-menu="false"][data-quests="false"] #main {
-    left: 85px;
-    width: calc(100vw - 85px);
-  }
-  
-  body[data-menu="true"][data-quests="false"] #main {
-    left: 275px;
-    width: calc(100vw - 275px);
-  }
-
-  body[data-quests="true"][data-menu="false"] #main {
-    width: calc(100vw - 535px);
-    left: 85px;
-  }
-  
-  body[data-quests="true"][data-menu="true"] #main {
-    left: -45px;
   }
   
   /*------------ QUEST ------------*/
