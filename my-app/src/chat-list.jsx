@@ -32,14 +32,32 @@ function ChatList() {
                     </div>
                 </div>
                 <div id="chat__list">
-                    <div className="chat">
-                        Chat 1
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 1</h3>
+                            <p>person 1: message</p>
+                        </div>
                     </div>
-                    <div className="chat">
-                        Chat 2
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 2</h3>
+                            <p>person 2: message</p>
+                        </div>
                     </div>
-                    <div className="chat">
-                        Chat 3
+                    <div>
+                        <div>
+                            <FontAwesomeIcon icon={faCircleUser} />
+                        </div>
+                        <div>
+                            <h3>person 3</h3>
+                            <p>person 3: message</p>
+                        </div>
                     </div>
                 </div>
             </div>
