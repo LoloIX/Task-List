@@ -6,7 +6,7 @@ import ChatList from "./chat-list"
 
 function App() {
     return (
-        <div>
+        <div className="d-flex">
             {/* <NavBar /> */}
             {/* <SideBar /> */}
             <ChatList />

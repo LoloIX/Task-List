@@ -109,7 +109,7 @@
   }
 
   .form-msg input {
-    width: 75vw;
+    width: 75%;
     margin: auto;
     margin-left: 50px;
     border: none;
@@ -163,11 +163,8 @@
   #side {
     display: flex;
     flex-direction: column;
-    position: sticky;
-    width: 500px;
-    height: 100vh;
+    min-width: 450px;
     background-color: var(--side-background);
-    z-index: 2;
   }
 
   #side > div {
@@ -184,7 +181,8 @@
 
   #side svg {
     font-size: 20px;
-    color: var(--chat-list-svg);
+    color: var(--background);
+    /* color: WHITE; */
   }
 
   #side > header div:has(.profile__photo) {
@@ -227,7 +225,7 @@
   #search__bar > div {
     background-color: var(--side-header);
     border-radius: 10px;
-    height: 35px;
+    height: 33px;
     display: flex;
     align-items: center;
   }
@@ -235,6 +233,7 @@
   #search__bar input {
     background-color: transparent;
     color: WHITE;
+    font-size: 15px;
     border: none;
     height: 25px;
     width: 100%;
@@ -244,10 +243,15 @@
     outline: none;
   }
 
+  #search__bar input::placeholder {
+    color: var(--chat-list-svg);
+  }
+
   #search__bar svg {
     font-size: 15px;
     color: var(--chat-list-svg);
     margin: 0px 20px;
+    cursor: pointer;
   }
 
   #chat__list > div {

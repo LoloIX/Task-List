@@ -116,12 +116,7 @@
   }
 
   #main {
-    position: absolute;
-    top: 100px;
-    width: calc(100vw - 85px);
-    right: 0px;
-    height: calc(100vh - 100px);
-    transition: width .5s;
+    width: 100%;
   }
 
   .d-none {
