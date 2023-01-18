@@ -272,7 +272,7 @@
   }
 
   #chat__list > div > div:last-child {
-    padding-right: 15px;
+    margin-right: 15px;
     width: 100%;
     display: flex;
     flex-direction: column;
