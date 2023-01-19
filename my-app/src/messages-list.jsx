@@ -19,9 +19,7 @@ function MessagesList() {
         messagesStorage[i] = e
         if (e.received === "true"){
             return (
-                <blockquote
-                    key={e.id}
-                >
+                <blockquote key={e.id} >
                     <Message
                         name={e.name}
                         id={e.id}
@@ -31,9 +29,7 @@ function MessagesList() {
             )
         } else {
             return  (
-                <div
-                    key={e.id}
-                >
+                <div key={e.id} >
                     <Message
                         name={e.name}
                         id={e.id}
@@ -45,11 +41,10 @@ function MessagesList() {
     })
 
     return (
-        <div id="MessagesList">
+        <div id="messages__list">
             <div className="messages">
                 {printMessages}
             </div>
-            
             <Form sendMessage={sendMessage}/>
         </div>
     )

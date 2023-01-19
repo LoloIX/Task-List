@@ -6,7 +6,7 @@
 
 /* ------------ MESSAGE ------------*/
 
-    #chat {
+    #messages__list {
     display: flex;
     flex-direction: column;
     height: 100%;
