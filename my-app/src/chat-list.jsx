@@ -77,7 +77,7 @@ const chatsList = [
                 sendedBy: "You"
             },
             {
-                string: "I'm person 3 blablalblasdasdas",
+                string: "I'm person 3 blablalblasdasdas. But we have a problem here. If this is too long this will break AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 sendedBy: "Person 3"
             }
         ]
@@ -100,7 +100,6 @@ function ChatList() {
             />
         )
     })
-    console.log(printChats)
 
     return (
         <div id="side">

@@ -296,11 +296,19 @@
   #chat__list p {
     font-size: 15px;
     color: var(--chat-list-svg);
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   #chat__list h3 {
     margin: 0px;
     font-size: 20px;
     color: WHITE;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   /*------------ DONE CHAT LIST ------------*/
