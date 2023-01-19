@@ -17,13 +17,13 @@ function MessagesList() {
 
     const printMessages = messages.map((e, i) => { 
         messagesStorage[i] = e
-        if (e.received === "true"){
+        let received = e.sendedBy === "You"
+        if (received !== true){
             return (
                 <blockquote key={e.id} >
                     <Message
                         name={e.name}
                         id={e.id}
-                        received={e.received}
                     />
                 </blockquote>
             )
@@ -33,7 +33,6 @@ function MessagesList() {
                     <Message
                         name={e.name}
                         id={e.id}
-                        received={e.received}
                     />
                 </div>
             )

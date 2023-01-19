@@ -18,7 +18,7 @@ function Form(prop) {
         console.log("conected to: " + c.peer)
     
         c.on('data', (data) => {
-            const newMessage = {id: `msg-${nanoid()}`, name: data, received: "true"}
+            const newMessage = {id: `msg-${nanoid()}`, name: data, sendedBy: "Not You"}
             prop.sendMessage(newMessage)
             console.log("Data received: " + data)
         })
@@ -30,7 +30,7 @@ function Form(prop) {
 
         if (name === "") return
         
-        const newMessage = {id: `msg-${nanoid()}`, name, received: "false"}
+        const newMessage = {id: `msg-${nanoid()}`, name, sendedBy: "You"}
         prop.sendMessage(newMessage)
         console.log("Sent: " + name)
         conn.send(name)
@@ -48,7 +48,7 @@ function Form(prop) {
         conn.on('data', (data) => {
             console.log("Data received: " + data)
             
-            const newMessage = {id: `msg-${nanoid()}`, name: data, received: "true"}
+            const newMessage = {id: `msg-${nanoid()}`, name: data, sendedBy: "Not You"}
             prop.sendMessage(newMessage)
         })
     }

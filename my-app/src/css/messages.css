@@ -25,9 +25,9 @@
   }
 
   .messages {
-    margin: auto 0px 10px auto;
+    margin: auto 0px 0px auto;
     width: 100%;
-    max-height: calc(100% - 100px);
+    max-height: calc(100vh - 166px);
     overflow: scroll;
   }
 
