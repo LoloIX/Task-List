@@ -2,11 +2,11 @@ import React from "react"
 import Form from "./message-form"
 import Message from "./message"
 
-const DATA = []
+const messagesStorage = []
 
-function Chat() {
+function MessagesList() {
 
-    const [messages, setMessage] = React.useState(DATA)
+    const [messages, setMessage] = React.useState(messagesStorage)
 
     const sendMessage = (newMessage) => {
         setMessage([...messages, newMessage])
@@ -15,8 +15,8 @@ function Chat() {
         elem.scroll(0, elem.scrollHeight)
     }
 
-    const messageList = messages.map((e, i) => { 
-        DATA[i] = e
+    const printMessages = messages.map((e, i) => { 
+        messagesStorage[i] = e
         if (e.received === "true"){
             return (
                 <blockquote
@@ -45,9 +45,9 @@ function Chat() {
     })
 
     return (
-        <div id="chat">
+        <div id="MessagesList">
             <div className="messages">
-                {messageList}
+                {printMessages}
             </div>
             
             <Form sendMessage={sendMessage}/>
@@ -55,4 +55,4 @@ function Chat() {
     )
 }
 
-export default Chat
+export default MessagesList

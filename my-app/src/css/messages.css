@@ -182,7 +182,6 @@
   #side svg {
     font-size: 20px;
     color: var(--background);
-    /* color: WHITE; */
   }
 
   #side > header div:has(.profile__photo) {
@@ -207,15 +206,20 @@
   }
 
   .chat__options div {
-    margin: 0px 6px 0px 8px;
-    border-radius: 50%;
-    padding: 8px;
     width: 24px;
     height: 24px;
+    border-radius: 50%;
+    margin: 0px 6px 0px 8px;
+    padding: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: all .3s;
+  }
+
+  .chat__options div:hover {
+    background-color: var(--quart-bright);
   }
 
   #search__bar {
@@ -261,6 +265,7 @@
     display: flex;
     flex-direction: row;
     height: 75px;
+    transition: all .3s;
   }
   
   #chat__list > div svg {

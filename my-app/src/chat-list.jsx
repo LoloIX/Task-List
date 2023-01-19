@@ -2,7 +2,16 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleUser, faEllipsisVertical, faUsers, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
+const chatsList = []
+
 function ChatList() {
+    const [chats, addNewChat] = React.useState(chatList)
+
+    const printChats = chats.map((e, i) => {
+        chatsList[i] = e
+        
+    })
+
     return (
         <div id="side">
             <header>

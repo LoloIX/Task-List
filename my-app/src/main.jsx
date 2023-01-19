@@ -1,10 +1,10 @@
 import React from "react"
-import Chat from "./chat"
+import MessageList from "./messages-list"
 
 function Main() {
     return (
         <div id="main">
-            <Chat />
+            <MessageList />
         </div>
     )    
 }
