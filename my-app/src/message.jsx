@@ -6,7 +6,7 @@ function Message(props) {
     return (
         <div>
             <div className="msg">
-                <p>{props.name}</p>
+                <p>{props.string}</p>
             </div>
             <FontAwesomeIcon icon={faCircleUser} />
         </div>

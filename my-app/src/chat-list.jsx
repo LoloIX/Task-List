@@ -94,7 +94,6 @@ function ChatList() {
             <Chat
                 name={e.name}
                 key={e.id}
-                id={e.id}
                 sendedBy={e.messages[lastMessageIndex].sendedBy}
                 lastMsg={e.messages[lastMessageIndex].string}
             />

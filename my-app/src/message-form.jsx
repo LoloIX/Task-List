@@ -1,5 +1,4 @@
 import React from "react"
-import { nanoid } from "nanoid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
@@ -18,7 +17,7 @@ function Form(prop) {
         console.log("conected to: " + c.peer)
     
         c.on('data', (data) => {
-            const newMessage = {id: `msg-${nanoid()}`, name: data, sendedBy: "Not You"}
+            const newMessage = {string: data, sendedBy: "Not You", id: c.peer}
             prop.sendMessage(newMessage)
             console.log("Data received: " + data)
         })
@@ -26,14 +25,14 @@ function Form(prop) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const name = e.target[0].value
+        const string = e.target[0].value
 
-        if (name === "") return
+        if (string === "") return
         
-        const newMessage = {id: `msg-${nanoid()}`, name, sendedBy: "You"}
+        const newMessage = {string, sendedBy: "You", id: peer.id}
         prop.sendMessage(newMessage)
-        console.log("Sent: " + name)
-        conn.send(name)
+        console.log("Sent: " + string)
+        conn.send(string)
 
         e.target[0].value = ""
     }
@@ -48,7 +47,7 @@ function Form(prop) {
         conn.on('data', (data) => {
             console.log("Data received: " + data)
             
-            const newMessage = {id: `msg-${nanoid()}`, name: data, sendedBy: "Not You"}
+            const newMessage = {string: data, sendedBy: "Not You", id: conn.peer}
             prop.sendMessage(newMessage)
         })
     }

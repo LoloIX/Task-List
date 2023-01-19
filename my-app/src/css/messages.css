@@ -269,7 +269,7 @@
   }
   
   #chat__list > div svg {
-    font-size: 50px;
+    font-size: 40px;
   }
 
   #chat__list > div > div:first-child {
@@ -311,4 +311,5 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
   /*------------ DONE CHAT LIST ------------*/

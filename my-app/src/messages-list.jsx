@@ -1,4 +1,5 @@
 import React from "react"
+import { nanoid } from "nanoid"
 import Form from "./message-form"
 import Message from "./message"
 
@@ -17,22 +18,21 @@ function MessagesList() {
 
     const printMessages = messages.map((e, i) => { 
         messagesStorage[i] = e
+        console.log(messagesStorage)
         let received = e.sendedBy === "You"
         if (received !== true){
             return (
-                <blockquote key={e.id} >
+                <blockquote key={`msg-${nanoid()}`}  >
                     <Message
-                        name={e.name}
-                        id={e.id}
+                        string={e.string}
                     />
                 </blockquote>
             )
         } else {
             return  (
-                <div key={e.id} >
+                <div key={`msg-${nanoid()}`} >
                     <Message
-                        name={e.name}
-                        id={e.id}
+                        string={e.string}
                     />
                 </div>
             )
