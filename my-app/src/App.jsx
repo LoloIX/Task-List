@@ -1,11 +1,13 @@
 import React from "react"
 import Main from "./main"
-import ChatList from "./chat-list"
+import SideBar from "./side-bar"
+import NavBar from "./nav-bar"
 
 function App() {
     return (
         <div className="d-flex">
-            <ChatList />
+            <NavBar />
+            <SideBar />
             <Main />
         </div>
     )

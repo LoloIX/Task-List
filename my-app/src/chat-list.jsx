@@ -3,7 +3,7 @@ import Chat from "./chat"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleUser, faEllipsisVertical, faUsers, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
-const chatsList = [
+const chatStorages = [
     {
         name: "person 1",
         id: "person-1-id",
@@ -85,10 +85,10 @@ const chatsList = [
 ]
 
 function ChatList() {
-    const [chats, addNewChat] = React.useState(chatsList)
+    const [chats, addNewChat] = React.useState(chatStorages)
 
     const printChats = chats.map((e, i) => {
-        chatsList[i] = e
+        chatStorages[i] = e
         let lastMessageIndex = (e.messages.length - 1)
         return (
             <Chat
