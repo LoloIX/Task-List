@@ -35,7 +35,7 @@
   .messages {
     margin: auto 0px 0px auto;
     width: 100%;
-    max-height: calc(100vh - 166px);
+    max-height: calc(100vh - 266px);
     overflow: scroll;
   }
 
