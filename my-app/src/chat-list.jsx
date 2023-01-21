@@ -7,62 +7,9 @@ function ChatList(props) {
     const chats = [
         {
             id: "person 1",
-            messages: props.chatsStorage
-        },
-        {
-            id: "person 2",
-            messages: [
-                {
-                    string: "Hi. how are you?",
-                    id: "You"
-                },
-                {
-                    string: "fine, thanks you",
-                    id: "Person 2"
-                },
-                {
-                    string: "and you?",
-                    id: "Person 2"
-                },
-                {
-                    string: "everything is fine, thanks you",
-                    id: "You"
-                },
-                {
-                    string: "I'm you owowowowo",
-                    id: "You"
-                }
-            ]
-        },
-        {
-            id: "person 3",
-            messages: [
-                {
-                    string: "Hi. how are you?",
-                    id: "You"
-                },
-                {
-                    string: "fine, thanks you",
-                    id: "Person 3"
-                },
-                {
-                    string: "and you?",
-                    id: "Person 3"
-                },
-                {
-                    string: "everything is fine, thanks you",
-                    id: "You"
-                },
-                {
-                    string: "I'm person 3 blablalblasdasdas. But we have a problem here. If this is too long this will break AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    id: "Person 3"
-                }
-            ]
+            messages: props.messagesStorage
         }
-    ]
-
-    console.log(chats[0].messages)    
-    console.log(props.chatsStorage)    
+    ]  
 
     const printChats = chats.map((e) => {
         if (e.messages.length === 0) return

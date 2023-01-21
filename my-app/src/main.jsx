@@ -2,15 +2,17 @@ import React from "react"
 import MessageList from "./messages-list"
 import ChatList from "./chat-list"
 
-const chatsStorage = []
+const messagesStorage = []
 
 function Main() {
-    const [data, setData] = React.useState(chatsStorage)
+    const [data, setData] = React.useState(messagesStorage)
     
+
+
     return (
         <div id="main">
-            <ChatList chatsStorage={data} />
-            <MessageList chatsStorage={data} setData={setData}/>
+            <ChatList messagesStorage={data} />
+            <MessageList messagesStorage={data} setData={setData}/>
         </div>
     )    
 }
