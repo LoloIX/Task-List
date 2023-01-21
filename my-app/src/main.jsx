@@ -6,7 +6,6 @@ const chatsStorage = []
 
 function Main() {
     const [data, setData] = React.useState(chatsStorage)
-    console.log(data)
     
     return (
         <div id="main">

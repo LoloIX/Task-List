@@ -17,7 +17,7 @@ function Form(prop) {
         console.log("conected to: " + c.peer)
     
         c.on('data', (data) => {
-            const newMessage = {string: data, sendedBy: "Not You", id: c.peer}
+            const newMessage = {string: data, id: c.peer}
             prop.sendMessage(newMessage)
             console.log("Data received: " + data)
         })
@@ -47,7 +47,7 @@ function Form(prop) {
         conn.on('data', (data) => {
             console.log("Data received: " + data)
             
-            const newMessage = {string: data, sendedBy: "Not You", id: conn.peer}
+            const newMessage = {string: data, id: conn.peer}
             prop.sendMessage(newMessage)
         })
     }
