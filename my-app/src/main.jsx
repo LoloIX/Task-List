@@ -7,8 +7,6 @@ const messagesStorage = []
 function Main() {
     const [data, setData] = React.useState(messagesStorage)
     
-
-
     return (
         <div id="main">
             <ChatList messagesStorage={data} />

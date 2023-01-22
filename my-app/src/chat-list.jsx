@@ -35,12 +35,20 @@ function ChatList(props) {
                     </div>
                 </div>
                 <div>
-                    <div className="chat__options">
-                        <div className="groups">
+                    <div 
+                        className="chat__options"
+                    >
+                        <div 
+                            className="groups"
+                            title="New group"
+                        >
                             <FontAwesomeIcon icon={faUsers} />
                             <span></span>
                         </div>
-                        <div className="options__menu">
+                        <div 
+                            className="options__menu"
+                            title="Menu"
+                        >
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                             <span></span>
                         </div>
