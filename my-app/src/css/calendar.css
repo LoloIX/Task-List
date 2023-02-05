@@ -235,7 +235,7 @@
     flex-direction: column;
     margin: 100px 0px;
     background-color: var(--span);
-    width: 442.5px;
+    width: 550px;
     border: 7.5px solid var(--tertiary);
     --daily-height: calc(100vh - 100px);
     min-height: var(--daily-height);
@@ -261,7 +261,7 @@
     width: 50px;
     height: calc(100vh - 100px);
     margin-top: 100px;
-    margin-left: calc(100vw - 500px);
+    margin-left: calc(100vw - 475px);
     display: flex;
     align-items: center;
     z-index: 0;
