@@ -7,7 +7,7 @@ function SideBar() {
         <span id="side-bar">
             <menu>
                 <li>
-                    <a href="Works.html"><div>
+                    <a href="works.html"><div>
                         <FontAwesomeIcon icon={faFolderOpen} />
                         <h3>Works</h3>
                     </div></a>
