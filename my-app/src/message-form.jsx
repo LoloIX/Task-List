@@ -38,7 +38,8 @@ function Form(prop) {
     }
 
     const connect = () => {
-        conn = peer.connect(inputRemotePeerId, {reliable: true})
+        let peerServer = new Peer(`${inputRemotePeerId + "_+_" + peer.id}`)
+        conn = peerServer.connect(inputRemotePeerId, {reliable: true})
         
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
