@@ -38,19 +38,34 @@ function Form(prop) {
     }
 
     const connect = () => {
-        let peerServer = new Peer(`${inputRemotePeerId + "_+_" + peer.id}`)
-        conn = peerServer.connect(inputRemotePeerId, {reliable: true})
-        
-        conn.on('open', () => {
-            console.log("connected to: " + conn.peer)
+        let newPeer = new Peer(null, {debug: 2})
+
+        newPeer.on('open', () => {
+            console.log("newPeer ID: " + newPeer.id)
         })
 
-        conn.on('data', (data) => {
-            console.log("Data received: " + data)
-            
-            const newMessage = {string: data, id: conn.peer}
-            prop.sendMessage(newMessage)
+        newPeer.on('connection', (c) => {
+            console.log("connected to: " + c.peer)
         })
+
+        let test = newPeer.connect(inputRemotePeerId, {reliable: true})
+
+        test.on('open', () => {
+            console.log("connected to: " + test.peer)
+        })
+
+        // conn = peer.connect(inputRemotePeerId, {reliable: true})
+        
+        // conn.on('open', () => {
+        //     console.log("connected to: " + conn.peer)
+        // })
+
+        // conn.on('data', (data) => {
+        //     console.log("Data received: " + data)
+            
+        //     const newMessage = {string: data, id: conn.peer}
+        //     prop.sendMessage(newMessage)
+        // })
     }
 
     const handleOnChange = (elem) => {
