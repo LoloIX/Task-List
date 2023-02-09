@@ -25,6 +25,7 @@ function MessagesList(props) {
                 <blockquote key={`msg-${nanoid()}`}  >
                     <Message
                         string={e.string}
+                        id={e.id}
                     />
                 </blockquote>
             )
@@ -33,6 +34,7 @@ function MessagesList(props) {
                 <div key={`msg-${nanoid()}`} >
                     <Message
                         string={e.string}
+                        id={e.id}
                     />
                 </div>
             )

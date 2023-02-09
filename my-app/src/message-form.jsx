@@ -21,6 +21,7 @@ function Form(prop) {
             const newMessage = {string: data, id: c.peer}
             prop.sendMessage(newMessage)
             console.log("Data received: " + data)
+            console.log(peer.connections)
         })
     })
 
@@ -33,35 +34,26 @@ function Form(prop) {
         const newMessage = {string, sendedBy: "You", id: peer.id}
         prop.sendMessage(newMessage)
         console.log("Sent: " + string)
+
         conn.send(string)
 
         e.target[0].value = ""
     }
 
     const connect = () => {
-        newPeer = new Peer(null, {debug: 2})
+        conn = peer.connect(inputRemotePeerId, {reliable: true})
+        
+        conn.on('open', () => {
+            console.log("newPeer")
+            console.log("connected to: " + conn.peer)
+        })
 
-        newPeer.on('open', () => {
-            console.log("NewPeer ID: " + newPeer.id)
-
-            conn = newPeer.connect(inputRemotePeerId, {reliable: true})
+        conn.on('data', (data) => {
+            console.log("Data received: " + data)
             
-            conn.on('open', () => {
-                console.log("connected to: " + conn.peer)
-            })
-    
-            conn.on('data', (data) => {
-                console.log("Data received: " + data)
-                
-                const newMessage = {string: data, id: conn.peer}
-                prop.sendMessage(newMessage)
-            })
+            const newMessage = {string: data, id: conn.peer}
+            prop.sendMessage(newMessage)
         })
-
-        newPeer.on('connection', (c) => {
-            console.log("NewPeer connected to: " + c.peer)
-        })
-
     }
 
     const handleOnChange = (elem) => {
