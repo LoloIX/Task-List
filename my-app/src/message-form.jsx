@@ -4,6 +4,7 @@ import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 var peer = new Peer(null, {debug: 2})
 var conn
+var newPeer
 
 function Form(prop) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
@@ -38,34 +39,29 @@ function Form(prop) {
     }
 
     const connect = () => {
-        let newPeer = new Peer(null, {debug: 2})
+        newPeer = new Peer(null, {debug: 2})
 
         newPeer.on('open', () => {
-            console.log("newPeer ID: " + newPeer.id)
+            console.log("NewPeer ID: " + newPeer.id)
+
+            conn = newPeer.connect(inputRemotePeerId, {reliable: true})
+            
+            conn.on('open', () => {
+                console.log("connected to: " + conn.peer)
+            })
+    
+            conn.on('data', (data) => {
+                console.log("Data received: " + data)
+                
+                const newMessage = {string: data, id: conn.peer}
+                prop.sendMessage(newMessage)
+            })
         })
 
         newPeer.on('connection', (c) => {
-            console.log("connected to: " + c.peer)
+            console.log("NewPeer connected to: " + c.peer)
         })
 
-        let test = newPeer.connect(inputRemotePeerId, {reliable: true})
-
-        test.on('open', () => {
-            console.log("connected to: " + test.peer)
-        })
-
-        // conn = peer.connect(inputRemotePeerId, {reliable: true})
-        
-        // conn.on('open', () => {
-        //     console.log("connected to: " + conn.peer)
-        // })
-
-        // conn.on('data', (data) => {
-        //     console.log("Data received: " + data)
-            
-        //     const newMessage = {string: data, id: conn.peer}
-        //     prop.sendMessage(newMessage)
-        // })
     }
 
     const handleOnChange = (elem) => {
