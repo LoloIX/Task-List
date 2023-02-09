@@ -21,7 +21,6 @@ function Form(prop) {
             const newMessage = {string: data, id: c.peer}
             prop.sendMessage(newMessage)
             console.log("Data received: " + data)
-            console.log(peer.connections)
         })
     })
 
@@ -44,7 +43,6 @@ function Form(prop) {
         conn = peer.connect(inputRemotePeerId, {reliable: true})
         
         conn.on('open', () => {
-            console.log("newPeer")
             console.log("connected to: " + conn.peer)
         })
 

@@ -103,6 +103,17 @@
     margin-right: 0px;
   }
 
+  .msg__sender {
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: medium;
+    color: var(--tertiary);
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   /*------------ DONE MESSAGE ------------*/
 
 
