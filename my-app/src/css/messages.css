@@ -332,3 +332,63 @@
   }
 
   /*------------ DONE CHAT LIST ------------*/
+
+  /* ------------ GROUPS ------------ */
+
+  span:has(.group__add__members) {
+    height: 0px;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .group__add__members {
+    margin: auto;
+    height: 75%;
+    width: 350px;
+    background-color: var(--tertiary);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .group__add__members p {
+    color: WHITE;
+    margin-left: 25px;
+    font-weight: 100;
+    font-family: Helvetica;
+  }
+
+  .group__search__bar {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-right: auto;
+  }
+
+  .group__search__bar input {
+    appearance: none;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: WHITE;
+  }
+
+  .group__search__bar input::placeholder {
+    color: var(--quart-bright);
+    font-size: 20px;
+  }
+
+  .group__add__members input:focus {
+    outline: none;
+  }
+
+  .group__add__members svg {
+    font-size: 15px;
+    color: var(--quart-bright);
+    margin: 0 10px;
+  }
+
+  /* ------------ DONE GROUPS ------------ */

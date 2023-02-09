@@ -43,7 +43,20 @@ function ChatList(props) {
                             title="New group"
                         >
                             <FontAwesomeIcon icon={faUsers} />
-                            <span></span>
+                            <span>
+                                <div className="group__add__members">
+                                    <div>
+                                        <p>
+                                            Add Members
+                                        </p>
+                                        <div className="group__search__bar">
+                                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                            <input placeholder="Search"/>
+                                        </div> 
+                                    </div>
+                                    <div></div>
+                                </div>
+                            </span>
                         </div>
                         <div 
                             className="options__menu"
