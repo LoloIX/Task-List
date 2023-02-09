@@ -4,7 +4,6 @@ import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 var peer = new Peer(null, {debug: 2})
 var conn
-var newPeer
 
 function Form(prop) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
@@ -18,23 +17,30 @@ function Form(prop) {
         console.log("conected to: " + c.peer)
     
         c.on('data', (data) => {
-            const newMessage = {string: data, id: c.peer}
+            const newMessage = {string: data.string, id: data.id}
             prop.sendMessage(newMessage)
-            console.log("Data received: " + data)
+            console.log("Data received: " + data.string)
         })
     })
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const string = e.target[0].value
+        const message = {string: e.target[0].value, id: peer.id}
 
-        if (string === "") return
+        if (message.string === "") return
         
-        const newMessage = {string, sendedBy: "You", id: peer.id}
+        const newMessage = {string: message.string, sendedBy: "You", id: message.id}
         prop.sendMessage(newMessage)
-        console.log("Sent: " + string)
+        console.log("Sent: " + message.string)
 
-        conn.send(string)
+
+        console.log(peer.connections)
+
+        Object.keys(peer.connections).map((e) => {
+            console.log(e)
+        })
+
+        conn.send(message)
 
         e.target[0].value = ""
     }
@@ -47,9 +53,9 @@ function Form(prop) {
         })
 
         conn.on('data', (data) => {
-            console.log("Data received: " + data)
+            console.log("Data received: " + data.string)
             
-            const newMessage = {string: data, id: conn.peer}
+            const newMessage = {string: data.string, id: data.id}
             prop.sendMessage(newMessage)
         })
     }
