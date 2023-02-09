@@ -35,16 +35,13 @@ function Form(prop) {
         let msgSender = new Peer(null, {debug: 2})
 
         msgSender.on('open', () => {
-            console.log("sender opened")
             Object.keys(peer.connections).map((e) => {
                 let newconn = msgSender.connect(e, {reliable: true})
     
                 newconn.on('open', () => {
-                    console.log("message sended to: " + e)
+                    console.log("Message sended to: " + e)
                     newconn.send(message)
                 })
-    
-
                 console.log("Sending message to: " + e)
             })
         })
