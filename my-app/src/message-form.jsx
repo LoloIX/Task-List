@@ -22,25 +22,32 @@ function Form(prop) {
             console.log("Data received: " + data.string)
         })
     })
-
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         const message = {string: e.target[0].value, id: peer.id}
-
+        
         if (message.string === "") return
         
         const newMessage = {string: message.string, sendedBy: "You", id: message.id}
         prop.sendMessage(newMessage)
-        console.log("Sent: " + message.string)
+        
+        let msgSender = new Peer(null, {debug: 2})
 
+        msgSender.on('open', () => {
+            console.log("sender opened")
+            Object.keys(peer.connections).map((e) => {
+                let newconn = msgSender.connect(e, {reliable: true})
+    
+                newconn.on('open', () => {
+                    console.log("message sended to: " + e)
+                    newconn.send(message)
+                })
+    
 
-        console.log(peer.connections)
-
-        Object.keys(peer.connections).map((e) => {
-            console.log(e)
+                console.log("Sending message to: " + e)
+            })
         })
-
-        conn.send(message)
 
         e.target[0].value = ""
     }
