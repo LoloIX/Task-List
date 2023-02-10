@@ -3,15 +3,19 @@ import Chat from "./chat"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass, faCamera } from "@fortawesome/free-solid-svg-icons"
 
+const membersAddedStoraged = []
+
 function ChatList(props) {
     const [showModal, setShow] = useState(false)
+
+    const [membersAdded, addMemeber] = useState(membersAddedStoraged)
 
     const chats = [
         {
             id: "person 1",
             messages: props.messagesStorage
         }
-    ]  
+    ]
 
     const printChats = chats.map((e) => {
         if (e.messages.length === 0) return
@@ -28,9 +32,25 @@ function ChatList(props) {
         )
     })
 
+    const printMembersAdded = membersAdded.map((e) => {
+        return (
+            <div>
+                <p>{e}</p>
+            </div>
+        )
+    })
+
     const handleShowModal = () => setShow(true)
 
     const handleCloseModal = () => setShow(false)
+
+    const handlerAddMemeber = (e) => {
+        e.preventDefault()
+        if (e.target[0].value === "") return
+        
+        addMemeber([...membersAdded, e.target[0].value])
+        e.target[0].value = ""
+    }
 
     return (
         <div id="side">
@@ -43,20 +63,27 @@ function ChatList(props) {
                         <div>
                             <FontAwesomeIcon icon={faCamera}/>
                         </div>
-                        <div>
-                            <input placeholder="Group name"></input>
-                        </div>
+                        <form>
+                            <input 
+                                placeholder="Group name"
+                            />
+                        </form>
                     </div>
                     <div className="group__add__members">
                         <p>
                             Add Members
                         </p>
-                        <div className="group__search__bar">
+                        <form
+                            className="group__search__bar"
+                            onSubmit={handlerAddMemeber}
+                        >
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                             <input placeholder="Search"/>
-                        </div> 
+                        </form> 
                     </div>
-                    <div className="group__members__found"></div>
+                    <div className="group__members__found">
+                        {printMembersAdded}
+                    </div>
                 </div>
                 <div className="modal" onClick={handleCloseModal}></div>
             </span>

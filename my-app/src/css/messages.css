@@ -409,7 +409,7 @@
     justify-content: center;
   }
 
-  .group__info div:has(input)  {
+  .group__info form:has(input)  {
     margin-left: 10px;
   }
 
