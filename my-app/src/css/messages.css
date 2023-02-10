@@ -340,14 +340,24 @@
     height: calc(100vh - 100px);
     width: calc(100vw - 81px);
     position: absolute;
-    background-color: #00000035;
-    z-index: 3;
   }
 
   .group__options[show=false] {
     height: 0px;
     width: 0px;
     overflow: hidden;
+  }
+
+  .group__options[show=false] * {
+    display: none;
+  }
+
+  .modal {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    background-color: #00000035;
+    z-index: 0;
   }
 
   .group__options > div:first-child {
@@ -361,6 +371,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
+    z-index: 1;
   }
 
   .group__options input {

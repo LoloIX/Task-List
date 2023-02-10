@@ -30,9 +30,14 @@ function ChatList(props) {
 
     const handleShowModal = () => setShow(true)
 
+    const handleCloseModal = () => setShow(false)
+
     return (
         <div id="side">
-            <span className="group__options" show={`${showModal}`}>
+            <span
+                className="group__options"
+                show={`${showModal}`}
+            >
                 <div>
                     <div className="group__info">
                         <div>
@@ -53,6 +58,7 @@ function ChatList(props) {
                     </div>
                     <div className="group__members__found"></div>
                 </div>
+                <div className="modal" onClick={handleCloseModal}></div>
             </span>
             <header>
                 <div>
