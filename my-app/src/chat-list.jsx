@@ -1,9 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import Chat from "./chat"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleUser, faEllipsisVertical, faUsers, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
+import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
 function ChatList(props) {
+    const [showModal, setShow] = useState(false)
+
     const chats = [
         {
             id: "person 1",
@@ -26,6 +28,8 @@ function ChatList(props) {
         )
     })
 
+    const handleShowModal = () => setShow(true)
+
     return (
         <div id="side">
             <header>
@@ -41,28 +45,27 @@ function ChatList(props) {
                         <div 
                             className="groups"
                             title="New group"
+                            onClick={handleShowModal()}
                         >
-                            <FontAwesomeIcon icon={faUsers} />
-                            <span>
+                            <FontAwesomeIcon icon={faUsers} style={{marginLeft: "7px"}}/>
+                            <span className="group__options" show={show}>
                                 <div className="group__add__members">
-                                    <div>
-                                        <p>
-                                            Add Members
-                                        </p>
-                                        <div className="group__search__bar">
-                                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                            <input placeholder="Search"/>
-                                        </div> 
-                                    </div>
-                                    <div></div>
+                                    <p>
+                                        Add Members
+                                    </p>
+                                    <div className="group__search__bar">
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                        <input placeholder="Search"/>
+                                    </div> 
                                 </div>
+                                <div className="group__members__found"></div>
                             </span>
                         </div>
                         <div 
                             className="options__menu"
                             title="Menu"
                         >
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                            <FontAwesomeIcon icon={faEllipsis} />
                             <span></span>
                         </div>
                     </div>
