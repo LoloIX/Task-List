@@ -1,6 +1,6 @@
 import React from "react"
 import { nanoid } from "nanoid"
-import Form from "./message-form"
+import Form from "./msg-groups-form"
 import Message from "./message"
 
 const messagesStorage = []

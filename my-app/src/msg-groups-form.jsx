@@ -2,17 +2,18 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
-var peer = new Peer(null, {debug: 2})
+var yourpeer = new Peer(null, {debug: 2})
+var groupPeer = new Peer(null, {debug: 2})
 var conn
 
 function Form(prop) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
 
-    peer.on('open', () => {
-        console.log("ID: " + peer.id)
+    yourpeer.on('open', () => {
+        console.log("ID: " + yourpeer.id)
     })
     
-    peer.on('connection', (c) => {
+    yourpeer.on('connection', (c) => {
         conn = c
         console.log("conected to: " + c.peer)
     
@@ -25,32 +26,28 @@ function Form(prop) {
     
     const handleSubmit = (e) => {
         e.preventDefault()
-        const message = {string: e.target[0].value, id: peer.id}
+        const message = {string: e.target[0].value, id: yourpeer.id}
         
         if (message.string === "") return
         
         const newMessage = {string: message.string, sendedBy: "You", id: message.id}
         prop.sendMessage(newMessage)
-        
-        let msgSender = new Peer(null, {debug: 2})
 
-        msgSender.on('open', () => {
-            Object.keys(peer.connections).map((e) => {
-                let newconn = msgSender.connect(e, {reliable: true})
-    
-                newconn.on('open', () => {
-                    console.log("Message sended to: " + e)
-                    newconn.send(message)
-                })
-                console.log("Sending message to: " + e)
+        Object.keys(yourpeer.connections).map((e) => {
+            let newconn = groupPeer.connect(e, {reliable: true})
+
+            newconn.on('open', () => {
+                console.log("Message sended to: " + e)
+                newconn.send(message)
             })
+            console.log("Sending message to: " + e)
         })
 
         e.target[0].value = ""
     }
 
     const connect = () => {
-        conn = peer.connect(inputRemotePeerId, {reliable: true})
+        conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
         
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
