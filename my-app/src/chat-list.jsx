@@ -34,9 +34,9 @@ function ChatList(props) {
 
     const printMembersAdded = membersAdded.map((e) => {
         return (
-            <div>
+            <li>
                 <p>{e}</p>
-            </div>
+            </li>
         )
     })
 
@@ -81,9 +81,9 @@ function ChatList(props) {
                             <input placeholder="Search"/>
                         </form> 
                     </div>
-                    <div className="group__members__found">
+                    <ul className="group__members__found">
                         {printMembersAdded}
-                    </div>
+                    </ul>
                 </div>
                 <div className="modal" onClick={handleCloseModal}></div>
             </span>

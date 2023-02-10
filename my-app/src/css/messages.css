@@ -47,6 +47,8 @@
   .messages > * > div {
     display: flex;
     align-items: center;
+    position: sticky;
+    z-index: -1;
   }
 
   .messages > div:last-of-type .msg:after {
@@ -439,6 +441,28 @@
     font-size: 15px;
     color: var(--quart-bright);
     margin: 0 10px;
+  }
+
+  .group__members__found {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .group__members__found > li {
+    transition: all .3s;
+    padding: 5px 10px;
+    border: 1px solid WHITE;
+    border-radius: 20px;
+    margin: 5px;
+    background-color: var(--quart-bright);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    cursor: default;
+    color: WHITE;
+  }
+
+  .group__members__found > li:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    box-shadow: rgba(255, 255, 255, 0.4) 0px 30px 90px;
   }
 
   /* ------------ DONE GROUPS ------------ */
