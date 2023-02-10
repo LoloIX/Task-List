@@ -335,13 +335,22 @@
 
   /* ------------ GROUPS ------------ */
 
-  span:has(.group__add__members) {
-    height: 0px;
-    overflow: hidden;
+  .group__options {
     display: flex;
+    height: calc(100vh - 100px);
+    width: calc(100vw - 81px);
+    position: absolute;
+    background-color: #00000035;
+    z-index: 3;
   }
 
-  .group__add__members {
+  .group__options[show=false] {
+    height: 0px;
+    width: 0px;
+    overflow: hidden;
+  }
+
+  .group__options > div:first-child {
     margin: auto;
     height: 75%;
     width: 350px;
@@ -351,6 +360,52 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .group__options input {
+    appearance: none;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: WHITE;
+  }
+  
+  .group__options input::placeholder {
+    color: var(--quart-bright);
+    font-size: 20px;
+  }
+  
+  .group__options input:focus {
+    outline: none;
+  }
+
+  .group__info {
+    display: flex;
+    padding-bottom: 15px;
+    border-bottom: 1px solid WHITE;
+    align-items: center;
+    width: 100%;
+  }
+
+  .group__info div:has(svg)  {
+    height: 50px;
+    width: 50px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .group__info div:has(input)  {
+    margin-left: 10px;
+  }
+
+  .group__add__members {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
     flex-direction: column;
   }
 
@@ -366,23 +421,7 @@
     justify-content: center;
     display: flex;
     margin-right: auto;
-  }
-
-  .group__search__bar input {
-    appearance: none;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    color: WHITE;
-  }
-
-  .group__search__bar input::placeholder {
-    color: var(--quart-bright);
-    font-size: 20px;
-  }
-
-  .group__add__members input:focus {
-    outline: none;
+    margin-top: 10px;
   }
 
   .group__add__members svg {
