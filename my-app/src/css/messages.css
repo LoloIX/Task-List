@@ -402,6 +402,7 @@
     font-size: 20px;
     padding: 7px;
     color: WHITE;
+    cursor: pointer;
   }
 
   .group__info {
@@ -437,13 +438,13 @@
     height: 12px;
     border-radius: 50%;
     position: relative;
-    background-color: #C70039;
+    background-color: var(--error);
   }
 
   .group__info form:has(.incomplete)::after {
     content: "This slot cannot be empty !";
-    font-size: 17px;
-    color: #C70039;
+    font-size: 15px;
+    color: var(--error);
     position: absolute;
     top: 28px;
   }
@@ -457,8 +458,8 @@
   
   .group__search__bar:has(.incomplete)::before {
     content: "You must add at least two people !";
-    font-size: 17px;
-    color: #C70039;
+    font-size: 15px;
+    color: var(--error);
     position: absolute;
     top: 28px;
   }
@@ -488,6 +489,12 @@
   .group__members__found {
     display: flex;
     flex-wrap: wrap;
+    overflow-y: scroll;
+    width: 100%;
+  }
+  
+  .group__members__found::-webkit-scrollbar {
+    display: none;
   }
 
   .group__members__found > li {
@@ -525,7 +532,7 @@
   }
 
   .incomplete {
-    border-bottom: 2px #C70039 solid !important;
+    border-bottom: 2px var(--error) solid !important;
   }
 
   /* ------------ DONE GROUPS ------------ */
