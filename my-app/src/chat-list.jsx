@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import Chat from "./chat"
+import { nanoid } from "nanoid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass, faCamera } from "@fortawesome/free-solid-svg-icons"
+import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass, faCamera, faXmark } from "@fortawesome/free-solid-svg-icons"
 
 const membersAddedStoraged = []
 
@@ -32,10 +33,30 @@ function ChatList(props) {
         )
     })
 
+    const removeMember = (e) => {
+        let copy = [...membersAdded]
+        console.log(e)
+        let index = copy.indexOf(e)
+        console.log(copy)
+        copy.splice(index, 1)
+        console.log(copy)
+
+        addMemeber([...copy])
+    }
+    
     const printMembersAdded = membersAdded.map((e) => {
         return (
-            <li>
+            <li key={`member-${nanoid()}`}>
                 <p>{e}</p>
+                <FontAwesomeIcon
+                    onClick={() => {
+                        let copy = [...membersAdded]
+                        let index = copy.indexOf(e)
+                        copy.splice(index, 1)
+
+                        addMemeber([...copy])
+                    }}
+                    icon={faXmark} />
             </li>
         )
     })

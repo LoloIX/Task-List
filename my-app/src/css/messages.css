@@ -449,20 +449,38 @@
   }
 
   .group__members__found > li {
+    display: flex;
+    align-items: center;
     transition: all .3s;
-    padding: 5px 10px;
-    border: 1px solid WHITE;
-    border-radius: 20px;
-    margin: 5px;
-    background-color: var(--quart-bright);
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     cursor: default;
     color: WHITE;
+    overflow: hidden;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid WHITE;
+    border-radius: 20px;
+    background-color: var(--quart-bright);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   }
 
   .group__members__found > li:hover {
     background-color: rgba(255, 255, 255, 0.35);
     box-shadow: rgba(255, 255, 255, 0.4) 0px 30px 90px;
   }
+
+  .group__members__found > li svg {
+    height: 0px;
+    width: 0px;
+    transition: all .3s;
+    transform: translateX(50px);
+  }
+  
+  .group__members__found > li:hover svg {
+    transform: translateX(0px);
+    margin-left: 15px;
+    height: 20px;
+    width: 20px;
+  }
+  
 
   /* ------------ DONE GROUPS ------------ */
