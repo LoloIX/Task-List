@@ -59,7 +59,15 @@ function ChatList(props) {
         if (e.target[0].value === "") return
         
         addMemeber([...membersAdded, e.target[0].value])
+        if (membersAdded.length >= 1) e.target[0].classList.remove("incomplete")
         e.target[0].value = ""
+    }
+
+    const handlerCheckNameValue = (e) => {
+        console.log(e.target.classList.remove("incomplete"))
+        if (e.target.value === "") {
+            console.log(e.target.classList.add("incomplete"))
+        }
     }
 
     return (
@@ -75,7 +83,9 @@ function ChatList(props) {
                         </div>
                         <form>
                             <input 
+                                className="incomplete"
                                 placeholder="Group name"
+                                onChange={handlerCheckNameValue}
                             />
                         </form>
                     </div>
@@ -88,12 +98,13 @@ function ChatList(props) {
                             onSubmit={handlerAddMemeber}
                         >
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            <input placeholder="Search"/>
+                            <input className="incomplete" placeholder="Search"/>
                         </form> 
                     </div>
                     <ul className="group__members__found">
                         {printMembersAdded}
                     </ul>
+                    <button>Save Group</button>
                 </div>
                 <div className="modal" onClick={handleCloseModal}></div>
             </span>

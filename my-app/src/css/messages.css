@@ -378,6 +378,7 @@
 
   .group__options input {
     appearance: none;
+    padding-left: 5px;
     background: transparent;
     border: none;
     font-size: 20px;
@@ -391,6 +392,16 @@
   
   .group__options input:focus {
     outline: none;
+  }
+
+  .group__options button {
+    margin: auto 0px 0px auto;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary);
+    font-size: 20px;
+    padding: 7px;
+    color: WHITE;
   }
 
   .group__info {
@@ -411,17 +422,47 @@
     justify-content: center;
   }
 
-  .group__info form:has(input)  {
+  .group__info form  {
     margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .group__info:has(.incomplete)::after,
+  .group__search__bar:has(.incomplete)::after {
+    content: "";
+    margin-left: 10px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: relative;
+    background-color: #C70039;
+  }
+
+  .group__info form:has(.incomplete)::after {
+    content: "This slot cannot be empty !";
+    font-size: 17px;
+    color: #C70039;
+    position: absolute;
+    top: 28px;
   }
 
   .group__add__members {
-    margin-top: 15px;
+    margin: 15px 0px 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
   }
-
+  
+  .group__search__bar:has(.incomplete)::before {
+    content: "You must add at least two people !";
+    font-size: 17px;
+    color: #C70039;
+    position: absolute;
+    top: 28px;
+  }
+  
   .group__add__members p {
     color: WHITE;
     margin-left: 25px;
@@ -435,6 +476,7 @@
     display: flex;
     margin-right: auto;
     margin-top: 10px;
+    position: relative;
   }
 
   .group__add__members svg {
@@ -481,6 +523,9 @@
     height: 20px;
     width: 20px;
   }
-  
+
+  .incomplete {
+    border-bottom: 2px #C70039 solid !important;
+  }
 
   /* ------------ DONE GROUPS ------------ */
