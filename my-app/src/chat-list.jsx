@@ -59,7 +59,6 @@ function ChatList(props) {
         if (e.target[0].value === "") return
         
         addMemeber([...membersAdded, e.target[0].value])
-        if (membersAdded.length >= 1) e.target[0].classList.remove("incomplete")
         e.target[0].value = ""
     }
 
@@ -69,6 +68,8 @@ function ChatList(props) {
             console.log(e.target.classList.add("incomplete"))
         }
     }
+
+    let groupMembersCheck = (membersAdded.length >= 2) ? "" : "incomplete"
 
     return (
         <div id="side">
@@ -98,7 +99,7 @@ function ChatList(props) {
                             onSubmit={handlerAddMemeber}
                         >
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            <input className="incomplete" placeholder="Search"/>
+                            <input className={groupMembersCheck} placeholder="Search"/>
                         </form> 
                     </div>
                     <ul className="group__members__found">
