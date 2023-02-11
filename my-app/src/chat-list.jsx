@@ -32,17 +32,6 @@ function ChatList(props) {
             />
         )
     })
-
-    const removeMember = (e) => {
-        let copy = [...membersAdded]
-        console.log(e)
-        let index = copy.indexOf(e)
-        console.log(copy)
-        copy.splice(index, 1)
-        console.log(copy)
-
-        addMemeber([...copy])
-    }
     
     const printMembersAdded = membersAdded.map((e) => {
         return (
