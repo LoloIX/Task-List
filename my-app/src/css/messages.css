@@ -342,6 +342,7 @@
     height: calc(100vh - 100px);
     width: calc(100vw - 81px);
     position: absolute;
+    transition: all .3s;
   }
 
   .group__options[show=false] {
@@ -350,7 +351,7 @@
     overflow: hidden;
   }
 
-  .group__options[show=false] * {
+  .group__options[show=false] .modal {
     display: none;
   }
 
@@ -403,6 +404,15 @@
     padding: 7px;
     color: WHITE;
     cursor: pointer;
+    transition: transform .1s, background-color .3s;
+  }
+
+  .group__options button:active {
+    transform: scale(0.9);
+  }
+
+  .group__options button:hover {
+    background-color: var(--side-background);
   }
 
   .group__info {
