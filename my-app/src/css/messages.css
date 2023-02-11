@@ -426,11 +426,11 @@
   .group__info form  {
     margin-left: 10px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     position: relative;
   }
 
-  .group__info:has(.incomplete)::after,
+  .group__info form:has(.incomplete)::after,
   .group__search__bar:has(.incomplete)::after {
     content: "";
     margin-left: 10px;
@@ -441,12 +441,25 @@
     background-color: var(--error);
   }
 
-  .group__info form:has(.incomplete)::after {
+  .group__info form:has(.incomplete)::before {
     content: "This slot cannot be empty !";
+  }
+
+  .group__info form:has(.incomplete)::before,
+  .group__search__bar:has(.incomplete)::before {
+    transition: all .3s;
     font-size: 15px;
-    color: var(--error);
+    color: white;
     position: absolute;
-    top: 28px;
+    top: 0;
+    width: 0;
+    height: 0;
+    right: 0;
+    overflow: hidden;
+    opacity: 0;
+    background-color: black;
+    border-radius: 15px;
+    padding: 0.5em;
   }
 
   .group__add__members {
@@ -458,10 +471,6 @@
   
   .group__search__bar:has(.incomplete)::before {
     content: "You must add at least two people !";
-    font-size: 15px;
-    color: var(--error);
-    position: absolute;
-    top: 28px;
   }
   
   .group__add__members p {
@@ -533,6 +542,15 @@
 
   .incomplete {
     border-bottom: 2px var(--error) solid !important;
+  }
+
+  .group__info form:has(.incomplete):hover::before,
+  .group__search__bar:has(.incomplete):hover::before {
+    top: -5em;
+    right: -3em;
+    width: 6em;
+    height: 4em;
+    opacity: 1;
   }
 
   /* ------------ DONE GROUPS ------------ */
