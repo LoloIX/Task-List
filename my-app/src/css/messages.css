@@ -459,7 +459,7 @@
   .group__search__bar:has(.incomplete)::before {
     transition: all .3s;
     font-size: 15px;
-    color: white;
+    color: WHITE;
     position: absolute;
     top: 0;
     width: 0;
@@ -467,7 +467,7 @@
     right: 0;
     overflow: hidden;
     opacity: 0;
-    background-color: black;
+    background-color: BLACK;
     border-radius: 15px;
     padding: 0.5em;
   }

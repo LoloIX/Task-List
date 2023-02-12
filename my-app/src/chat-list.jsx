@@ -105,7 +105,11 @@ function ChatList(props) {
                     <ul className="group__members__found">
                         {printMembersAdded}
                     </ul>
-                    <button>Save Group</button>
+                    <button
+                        onClick={() => {
+                            handleCloseModal()
+                        }}
+                    >Save Group</button>
                 </div>
                 <div className="modal" onClick={handleCloseModal}></div>
             </span>
