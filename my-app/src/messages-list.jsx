@@ -1,13 +1,15 @@
 import React from "react"
 import { nanoid } from "nanoid"
-import Form from "./msg-groups-form"
+import PrivateForm from "./msg-private-form"
 import Message from "./message"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons"
 
 function MessagesList(props) {
     const sendMessage = (newMessage) => {
-        props.setData([...props.messagesStorage, newMessage])
+        let Save = [...props.messagesStorage, newMessage]
+
+        props.setData(Save)
         
         let elem = document.getElementsByClassName("messages")[0]
         elem.scroll(0, elem.scrollHeight)
@@ -52,7 +54,7 @@ function MessagesList(props) {
             <div className="messages">
                 {printMessages}
             </div>
-            <Form sendMessage={sendMessage}/>
+            <PrivateForm sendMessage={sendMessage}/>
         </div>
     )
 }

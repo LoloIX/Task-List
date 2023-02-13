@@ -20,7 +20,7 @@ function ChatList(props) {
             chat.icon = faUsers
 
             chatsPrinted.map((elem) => {
-                if (elem.title === e.groupName) {
+                if (e.groupName === elem.title) {
                     elem.lastMessage = e.string
                     elem.lastMessageSender = (e.yours) ? "You" : e.sender
 
