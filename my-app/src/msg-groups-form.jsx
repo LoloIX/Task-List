@@ -15,12 +15,12 @@ function Form(prop) {
     
     yourpeer.on('connection', (c) => {
         conn = c
-        console.log("conected to: " + c.peer)
-    
+        // console.log("conected to: " + c.peer)
+        
         c.on('data', (data) => {
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
             prop.sendMessage(newMessage)
-            console.log("Data received: " + data.string)
+            // console.log("Data received: " + data.string)
             c.close()
         })
     })
@@ -29,19 +29,24 @@ function Form(prop) {
         e.preventDefault()
         
         if (e.target[0].value === "") return
+
+        let receiver
+        Object.values(yourpeer.connections).map((e) => {
+            if (e.length !== 0) receiver = e[0].peer
+        })
         
-        const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver: conn.peer, yours: true, group: false}
+        const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver, yours: true, group: false}
+        console.log(newMessage)
         prop.sendMessage(newMessage)
 
         Object.keys(yourpeer.connections).map((e) => {
             let newconn = groupPeer.connect(e, {reliable: true})
-
             let message = {...newMessage}
             delete message.yours
 
             newconn.on('open', () => {
                 newconn.send(newMessage)
-                console.log("Send: " + newMessage.string)
+                // console.log("Send: " + newMessage.string)
             })
         })
 
@@ -52,11 +57,11 @@ function Form(prop) {
         conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
         
         conn.on('open', () => {
-            console.log("connected to: " + conn.peer)
+            // console.log("connected to: " + conn.peer)
         })
 
         conn.on('data', (data) => {
-            console.log("Data received: " + data.string)
+            // console.log("Data received: " + data.string)
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
             prop.sendMessage(newMessage)
             conn.close()
