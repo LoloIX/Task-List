@@ -39,7 +39,7 @@ function Form(prop) {
             newMessage.receiver = e
 
             let message = {...newMessage}
-            message.yours = false
+            delete message.yours
 
             newconn.on('open', () => {
                 newconn.send(newMessage)

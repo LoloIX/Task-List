@@ -11,10 +11,8 @@ function ChatList(props) {
     const printChats = props.messagesStorage.map((e) => {
         return (
             <Chat
-                name={e.id}
+                message={e}
                 key={`chat-${nanoid()}`}
-                sender={e.sender}
-                lastMsg={e.string}
             />
         )
     })

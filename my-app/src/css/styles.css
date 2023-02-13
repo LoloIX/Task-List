@@ -49,7 +49,7 @@
     position: fixed;
     background: var(--primary);
     width: -webkit-fill-available;
-    height: 60px;
+    height: 30px;
     top: 0px;
     display: flex;
     align-items: center;
