@@ -10,7 +10,7 @@ function Chat(props) {
             </div>
             <div>
                 <h3>{props.name}</h3>
-                <p>{props.sendedBy}: {props.lastMsg}</p>
+                <p>{props.sender}: {props.lastMsg}</p>
             </div>
         </div>
     )

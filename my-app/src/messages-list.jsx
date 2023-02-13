@@ -26,23 +26,25 @@ function MessagesList(props) {
 
         if (!e.yours) {
             return (
-            <div key={`msg-${nanoid()}`} className="received">
-                {printSVG}
-                <Message
-                    string={e.string}
-                    sender={e.sender}
-                />
-            </div>
-        )} else {
-        return  (
-            <div key={`msg-${nanoid()}`} className="sended">
-                <Message
-                    string={e.string}
-                    sender={e.sender}
-                />
-                {printSVG}
-            </div>
-        )}
+                <div key={`msg-${nanoid()}`} className="received">
+                    {printSVG}
+                    <Message
+                        string={e.string}
+                        sender={e.sender}
+                    />
+                </div>
+            )
+        } else {
+            return  (
+                <div key={`msg-${nanoid()}`} className="sended">
+                    <Message
+                        string={e.string}
+                        sender={e.sender}
+                    />
+                    {printSVG}
+                </div>
+            )
+        }
     })
 
     return (

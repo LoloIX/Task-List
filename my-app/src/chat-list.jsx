@@ -1,118 +1,29 @@
 import React from "react"
 import Chat from "./chat"
+import PopUpCreateGroup from "./create-group"
 import { nanoid } from "nanoid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass, faCamera, faXmark } from "@fortawesome/free-solid-svg-icons"
-
-const membersAddedStoraged = []
+import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
 function ChatList(props) {
     const [showModal, setShow] = React.useState(false)
 
-    const [membersAdded, addMemeber] = React.useState(membersAddedStoraged)
-
-    const chats = [
-        {
-            id: "person 1",
-            messages: props.messagesStorage
-        }
-    ]
-
-    const printChats = chats.map((e) => {
-        if (e.messages.length === 0) return
-
-        let lastMessageIndex = (e.messages.length - 1)
-        let sendedBy = e.messages[lastMessageIndex].sendedBy !== undefined ? e.messages[lastMessageIndex].sendedBy : e.messages[lastMessageIndex].id
+    const printChats = props.messagesStorage.map((e) => {
         return (
             <Chat
                 name={e.id}
-                key={e.id}
-                sendedBy={sendedBy}
-                lastMsg={e.messages[lastMessageIndex].string}
+                key={`chat-${nanoid()}`}
+                sender={e.sender}
+                lastMsg={e.string}
             />
-        )
-    })
-    
-    const printMembersAdded = membersAdded.map((e) => {
-        return (
-            <li key={`member-${nanoid()}`}>
-                <p>{e}</p>
-                <FontAwesomeIcon
-                    onClick={() => {
-                        let copy = [...membersAdded]
-                        let index = copy.indexOf(e)
-                        copy.splice(index, 1)
-
-                        addMemeber([...copy])
-                    }}
-                    icon={faXmark} />
-            </li>
         )
     })
 
     const handleShowModal = () => setShow(true)
 
-    const handleCloseModal = () => setShow(false)
-
-    const handlerAddMemeber = (e) => {
-        e.preventDefault()
-        if (e.target[0].value === "") return
-        
-        addMemeber([...membersAdded, e.target[0].value])
-        e.target[0].value = ""
-    }
-
-    const handlerCheckNameValue = (e) => {
-        console.log(e.target.classList.remove("incomplete"))
-        if (e.target.value === "") {
-            console.log(e.target.classList.add("incomplete"))
-        }
-    }
-
-    let groupMembersCheck = (membersAdded.length >= 2) ? "" : "incomplete"
-
     return (
         <div id="side">
-            <span
-                className="group__options"
-                show={`${showModal}`}
-            >
-                <div>
-                    <div className="group__info">
-                        <div>
-                            <FontAwesomeIcon icon={faCamera}/>
-                        </div>
-                        <form>
-                            <input 
-                                className="incomplete"
-                                placeholder="Group name"
-                                onChange={handlerCheckNameValue}
-                            />
-                        </form>
-                    </div>
-                    <div className="group__add__members">
-                        <p>
-                            Add Members
-                        </p>
-                        <form
-                            className="group__search__bar"
-                            onSubmit={handlerAddMemeber}
-                        >
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            <input className={groupMembersCheck} placeholder="Search"/>
-                        </form> 
-                    </div>
-                    <ul className="group__members__found">
-                        {printMembersAdded}
-                    </ul>
-                    <button
-                        onClick={() => {
-                            handleCloseModal()
-                        }}
-                    >Save Group</button>
-                </div>
-                <div className="modal" onClick={handleCloseModal}></div>
-            </span>
+            <PopUpCreateGroup showModal={showModal} setShow={setShow} />
             <header>
                 <div>
                     <div className="profile__photo">

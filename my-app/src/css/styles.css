@@ -46,7 +46,6 @@
   nav {
     width: 100%;
     align-items: center;
-    color: WHITE;
     position: fixed;
     background: var(--primary);
     width: -webkit-fill-available;
