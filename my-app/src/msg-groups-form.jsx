@@ -37,10 +37,8 @@ function Form(prop) {
             let newconn = groupPeer.connect(e, {reliable: true})
 
             newconn.on('open', () => {
-                console.log("Message sended to: " + e)
                 newconn.send(message)
             })
-            console.log("Sending message to: " + e)
         })
 
         e.target[0].value = ""

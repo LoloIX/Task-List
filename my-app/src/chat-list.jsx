@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Chat from "./chat"
 import { nanoid } from "nanoid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -7,9 +7,9 @@ import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass, faCamera, faXmark
 const membersAddedStoraged = []
 
 function ChatList(props) {
-    const [showModal, setShow] = useState(false)
+    const [showModal, setShow] = React.useState(false)
 
-    const [membersAdded, addMemeber] = useState(membersAddedStoraged)
+    const [membersAdded, addMemeber] = React.useState(membersAddedStoraged)
 
     const chats = [
         {

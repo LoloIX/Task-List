@@ -3,21 +3,16 @@ import { nanoid } from "nanoid"
 import Form from "./msg-groups-form"
 import Message from "./message"
 
-const messagesStorage = []
-
 function MessagesList(props) {
-    const [messages, addMessage] = React.useState(messagesStorage)
-
     const sendMessage = (newMessage) => {
-        addMessage([...messages, newMessage])
-        props.setData([...messages, newMessage])
+        props.setData([...props.messagesStorage, newMessage])
         
         let elem = document.getElementsByClassName("messages")[0]
         elem.scroll(0, elem.scrollHeight)
     }
 
-    const printMessages = messages.map((e, i) => {
-        messagesStorage[i] = e
+    const printMessages = props.messagesStorage.map((e, i) => {
+        props.messagesStorage[i] = e
 
         let received = e.sendedBy === "You"
         if (received !== true){
