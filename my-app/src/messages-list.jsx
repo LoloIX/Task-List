@@ -13,15 +13,25 @@ function MessagesList(props) {
         elem.scroll(0, elem.scrollHeight)
     }
 
-    const printMessages = props.messagesStorage.map((e) => {
+    const printMessages = props.messagesStorage.map((e, i) => {
+        let printSVG = ""
+
+        if (i + 2 <= props.messagesStorage.length) {
+            if (e.sender !== props.messagesStorage[i + 1].sender) {
+                printSVG = <FontAwesomeIcon icon={faCircleUser} />
+            }
+        } else {
+            printSVG = <FontAwesomeIcon icon={faCircleUser} />
+        }
+
         if (!e.yours) {
             return (
             <div key={`msg-${nanoid()}`} className="received">
+                {printSVG}
                 <Message
                     string={e.string}
                     sender={e.sender}
                 />
-                <FontAwesomeIcon icon={faCircleUser} />
             </div>
         )} else {
         return  (
@@ -30,7 +40,7 @@ function MessagesList(props) {
                     string={e.string}
                     sender={e.sender}
                 />
-                <FontAwesomeIcon icon={faCircleUser} />
+                {printSVG}
             </div>
         )}
     })
