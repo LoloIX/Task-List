@@ -2,6 +2,8 @@ import React from "react"
 import { nanoid } from "nanoid"
 import Form from "./msg-groups-form"
 import Message from "./message"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons"
 
 function MessagesList(props) {
     const sendMessage = (newMessage) => {
@@ -11,28 +13,26 @@ function MessagesList(props) {
         elem.scroll(0, elem.scrollHeight)
     }
 
-    const printMessages = props.messagesStorage.map((e, i) => {
-        props.messagesStorage[i] = e
-
-        if (e.receiver !== null){
+    const printMessages = props.messagesStorage.map((e) => {
+        if (!e.yours) {
             return (
-                <blockquote key={`msg-${nanoid()}`}  >
-                    <Message
-                        string={e.string}
-                        id={e.id}
-                    />
-                </blockquote>
-            )
-        } else {
-            return  (
-                <div key={`msg-${nanoid()}`} >
-                    <Message
-                        string={e.string}
-                        id={e.id}
-                    />
-                </div>
-            )
-        }
+            <div key={`msg-${nanoid()}`} className="received">
+                <Message
+                    string={e.string}
+                    sender={e.sender}
+                />
+                <FontAwesomeIcon icon={faCircleUser} />
+            </div>
+        )} else {
+        return  (
+            <div key={`msg-${nanoid()}`} className="sended">
+                <Message
+                    string={e.string}
+                    sender={e.sender}
+                />
+                <FontAwesomeIcon icon={faCircleUser} />
+            </div>
+        )}
     })
 
     return (

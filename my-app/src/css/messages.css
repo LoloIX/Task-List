@@ -39,19 +39,14 @@
     overflow: scroll;
   }
 
-  .messages > * {
-    display: block;
-    margin: 0px;
-  }
-
-  .messages > * > div {
+  .messages > div {
     display: flex;
     align-items: center;
     position: sticky;
     z-index: -1;
   }
 
-  .messages > div:last-of-type .msg:after {
+  .messages > .sended:last-of-type .msg:after {
     content: "";
     position: absolute;
     background-color: var(--secondary);
@@ -65,26 +60,22 @@
     rotate: -90deg;
   }
 
-  .messages > * > div > svg {
+  .messages svg {
     font-size: 50px;
     color: var(--tertiary);
     margin: 0px 25px;
   }
 
-  .messages > *:not(:last-of-type) > div > svg {
-    display: none;
-  }
-
-  .messages > blockquote:last-of-type > div {
+  .messages > .received > div {
     flex-direction: row-reverse;
   }
 
-  .messages > blockquote .msg {
+  .messages > .received .msg {
     margin-right: auto;
     margin-left: 100px;
   }
 
-  .messages > blockquote:last-of-type .msg:after {
+  .messages > .received:last-child .msg:after {
     content: "";
     position: absolute;
     width: 0px;
@@ -97,11 +88,11 @@
     rotate: -90deg;
   }
 
-  .messages > blockquote:last-of-type .msg {
+  .messages > .received .msg {
     margin-left: 0px;
   }
 
-  .messages > div:last-of-type .msg {
+  .messages > .sended:last-child .msg {
     margin-right: 0px;
   }
 
