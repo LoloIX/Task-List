@@ -6,6 +6,7 @@ var yourpeer = new Peer(null, {debug: 2})
 var groupPeer = new Peer(null, {debug: 2})
 var conn
 
+
 function Form(prop) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
 
@@ -21,6 +22,7 @@ function Form(prop) {
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id}
             prop.sendMessage(newMessage)
             console.log("Data received: " + data.string)
+            c.close()
         })
     })
     
@@ -38,6 +40,11 @@ function Form(prop) {
 
             newconn.on('open', () => {
                 newconn.send(newMessage)
+                console.log("Send: " + newMessage.string)
+                newconn.on('close', () => {
+                    newconn.close()
+                    console.log(groupPeer.connections)
+                })
             })
         })
 

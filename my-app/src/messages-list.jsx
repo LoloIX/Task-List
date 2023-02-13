@@ -14,8 +14,7 @@ function MessagesList(props) {
     const printMessages = props.messagesStorage.map((e, i) => {
         props.messagesStorage[i] = e
 
-        let received = e.sender === "You"
-        if (received !== true){
+        if (e.receiver !== null){
             return (
                 <blockquote key={`msg-${nanoid()}`}  >
                     <Message
