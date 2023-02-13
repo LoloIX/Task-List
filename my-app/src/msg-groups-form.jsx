@@ -18,7 +18,7 @@ function Form(prop) {
         console.log("conected to: " + c.peer)
     
         c.on('data', (data) => {
-            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: true}
+            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
             prop.sendMessage(newMessage)
             console.log("Data received: " + data.string)
             c.close()
@@ -30,13 +30,11 @@ function Form(prop) {
         
         if (e.target[0].value === "") return
         
-        const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver: null, yours: true, group: true}
+        const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver: conn.peer, yours: true, group: false}
         prop.sendMessage(newMessage)
 
         Object.keys(yourpeer.connections).map((e) => {
             let newconn = groupPeer.connect(e, {reliable: true})
-
-            newMessage.receiver = e
 
             let message = {...newMessage}
             delete message.yours
@@ -59,8 +57,9 @@ function Form(prop) {
 
         conn.on('data', (data) => {
             console.log("Data received: " + data.string)
-            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: true}
+            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
             prop.sendMessage(newMessage)
+            conn.close()
         })
     }
 
