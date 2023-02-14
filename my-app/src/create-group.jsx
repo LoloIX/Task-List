@@ -3,11 +3,9 @@ import { nanoid } from "nanoid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass, faCamera, faXmark } from "@fortawesome/free-solid-svg-icons"
 
-const membersAddedStoraged = []
-
 function PopUpCreateGroup(props) {
     const [groupName, changeName] = React.useState("")
-    const [membersAdded, addMemeber] = React.useState(membersAddedStoraged)
+    const [membersAdded, addMemeber] = React.useState([])
     
     const printMembersAdded = membersAdded.map((e) => {
         return (
@@ -26,7 +24,9 @@ function PopUpCreateGroup(props) {
         )
     })
 
-    const closeModal = () => props.setShow(false)
+    console.log(membersAdded)
+
+    const closeModal = () => {props.setShow(false); addMemeber([])}
 
     const handlerAddMemeber = (e) => {
         e.preventDefault()
@@ -61,9 +61,7 @@ function PopUpCreateGroup(props) {
                     </form>
                 </div>
                 <div className="group__add__members">
-                    <p>
-                        Add Members
-                    </p>
+                    <p>Add Members</p>
                     <form
                         className="group__search__bar"
                         onSubmit={handlerAddMemeber}
@@ -76,7 +74,10 @@ function PopUpCreateGroup(props) {
                     {printMembersAdded}
                 </ul>
                 <button
+                    className={groupMembersCheck + " " + groupNameCheck}
                     onClick={() => {
+                        if (membersAdded.length < 2 || groupName === "") return
+                        props.save({members: [...membersAdded], name: groupName, group: true})
                         closeModal()
                     }}
                 >Save Group</button>

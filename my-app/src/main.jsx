@@ -6,11 +6,12 @@ const messagesStorage = []
 
 function Main() {
     const [data, setData] = React.useState(messagesStorage)
-
+    const [chatOpen, openChat] = React.useState({})
+    
     return (
         <div id="main">
-            <ChatList messagesStorage={data} />
-            <MessageList messagesStorage={data} setData={setData} />
+            <ChatList messagesStorage={data} openChat={openChat} />
+            <MessageList messagesStorage={data} setData={setData} createGroup={chatOpen} />
         </div>
     )    
 }

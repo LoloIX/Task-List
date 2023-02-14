@@ -27,7 +27,6 @@ function ChatList(props) {
                     repeat = true
                 }
             })
-
         } else {
             if (e.yours) {
                 chat.lastMessageSender = "You"
@@ -41,7 +40,6 @@ function ChatList(props) {
                         repeat = true
                     }
                 })
-                
             } else {
                 chat.lastMessageSender = e.sender
                 chat.title = e.sender
@@ -58,11 +56,8 @@ function ChatList(props) {
             chat.icon = faCircleUser
         }
 
-        if (!repeat && chatsPrinted.length !== 0) {
-            chatsPrinted.push(chat)
-        } else if (chatsPrinted.length === 0) {
-            chatsPrinted.push(chat)
-        }
+        if (!repeat && chatsPrinted.length !== 0) {chatsPrinted.push(chat)}
+        else if (chatsPrinted.length === 0) chatsPrinted.push(chat)
     })
 
     const printChats = chatsPrinted.map((e) => {
@@ -73,6 +68,7 @@ function ChatList(props) {
                 lastMessageSender={e.lastMessageSender}
                 title={e.title}
                 key={`chat-${nanoid()}`}
+                onClick={props.openChat({name: e.title, members: e.title, group: false})}
             />
         )
     })
@@ -81,7 +77,7 @@ function ChatList(props) {
 
     return (
         <div id="side">
-            <PopUpCreateGroup showModal={showModal} setShow={setShow} />
+            <PopUpCreateGroup showModal={showModal} setShow={setShow} save={props.openChat}/>
             <header>
                 <div>
                     <div className="profile__photo">
