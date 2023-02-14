@@ -24,8 +24,6 @@ function PopUpCreateGroup(props) {
         )
     })
 
-    console.log(membersAdded)
-
     const closeModal = () => {props.setShow(false); addMemeber([])}
 
     const handlerAddMemeber = (e) => {

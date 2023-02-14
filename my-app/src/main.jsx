@@ -11,7 +11,7 @@ function Main() {
     return (
         <div id="main">
             <ChatList messagesStorage={data} openChat={openChat} />
-            <MessageList messagesStorage={data} setData={setData} createGroup={chatOpen} />
+            <MessageList messagesStorage={data} setData={setData} chatOpen={chatOpen}/>
         </div>
     )    
 }

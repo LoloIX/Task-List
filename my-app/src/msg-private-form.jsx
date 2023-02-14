@@ -21,6 +21,10 @@ function PrivateForm(props) {
             props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
         })
+
+        conn.on('close', () => {
+            console.log("close connection"); console.log(yourpeer.connections)
+        })
     })
     
     const handleSubmit = (e) => {
@@ -37,18 +41,26 @@ function PrivateForm(props) {
         e.target[0].value = ""
     }
 
-    conn = yourpeer.connect(props.members[0], {reliable: true})
+    if (props.members !== undefined) {
+        conn.close()
 
-    conn.on('open', () => {
-        console.log("connected to: " + conn.peer)
-    })
+        conn = yourpeer.connect(props.members, {reliable: true})
 
-    conn.on('data', (data) => {
-        const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
-        props.sendMessage(newMessage)
-        console.log("Data received: " + data.string)
-    })
-    
+        conn.on('open', () => {
+            console.log("connected to: " + conn.peer)
+        })
+
+        conn.on('data', (data) => {
+            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
+            props.sendMessage(newMessage)
+            console.log("Data received: " + data.string)
+        })
+
+        conn.on('close', () => {
+            console.log("close connection"); console.log(yourpeer.connections)
+        })
+    }
+
     const connect = () => {
         conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
         
@@ -60,6 +72,10 @@ function PrivateForm(props) {
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
             props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
+        })
+
+        conn.on('close', () => {
+            console.log("close connection"); console.log(yourpeer.connections)
         })
     }
 
