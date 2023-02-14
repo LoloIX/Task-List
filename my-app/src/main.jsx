@@ -6,6 +6,7 @@ const messagesStorage = []
 
 function Main() {
     const [data, setData] = React.useState(messagesStorage)
+    console.log("MAIN", data)
 
     return (
         <div id="main">
