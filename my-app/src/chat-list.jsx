@@ -8,7 +8,7 @@ import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass } from "@fortaweso
 function ChatList(props) {
     const [showModal, setShow] = React.useState(false)
     
-    let chatsPrinted = []
+    const chatsPrinted = []
     props.messagesStorage.map((e) => {
         let repeat = false
         let chat = {}
@@ -68,7 +68,7 @@ function ChatList(props) {
                 lastMessageSender={e.lastMessageSender}
                 title={e.title}
                 key={`chat-${nanoid()}`}
-                onClick={props.openChat({name: e.title, members: e.title, group: false})}
+                onClick={() => props.openChat({name: e.title, members: e.title, group: false})}
             />
         )
     })

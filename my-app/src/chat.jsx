@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 function Chat(props) {
     return (
-        <div>
+        <div onClick={props.onClick}>
             <div>
                 <FontAwesomeIcon icon={props.icon} />
             </div>
