@@ -7,8 +7,8 @@ import { faCircleUser, faEllipsis, faUsers, faMagnifyingGlass } from "@fortaweso
 
 function ChatList(props) {
     const [showModal, setShow] = React.useState(false)
-    
     const chatsPrinted = []
+    
     props.messagesStorage.map((e) => {
         let repeat = false
         let chat = {}

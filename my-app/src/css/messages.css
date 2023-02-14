@@ -327,9 +327,13 @@
   .group__options {
     display: flex;
     height: calc(100vh - 70px);
-    width: calc(100vw - 81px);
+    width: calc(100vw - 82px);
     position: absolute;
     transition: all .3s;
+  }
+
+  body[data-menu=true] .group__options {
+    width: calc(100vw - 252px);
   }
 
   .group__options[show=false] {
@@ -394,11 +398,16 @@
     transition: transform .1s, background-color .3s;
   }
 
-  .group__options button:active {
+  .group__options button.incomplete {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .group__options button:not(.incomplete):active {
     transform: scale(0.9);
   }
 
-  .group__options button:hover {
+  .group__options button:not(.incomplete):hover {
     background-color: var(--side-background);
   }
 
