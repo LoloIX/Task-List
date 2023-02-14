@@ -5,7 +5,7 @@ import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 var yourpeer = new Peer(null, {debug: 2})
 var conn
 
-function PrivateForm(prop) {
+function PrivateForm(props) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
 
     yourpeer.on('open', () => {
@@ -18,7 +18,7 @@ function PrivateForm(prop) {
         
         c.on('data', (data) => {
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
-            prop.sendMessage(newMessage)
+            props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
         })
     })
@@ -30,13 +30,25 @@ function PrivateForm(prop) {
 
         const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver: conn.peer, yours: true, group: false}
         
-        prop.sendMessage(newMessage)
+        props.sendMessage(newMessage)
         conn.send(newMessage)
         console.log("Send: " + newMessage.string)
         
         e.target[0].value = ""
     }
 
+    conn = yourpeer.connect(props.members[0], {reliable: true})
+
+    conn.on('open', () => {
+        console.log("connected to: " + conn.peer)
+    })
+
+    conn.on('data', (data) => {
+        const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
+        props.sendMessage(newMessage)
+        console.log("Data received: " + data.string)
+    })
+    
     const connect = () => {
         conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
         
@@ -46,7 +58,7 @@ function PrivateForm(prop) {
 
         conn.on('data', (data) => {
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
-            prop.sendMessage(newMessage)
+            props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
         })
     }

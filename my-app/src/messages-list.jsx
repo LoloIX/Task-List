@@ -1,6 +1,7 @@
 import React from "react"
 import { nanoid } from "nanoid"
 import PrivateForm from "./msg-private-form"
+import Form from "./msg-groups-form"
 import Message from "./message"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons"
@@ -48,12 +49,14 @@ function MessagesList(props) {
         }
     })
 
+    const form = (props.openChat?.group) ? <Form sendMessage={sendMessage} members={props.openChat?.members} /> : <PrivateForm sendMessage={sendMessage} members={props.openChat?.members} />
+    
     return (
         <div id="messages__list">
             <div className="messages">
                 {printMessages}
             </div>
-            <PrivateForm sendMessage={sendMessage}/>
+            {form}
         </div>
     )
 }
