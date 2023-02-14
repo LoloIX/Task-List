@@ -5,24 +5,20 @@ import Message from "./message"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons"
 
-const storageMSG = []
-
 function MessagesList(props) {
-
     const sendMessage = (newMessage) => {
-        storageMSG.push(newMessage)
-        console.log([...props.messagesStorage, newMessage])
         props.setData([...props.messagesStorage, newMessage])
+        props.messagesStorage.push(newMessage)
         
         let elem = document.getElementsByClassName("messages")[0]
         elem.scroll(0, elem.scrollHeight)
     }
 
-    const printMessages = storageMSG.map((e, i) => {
+    const printMessages = props.messagesStorage.map((e, i) => {
         let printSVG = ""
 
-        if (i + 2 <= storageMSG.length) {
-            if (e.sender !== storageMSG[i + 1].sender) {
+        if (i + 2 <= props.messagesStorage.length) {
+            if (e.sender !== props.messagesStorage[i + 1].sender) {
                 printSVG = <FontAwesomeIcon icon={faCircleUser} />
             }
         } else {

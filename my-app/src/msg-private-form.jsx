@@ -45,9 +45,9 @@ function PrivateForm(prop) {
         })
 
         conn.on('data', (data) => {
-            console.log("Data received: " + data.string)
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
             prop.sendMessage(newMessage)
+            console.log("Data received: " + data.string)
         })
     }
 
