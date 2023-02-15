@@ -51,7 +51,7 @@ function MessagesList(props) {
 
     const form = (props.chatOpen?.group) ?
         <Form sendMessage={sendMessage} members={props.chatOpen?.members} />:
-        <PrivateForm sendMessage={sendMessage} members={props.chatOpen?.members} />
+        <PrivateForm sendMessage={sendMessage} members={props.chatOpen?.members} openChat={props.openChat} />
     
     return (
         <div id="messages__list">

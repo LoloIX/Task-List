@@ -22,8 +22,8 @@ function PrivateForm(props) {
             console.log("Data received: " + data.string)
         })
 
-        conn.on('close', () => {
-            console.log("close connection"); console.log(yourpeer.connections)
+        c.on('close', () => {
+            console.log("connection closed")
         })
     })
     
@@ -36,6 +36,7 @@ function PrivateForm(props) {
         
         props.sendMessage(newMessage)
         conn.send(newMessage)
+
         console.log("Send: " + newMessage.string)
         
         e.target[0].value = ""
@@ -45,20 +46,22 @@ function PrivateForm(props) {
         conn.close()
 
         conn = yourpeer.connect(props.members, {reliable: true})
-
+        
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
         })
-
+        
         conn.on('data', (data) => {
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
             props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
         })
-
+        
         conn.on('close', () => {
-            console.log("close connection"); console.log(yourpeer.connections)
+            console.log("connection closed")
         })
+
+        props.openChat({})
     }
 
     const connect = () => {
@@ -75,7 +78,7 @@ function PrivateForm(props) {
         })
 
         conn.on('close', () => {
-            console.log("close connection"); console.log(yourpeer.connections)
+            console.log("connection closed")
         })
     }
 
