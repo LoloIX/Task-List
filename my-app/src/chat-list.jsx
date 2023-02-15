@@ -56,8 +56,7 @@ function ChatList(props) {
             chat.icon = faCircleUser
         }
 
-        if (!repeat && chatsPrinted.length !== 0) {chatsPrinted.push(chat)}
-        else if (chatsPrinted.length === 0) chatsPrinted.push(chat)
+        if (!repeat && (chatsPrinted.length !== 0 || chatsPrinted.length === 0)) chatsPrinted.push(chat)
     })
 
     const printChats = chatsPrinted.map((e) => {

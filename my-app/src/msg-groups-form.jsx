@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 var yourpeer = new Peer(null, {debug: 2})
-var groupPeer = new Peer(null, {debug: 2})
 var conn
+
+groupPeer.on('open', () => {
+    console.log("group peer opened: " + groupPeer.id)
+})
 
 function Form(props) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
@@ -24,6 +27,29 @@ function Form(props) {
             c.close()
         })
     })
+
+    if (props.members !== undefined) {
+        var groupPeer = new Peer(props.name, {debug: 2})
+        var groupSenderPeer = new Peer(`${props.name}-helper`, {debug: 2})
+
+        props.members.map((e) => {
+            conn = groupPeer.connect(e, {receiver: true})
+            conn.on('open', () => {
+                console.log("connected to: " + conn.peer)
+            })
+            
+            conn.on('data', (data) => {
+                const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
+                props.sendMessage(newMessage)
+                console.log("Data received: " + data.string)
+            })
+            
+            conn.on('close', () => {
+                console.log("connection closed")
+            })
+        })
+        props.openChat({})
+    }
     
     const handleSubmit = (e) => {
         e.preventDefault()
