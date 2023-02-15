@@ -64,8 +64,8 @@ function Form(props) {
         const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver, yours: true, group: true}
         props.sendMessage(newMessage)
 
-        Object.keys(yourpeer.connections).map((e) => {
-            let newconn = groupPeer.connect(e, {reliable: true})
+        Object.keys(groupPeer.connections).map((e) => {
+            let newconn = groupSenderPeer.connect(e, {reliable: true})
 
             newconn.on('open', () => {
                 newconn.send(newMessage)
