@@ -17,7 +17,7 @@ function Form(props) {
         console.log("conected to: " + c.peer)
         
         c.on('data', (data) => {
-            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: true}
+            const newMessage = {string: data.string, sender: data.sender, groupName: props.chatOpen.groupName, yours: (data.sender === yourpeer.id), group: true}
             props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
             c.close()
@@ -35,7 +35,7 @@ function Form(props) {
         
         groupConn.on('data', (data) => {
             let newConn
-            const newMessage = {string: data.string, sender: data.sender, groupName: props.chatOpen.groupName, yours: false, group: true}
+            const newMessage = {string: data.string, sender: data.sender, groupName: props.chatOpen.groupName, group: true}
 
             props.chatOpen.members.map((e) => {
                 newConn = groupSenderPeer.connect(e, {receiver: true})
@@ -43,7 +43,6 @@ function Form(props) {
                 newConn.on('open', () => {
                     newConn.send(newMessage)
                     console.log("Send :" + newMessage.string)
-                    newConn.close()
                 })
             })
         })
@@ -58,17 +57,9 @@ function Form(props) {
         
         if (e.target[0].value === "") return
         
-        const newMessage = {string: e.target[0].value, sender: yourpeer.id, groupName: props.chatOpen.groupName , yours: true, group: true}
-        props.sendMessage(newMessage)
-
-        Object.keys(groupPeer.connections).map((e) => {
-            let newconn = groupSenderPeer.connect(e, {reliable: true})
-
-            newconn.on('open', () => {
-                newconn.send(newMessage)
-                console.log("Send: " + newMessage.string)
-            })
-        })
+        const newMessage = {string: e.target[0].value, sender: yourpeer.id, groupName: props.chatOpen.groupName}
+        
+        conn.send(newMessage)
 
         e.target[0].value = ""
     }
