@@ -5,12 +5,7 @@ import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 var yourpeer = new Peer(null, {debug: 2})
 var conn
 
-groupPeer.on('open', () => {
-    console.log("group peer opened: " + groupPeer.id)
-})
-
 function Form(props) {
-    const [inputRemotePeerId, setRemoteValue] = React.useState("")
 
     yourpeer.on('open', () => {
         console.log("ID: " + yourpeer.id)
@@ -28,8 +23,8 @@ function Form(props) {
         })
     })
 
-    if (props.members !== undefined) {
-        var groupPeer = new Peer(props.name, {debug: 2})
+    if (props.chatOpen?.members !== undefined) {
+        var groupPeer = new Peer(props.chatOpen.groupTitle, {debug: 2})
         var groupSenderPeer = new Peer(`${props.name}-helper`, {debug: 2})
 
         props.members.map((e) => {
@@ -39,7 +34,7 @@ function Form(props) {
             })
             
             conn.on('data', (data) => {
-                const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
+                const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: true}
                 props.sendMessage(newMessage)
                 console.log("Data received: " + data.string)
             })
@@ -55,13 +50,8 @@ function Form(props) {
         e.preventDefault()
         
         if (e.target[0].value === "") return
-
-        let receiver
-        Object.values(yourpeer.connections).map((e) => {
-            if (e.length !== 0) receiver = e[0].peer
-        })
         
-        const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver, yours: true, group: true}
+        const newMessage = {string: e.target[0].value, sender: yourpeer.id, groupName: props.chatOpen.groupName , yours: true, group: true}
         props.sendMessage(newMessage)
 
         Object.keys(groupPeer.connections).map((e) => {
@@ -76,40 +66,7 @@ function Form(props) {
         e.target[0].value = ""
     }
 
-    const connect = () => {
-        conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
-        
-        conn.on('open', () => {
-            // console.log("connected to: " + conn.peer)
-        })
-
-        conn.on('data', (data) => {
-            console.log("Data received: " + data.string)
-            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: true}
-            props.sendMessage(newMessage)
-            conn.close()
-        })
-    }
-
-    const handleOnChange = (elem) => {
-        setRemoteValue(elem.target.value)
-    }
-
     return (
-        <div>
-            <div>
-                <p>Connect to: </p>
-                <input 
-                    value={inputRemotePeerId}
-                    onChange={handleOnChange}
-                />
-
-                <button
-                    onClick={connect}
-                >
-                    Connect
-                </button>
-            </div>
             <form onSubmit={handleSubmit} className="form-msg">
                 <input
                     className="input-msg"
@@ -122,7 +79,6 @@ function Form(props) {
                     <FontAwesomeIcon icon={faCircleRight} />
                 </button>
             </form>
-        </div>
     )
 }
 
