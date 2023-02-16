@@ -4,6 +4,7 @@ import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 var yourpeer = new Peer(null, {debug: 2})
 var conn
+var groupConn
 
 function Form(props) {
 
@@ -13,7 +14,7 @@ function Form(props) {
     
     yourpeer.on('connection', (c) => {
         conn = c
-        // console.log("conected to: " + c.peer)
+        console.log("conected to: " + c.peer)
         
         c.on('data', (data) => {
             const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: true}
@@ -23,28 +24,34 @@ function Form(props) {
         })
     })
 
-    if (props.chatOpen?.members !== undefined) {
-        var groupPeer = new Peer(props.chatOpen.groupTitle, {debug: 2})
-        var groupSenderPeer = new Peer(`${props.name}-helper`, {debug: 2})
+    var groupPeer = new Peer(props.chatOpen.groupTitle, {debug: 2})
+    var groupSenderPeer = new Peer(`${props.chatOpen.groupTitle}-helper`, {debug: 2})
 
-        props.members.map((e) => {
-            conn = groupPeer.connect(e, {receiver: true})
-            conn.on('open', () => {
-                console.log("connected to: " + conn.peer)
-            })
-            
-            conn.on('data', (data) => {
-                const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: true}
-                props.sendMessage(newMessage)
-                console.log("Data received: " + data.string)
-            })
-            
-            conn.on('close', () => {
-                console.log("connection closed")
+    props.chatOpen.members.map((e) => {
+        groupConn = groupPeer.connect(e, {receiver: true})
+        groupConn.on('open', () => {
+            console.log("connected to: " + groupConn.peer)
+        })
+        
+        groupConn.on('data', (data) => {
+            let newConn
+            const newMessage = {string: data.string, sender: data.sender, groupName: props.chatOpen.groupName, yours: false, group: true}
+
+            props.chatOpen.members.map((e) => {
+                newConn = groupSenderPeer.connect(e, {receiver: true})
+
+                newConn.on('open', () => {
+                    newConn.send(newMessage)
+                    console.log("Send :" + newMessage.string)
+                    newConn.close()
+                })
             })
         })
-        props.openChat({})
-    }
+        
+        groupConn.on('close', () => {
+            console.log("connection closed")
+        })
+    })
     
     const handleSubmit = (e) => {
         e.preventDefault()
