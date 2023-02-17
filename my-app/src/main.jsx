@@ -35,20 +35,21 @@ function Main() {
         setData(message)
     }
 
-    // WE NEED THIS TEMPORALY
+    // WE NEED THIS TEMPORARILY
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
     
     const connect = () => {
-        conn = props.yourpeer.connect(inputRemotePeerId, {reliable: true})
+        conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
         
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
         })
 
         conn.on('data', (data) => {
-            const newMessage = {string: data.string, sender: data.sender, receiver: props.yourpeer.id, yours: false, group: false}
-            props.sendMessage(newMessage)
+            data.yours = (data.sender === yourpeer.id)
+            setData(data)
             console.log("Data received: " + data.string)
+            c.close()
         })
 
         conn.on('close', () => {
@@ -64,6 +65,7 @@ function Main() {
         <div id="main">
             <ChatList messagesStorage={data} openChat={openChat} />
             <MessageList messagesStorage={data} chatOpen={chatOpen} send={send}/>
+            THIS IS TEMPORARILY
             <div>
                 <p>Connect to: </p>
                 <input 
@@ -77,6 +79,7 @@ function Main() {
                     Connect
                 </button>
             </div>
+            THIS IS TEMPORARILY
         </div>
     )    
 }
