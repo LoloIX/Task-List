@@ -2,22 +2,21 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
-var yourpeer = new Peer(null, {debug: 2})
 var conn
 
 function PrivateForm(props) {
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
 
-    yourpeer.on('open', () => {
-        console.log("ID: " + yourpeer.id)
+    props.yourpeer.on('open', () => {
+        console.log("ID: " + props.yourpeer.id)
     })
     
-    yourpeer.on('connection', (c) => {
+    props.yourpeer.on('connection', (c) => {
         conn = c
         console.log("conected to: " + c.peer)
         
         c.on('data', (data) => {
-            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
+            const newMessage = {string: data.string, sender: data.sender, receiver: props.yourpeer.id, group: false}
             props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
         })
@@ -32,7 +31,7 @@ function PrivateForm(props) {
         
         if (e.target[0].value === "") return
 
-        const newMessage = {string: e.target[0].value, sender: yourpeer.id, receiver: conn.peer, yours: true, group: false}
+        const newMessage = {string: e.target[0].value, sender: props.yourpeer.id, receiver: conn.peer, yours: true, group: false}
         
         props.sendMessage(newMessage)
         conn.send(newMessage)
@@ -45,14 +44,14 @@ function PrivateForm(props) {
     if (props.members !== undefined) {
         conn.close()
 
-        conn = yourpeer.connect(props.members, {reliable: true})
+        conn = props.yourpeer.connect(props.members, {reliable: true})
         
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
         })
         
         conn.on('data', (data) => {
-            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
+            const newMessage = {string: data.string, sender: data.sender, receiver: props.yourpeer.id, yours: false, group: false}
             props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
         })
@@ -65,14 +64,14 @@ function PrivateForm(props) {
     }
 
     const connect = () => {
-        conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
+        conn = props.yourpeer.connect(inputRemotePeerId, {reliable: true})
         
         conn.on('open', () => {
             console.log("connected to: " + conn.peer)
         })
 
         conn.on('data', (data) => {
-            const newMessage = {string: data.string, sender: data.sender, receiver: yourpeer.id, yours: false, group: false}
+            const newMessage = {string: data.string, sender: data.sender, receiver: props.yourpeer.id, yours: false, group: false}
             props.sendMessage(newMessage)
             console.log("Data received: " + data.string)
         })

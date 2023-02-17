@@ -2,11 +2,10 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
-var yourpeer = new Peer(null, {debug: 2})
 var conn
-var groupConn
 
 function Form(props) {
+    var groupConn
     var groupPeer = new Peer(props.chatOpen.name, {debug: 2})
     var groupSenderPeer = new Peer(`${props.chatOpen.name}-helper`, {debug: 2})
 
@@ -42,29 +41,13 @@ function Form(props) {
     groupSenderPeer.on('open', () => console.log("group open sender: " + groupSenderPeer.id))
     groupPeer.on('error', (e) => console.log(e))
     groupSenderPeer.on('error', (e) => console.log(e))
-
-    yourpeer.on('open', () => {
-        console.log("ID: " + yourpeer.id)
-    })
-    
-    yourpeer.on('connection', (c) => {
-        conn = c
-        console.log("conected to: " + c.peer)
-        
-        c.on('data', (data) => {
-            const newMessage = {string: data.string, sender: data.sender, name: props.chatOpen.name, yours: (data.sender === yourpeer.id), group: true}
-            props.sendMessage(newMessage)
-            console.log("Data received: " + data.string)
-            c.close()
-        })
-    })
     
     const handleSubmit = (e) => {
         e.preventDefault()
         
         if (e.target[0].value === "") return
         
-        const newMessage = {string: e.target[0].value, sender: yourpeer.id, name: props.chatOpen.name}
+        const newMessage = {string: e.target[0].value, sender: props.yourpeer.id, receiver: props.chatOpen.name, group: true}
         
         conn.send(newMessage)
 
