@@ -7,14 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons"
 
 function MessagesList(props) {
-    const sendMessage = (newMessage) => {
-        props.setData([...props.messagesStorage, newMessage])
-        props.messagesStorage.push(newMessage)
-        
-        let elem = document.getElementsByClassName("messages")[0]
-        elem.scroll(0, elem.scrollHeight)
-    }
-
     const printMessages = props.messagesStorage.map((e, i) => {
         let printSVG = ""
 
@@ -50,8 +42,8 @@ function MessagesList(props) {
     })
 
     const form = (props.chatOpen?.groups) ?
-        <Form sendMessage={sendMessage} chatOpen={props.chatOpen} openChat={props.openChat} yourpeer={props.yourpeer} />:
-        <PrivateForm sendMessage={sendMessage} members={props.chatOpen?.members} openChat={props.openChat} yourpeer={props.yourpeer}/>
+        <Form chat={props.chatOpen} send={props.send} />:
+        <PrivateForm members={props.chatOpen?.members} />
     
     return (
         <div id="messages__list">

@@ -4,6 +4,7 @@ import ChatList from "./chat-list"
 
 const messagesStorage = []
 var yourpeer = new Peer(null, {debug: 2})
+var conn
 
 yourpeer.on('open', () => {
     console.log("ID: " + yourpeer.id)
@@ -25,10 +26,57 @@ function Main() {
         })
     })
 
+    const send = (message) => {
+        message.receiver = conn.peer
+        message.sender = yourpeer.id
+        conn.send(message)
+
+        message.yours = true
+        setData(message)
+    }
+
+    // WE NEED THIS TEMPORALY
+    const [inputRemotePeerId, setRemoteValue] = React.useState("")
+    
+    const connect = () => {
+        conn = props.yourpeer.connect(inputRemotePeerId, {reliable: true})
+        
+        conn.on('open', () => {
+            console.log("connected to: " + conn.peer)
+        })
+
+        conn.on('data', (data) => {
+            const newMessage = {string: data.string, sender: data.sender, receiver: props.yourpeer.id, yours: false, group: false}
+            props.sendMessage(newMessage)
+            console.log("Data received: " + data.string)
+        })
+
+        conn.on('close', () => {
+            console.log("connection closed")
+        })
+    }
+
+    const handleOnChange = (elem) => {
+        setRemoteValue(elem.target.value)
+    }
+
     return (
         <div id="main">
             <ChatList messagesStorage={data} openChat={openChat} />
-            <MessageList messagesStorage={data} setData={setData} chatOpen={chatOpen} openChat={openChat} yourpeer={yourpeer}/>
+            <MessageList messagesStorage={data} chatOpen={chatOpen} send={send}/>
+            <div>
+                <p>Connect to: </p>
+                <input 
+                    value={inputRemotePeerId}
+                    onChange={handleOnChange}
+                />
+
+                <button
+                    onClick={connect}
+                >
+                    Connect
+                </button>
+            </div>
         </div>
     )    
 }
