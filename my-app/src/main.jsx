@@ -14,10 +14,11 @@ yourpeer.on('open', () => {
 function Main() {
     const [data, setData] = React.useState(messagesStorage)
     const [chatOpen, openChat] = React.useState({})
-    
+    console.log(data)
     const recive = (message) => {
         message.yours = (message.sender === yourpeer.id)
         setData([...data, message])
+        messagesStorage.push(message)
         console.log("Data received: " + message.string)
     }
 
@@ -28,6 +29,7 @@ function Main() {
 
         message.yours = true
         setData([...data, message])
+        messagesStorage.push(message)
         console.log("Send: " + message.string)
     }
 
