@@ -3,6 +3,7 @@ import MessageList from "./messages-list"
 import ChatList from "./chat-list"
 
 const messagesStorage = []
+
 var yourpeer = new Peer(null, {debug: 2})
 var conn
 
@@ -13,18 +14,12 @@ yourpeer.on('open', () => {
 function Main() {
     const [data, setData] = React.useState(messagesStorage)
     const [chatOpen, openChat] = React.useState({})
-    console.log(chatOpen)
-    yourpeer.on('connection', (c) => {
-        conn = c
-        console.log("conected to: " + c.peer)
-        
-        c.on('data', (data) => {
-            data.yours = (data.sender === yourpeer.id)
-            setData(data)
-            console.log("Data received: " + data.string)
-            c.close()
-        })
-    })
+    
+    const recive = (message) => {
+        message.yours = (message.sender === yourpeer.id)
+        setData([...data, message])
+        console.log("Data received: " + message.string)
+    }
 
     const send = (message) => {
         message.receiver = conn.peer
@@ -32,8 +27,18 @@ function Main() {
         conn.send(message)
 
         message.yours = true
-        setData(message)
+        setData([...data, message])
+        console.log("Send: " + message.string)
     }
+
+    yourpeer.on('connection', (c) => {
+        conn = c
+        console.log("conected to: " + c.peer)
+        
+        c.on('data', (message) => {
+            recive(message)
+        })
+    })
 
     // WE NEED THIS TEMPORARILY
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
@@ -45,11 +50,8 @@ function Main() {
             console.log("connected to: " + conn.peer)
         })
 
-        conn.on('data', (data) => {
-            data.yours = (data.sender === yourpeer.id)
-            setData(data)
-            console.log("Data received: " + data.string)
-            c.close()
+        conn.on('data', (message) => {
+            recive(message)
         })
 
         conn.on('close', () => {
@@ -65,8 +67,8 @@ function Main() {
         <div id="main">
             <ChatList messagesStorage={data} openChat={openChat} />
             <MessageList messagesStorage={data} chatOpen={chatOpen} send={send}/>
-            THIS IS TEMPORARILY
-            <div>
+            {/* THIS IS TEMPORARILY */}
+            <div style={{position: "absolute", bottom: "10px"}}>
                 <p>Connect to: </p>
                 <input 
                     value={inputRemotePeerId}
@@ -79,7 +81,7 @@ function Main() {
                     Connect
                 </button>
             </div>
-            THIS IS TEMPORARILY
+            {/* THIS IS TEMPORARILY */}
         </div>
     )    
 }

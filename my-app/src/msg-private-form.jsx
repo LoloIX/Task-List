@@ -11,8 +11,6 @@ function PrivateForm(props) {
         const newMessage = {string: e.target[0].value, group: false}
         
         props.send(newMessage)
-
-        console.log("Send: " + newMessage.string)
         
         e.target[0].value = ""
     }

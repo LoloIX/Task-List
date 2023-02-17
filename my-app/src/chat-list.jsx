@@ -14,6 +14,8 @@ function ChatList(props) {
         let chat = {}
     
         chat.lastMessage = e.string
+        chat.group = e.group
+
         if (e.group) {
             chat.lastMessageSender = (e.yours) ? "You" : e.sender
             chat.title = e.receiver
@@ -31,6 +33,7 @@ function ChatList(props) {
             if (e.yours) {
                 chat.lastMessageSender = "You"
                 chat.title = e.receiver
+                chat.members = e.receiver
 
                 chatsPrinted.map((elem) => {
                     if (e.receiver === elem.title) {
@@ -43,6 +46,7 @@ function ChatList(props) {
             } else {
                 chat.lastMessageSender = e.sender
                 chat.title = e.sender
+                chat.members = e.sender
 
                 chatsPrinted.map((elem) => {
                     if (e.sender === elem.title) {
@@ -67,7 +71,7 @@ function ChatList(props) {
                 lastMessageSender={e.lastMessageSender}
                 title={e.title}
                 key={`chat-${nanoid()}`}
-                onClick={() => props.openChat({name: e.title, members: e.title, group: false})}
+                onClick={() => props.openChat({name: e.title, members: e.members, group: e.group})}
             />
         )
     })
