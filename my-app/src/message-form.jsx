@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 function Form(props) {
-    if (props.chat?.groups) {
+    console.log("private")
+    console.log(props.chat)
+    if (props.chat?.group) {
+        console.log("group")
         var groupConn
         var groupPeer = new Peer(props.chat.name, {debug: 2})
         var groupSenderPeer = new Peer(`${props.chat.name}-helper`, {debug: 2})
@@ -38,8 +41,8 @@ function Form(props) {
             })
         })
         groupSenderPeer.on('open', () => console.log("group open sender: " + groupSenderPeer.id))
-        groupPeer.on('error', (e) => console.log(e))
-        groupSenderPeer.on('error', (e) => console.log(e))
+        // groupPeer.on('error', (e) => console.log(e))
+        // groupSenderPeer.on('error', (e) => console.log(e))
     }
     
     const handleSubmit = (e) => {
@@ -47,7 +50,7 @@ function Form(props) {
         
         if (e.target[0].value === "") return
         
-        const newMessage = {string: e.target[0].value, group: props.chat}
+        const newMessage = {string: e.target[0].value, group: props.chat?.group}
         
         props.send(newMessage)
 

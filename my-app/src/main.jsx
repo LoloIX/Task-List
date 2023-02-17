@@ -14,8 +14,8 @@ yourpeer.on('open', () => {
 function Main() {
     const [data, setData] = React.useState(messagesStorage)
     const [chatOpen, openChat] = React.useState({})
-    console.log(data)
-    const recive = (message) => {
+    console.log(chatOpen)
+    const recieve = (message) => {
         message.yours = (message.sender === yourpeer.id)
         setData([...data, message])
         messagesStorage.push(message)
@@ -38,7 +38,8 @@ function Main() {
         console.log("conected to: " + c.peer)
         
         c.on('data', (message) => {
-            recive(message)
+            recieve(message)
+            if (message.group) c.close()
         })
     })
 
@@ -53,7 +54,7 @@ function Main() {
         })
 
         conn.on('data', (message) => {
-            recive(message)
+            recieve(message)
         })
 
         conn.on('close', () => {
