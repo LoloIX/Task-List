@@ -16,11 +16,11 @@ function ChatList(props) {
         chat.lastMessage = e.string
         if (e.group) {
             chat.lastMessageSender = (e.yours) ? "You" : e.sender
-            chat.title = e.groupName
+            chat.title = e.name
             chat.icon = faUsers
 
             chatsPrinted.map((elem) => {
-                if (e.groupName === elem.title) {
+                if (e.name === elem.title) {
                     elem.lastMessage = e.string
                     elem.lastMessageSender = (e.yours) ? "You" : e.sender
 

@@ -24,7 +24,7 @@ function PopUpCreateGroup(props) {
         )
     })
 
-    const closeModal = () => {props.setShow(false); addMemeber([])}
+    const closeModal = () => {props.setShow(false); addMemeber([]); changeName("")}
 
     const handlerAddMemeber = (e) => {
         e.preventDefault()
