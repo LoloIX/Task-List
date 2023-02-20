@@ -7,8 +7,8 @@ function Form(props) {
     if (props.chat?.group) {
         console.log("group")
         var groupConn
-        var groupPeer = new Peer(props.chat.name, {debug: 2})
-        var groupSenderPeer = new Peer(`${props.chat.name}-helper`, {debug: 2})
+        var groupPeer = new Peer(props.chat.name, {debug: 0})
+        var groupSenderPeer = new Peer(`${props.chat.name}-helper`, {debug: 0})
     
         groupPeer.on('open', () => {
             console.log("group open: " + groupPeer.id)
