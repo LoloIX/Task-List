@@ -3,16 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 function Form(props) {
-    console.log("private")
     if (props.chat?.group) {
-        console.log("group")
         var groupConn
         var groupPeer = new Peer(props.chat.name, {debug: 0})
         var groupSenderPeer = new Peer(`${props.chat.name}-helper`, {debug: 0})
     
         groupPeer.on('open', () => {
-            console.log("group open: " + groupPeer.id)
-    
             props.chat.members.map((e) => {
                 groupConn = groupPeer.connect(e, {receiver: true})
                 
@@ -29,7 +25,6 @@ function Form(props) {
                         
                         newConn.on('open', () => {
                             newConn.send(newMessage)
-                            console.log("Send :" + newMessage.string)
                         })
                         
                         newConn.on('close', () => {

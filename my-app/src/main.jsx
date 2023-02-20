@@ -14,9 +14,13 @@ yourpeer.on('open', () => {
 function Main() {
     const [data, setData] = React.useState(messagesStorage)
     const [chatOpen, openChat] = React.useState({})
-    console.log(chatOpen)
+
     const recieve = (message) => {
         message.yours = (message.sender === yourpeer.id)
+
+        if (message.yours && message.helper) return
+        delete message.helper
+        
         setData([...data, message])
         messagesStorage.push(message)
         console.log("Data received: " + message.string)
@@ -25,6 +29,7 @@ function Main() {
     const send = (message) => {
         message.receiver = conn.peer
         message.sender = yourpeer.id
+        console.log(yourpeer.connections)
         conn.send(message)
 
         message.yours = true
@@ -33,36 +38,29 @@ function Main() {
         console.log("Send: " + message.string)
     }
 
-    yourpeer.on('connection', (c) => {
-        conn = c
-        console.log("conected to: " + c.peer)
+    const onConnection = (connection) => {
+        conn = connection
+        console.log("conected to: " + connection.peer)
         
-        c.on('data', (message) => {
-            if (message.helper) c.close()
-            delete message.helper
+        connection.on('data', (message) => {
             recieve(message)
+            if (message.helper) connection.close()
         })
+
+        connection.on('close', () => {
+            console.log("connection closed with: " + connection.peer)
+        })
+    }
+
+    yourpeer.on('connection', (c) => {
+        onConnection(c)
     })
 
     // WE NEED THIS TEMPORARILY
     const [inputRemotePeerId, setRemoteValue] = React.useState("")
     
     const connect = () => {
-        conn = yourpeer.connect(inputRemotePeerId, {reliable: true})
-        
-        conn.on('open', () => {
-            console.log("connected to: " + conn.peer)
-        })
-
-        conn.on('data', (message) => {
-            if (message.helper) conn.close(); console.log(yourpeer.id)
-            delete message.helper
-            recieve(message)
-        })
-
-        conn.on('close', () => {
-            console.log("connection closed")
-        })
+        onConnection(yourpeer.connect(inputRemotePeerId, {reliable: true}))
     }
 
     const handleOnChange = (elem) => {
