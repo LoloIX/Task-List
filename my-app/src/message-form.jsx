@@ -4,7 +4,6 @@ import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 function Form(props) {
     console.log("private")
-    console.log(props.chat)
     if (props.chat?.group) {
         console.log("group")
         var groupConn
@@ -31,6 +30,7 @@ function Form(props) {
                         newConn.on('open', () => {
                             newConn.send(newMessage)
                             console.log("Send :" + newMessage.string)
+                            newConn.close()
                         })
                         
                         newConn.on('close', () => {
