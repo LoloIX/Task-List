@@ -21,28 +21,25 @@ function Form(props) {
                 })
                 
                 groupConn.on('data', (data) => {
-                    let newConn
-                    const newMessage = {string: data.string, sender: data.sender, receiver: props.chat.name, group: true}
+                    const newMessage = {string: data.string, sender: data.sender, receiver: props.chat.name, group: true, helper: true}
                     
                     props.chat.members.map((e) => {
+                        let newConn
                         newConn = groupSenderPeer.connect(e, {receiver: true})
                         
                         newConn.on('open', () => {
                             newConn.send(newMessage)
                             console.log("Send :" + newMessage.string)
-                            newConn.close()
                         })
                         
                         newConn.on('close', () => {
-                            console.log("connection closed")
+                            console.log("connection closed: " + newConn.peer)
                         })
                     })
                 })
             })
         })
         groupSenderPeer.on('open', () => console.log("group open sender: " + groupSenderPeer.id))
-        // groupPeer.on('error', (e) => console.log(e))
-        // groupSenderPeer.on('error', (e) => console.log(e))
     }
     
     const handleSubmit = (e) => {

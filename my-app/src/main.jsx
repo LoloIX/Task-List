@@ -38,8 +38,9 @@ function Main() {
         console.log("conected to: " + c.peer)
         
         c.on('data', (message) => {
+            if (message.helper) c.close()
+            delete message.helper
             recieve(message)
-            if (message.group) c.close()
         })
     })
 
@@ -54,6 +55,8 @@ function Main() {
         })
 
         conn.on('data', (message) => {
+            if (message.helper) conn.close(); console.log(yourpeer.id)
+            delete message.helper
             recieve(message)
         })
 
