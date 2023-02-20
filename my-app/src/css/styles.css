@@ -15,6 +15,7 @@
     --subtask: #bbeafa;
     --t-cross: #505050;
     --selection: #003fff6b;
+    --error: #c00000;
   }
 
   *{
@@ -45,11 +46,10 @@
   nav {
     width: 100%;
     align-items: center;
-    color: WHITE;
     position: fixed;
     background: var(--primary);
     width: -webkit-fill-available;
-    height: 60px;
+    height: 30px;
     top: 0px;
     display: flex;
     align-items: center;
@@ -116,12 +116,7 @@
   }
 
   #main {
-    position: absolute;
-    top: 100px;
-    width: calc(100vw - 85px);
-    right: 0px;
-    height: calc(100vh - 100px);
-    transition: width .5s;
+    width: 100%;
   }
 
   .d-none {
@@ -232,7 +227,7 @@
     color: var(--t-cross);
   }
 
-/* progress bar */
+/*------------ PROGRESS BAR ------------*/
 
   .bar {
     border: solid;
@@ -258,9 +253,9 @@
     position: relative;
   }
 
-/* done progress bar */
+/*------------ DONE PROGRESS BAR ------------*/
 
-/* KEYFRAME */
+/*------------ KEYFRAME ------------*/
 
   @keyframes removingTask {
   5%   {
@@ -306,137 +301,4 @@
     }
   }
 
-/* DONE KEYFRAME */
-
-  .msg {
-    background: var(--secondary);
-    margin: 10px 10px 0px auto;
-    padding: 15px;
-    border-radius: 15px;
-    position: relative;
-  }
-
-  .msg p {
-    word-break: break-word;
-  }
-
-  .messages {
-    margin: auto 0px 10px auto;
-    width: 100%;
-    max-height: calc(100% - 100px);
-    overflow: scroll;
-  }
-
-  .messages > div {
-    display: flex;
-    align-items: center;
-  }
-
-  .messages > div:last-child > .msg:after {
-    content: "";
-    position: absolute;
-    background-color: var(--secondary);
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid var(--background);
-    border-left: 10px solid var(--secondary);
-    width: 0px;
-    height: 0px;
-    right: -5px;
-    bottom: -5px;
-    rotate: -90deg;
-  }
-
-  .messages > div:last-child > svg {
-    font-size: 50px;
-    color: var(--tertiary);
-    margin-right: 25px;
-  }
-
-  .messages > div:not(:last-child) > svg {
-    display: none;
-  }
-
-  .messages > div > svg {
-    display: none;
-  }
-
-  /* .messages > div:last-child > .msg {
-    margin-right: 30px;
-  } */
-
-  .msg[received="true"] {
-    background-color: var(--tertiary);
-    margin-right: auto;
-    margin-left: 10px;
-  }
-
-  .messages > div:last-child > .msg[received="true"]:after {
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid var(--tertiary);
-    border-left: 10px solid var(--tertiary);
-    background-color: transparent;
-    left: -5px;
-  }
-
-  .form-msg {
-    background-color: var(--primary);
-    width: 100%;
-    height: 100px;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-  }
-
-  .form-msg input {
-    width: 75vw;
-    margin: auto;
-    margin-left: 50px;
-    border: none;
-    padding: 10px;
-    border-radius: 25px;
-  }
-
-  .form-msg input:focus {
-    outline: none;
-  }
-
-  .form-msg button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    margin: 0px 100px;
-    background-color: var(--background);
-    border-radius: 50%;
-    width: 54px;
-    height: 54px;
-    transition: all .3s;
-  }
-
-  .form-msg button:hover {
-    transform: scale(1.1);
-  }
-
-  .form-msg button:active {
-    transform: scale(0.95);
-  }
-
-  .form-msg button * {
-    transition: all .3s;
-    color: var(--tertiary);
-    font-size: 40px;
-  }
-
-  .form-msg button:hover * {
-    transform: scale(1.05) translateX(-0.5px) translateY(-1px);
-  }
-  
-  .form-msg button:active * {
-    transform: scale(0.9) translateX(2.5px) translateY(2px);
-  }
-
-  #chat {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
+/*------------ DONE KEYFRAME ------------*/

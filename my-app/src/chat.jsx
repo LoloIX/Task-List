@@ -1,38 +1,16 @@
 import React from "react"
-import Form from "./message-form"
-import Message from "./message"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const DATA = []
-
-function Chat() {
-
-    const [messages, setMessage] = React.useState(DATA)
-
-    const sendMessage = (newMessage) => {
-        setMessage([...messages, newMessage])
-        
-        let elem = document.getElementsByClassName("messages")[0]
-        elem.scroll(0, elem.scrollHeight)
-    }
-
-    const messageList = messages.map((e, i) => { 
-        DATA[i] = e
-        return (
-        <Message
-            name={e.name}
-            id={e.id}
-            key={e.id}
-            received={e.received}
-        />
-    )})
-
+function Chat(props) {
     return (
-        <div id="chat">
-            <div className="messages">
-                {messageList}
+        <div onClick={props.onClick}>
+            <div>
+                <FontAwesomeIcon icon={props.icon} />
             </div>
-            
-            <Form sendMessage={sendMessage}/>
+            <div>
+                <h3>{props.title}</h3>
+                <p>{props.lastMessageSender}: {props.lastMessage}</p>
+            </div>
         </div>
     )
 }

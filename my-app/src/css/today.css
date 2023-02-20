@@ -1,12 +1,12 @@
-  body[data-menu="true"] #main {
-    width: calc(100vw - 275px);
-  }
-  
   #canvas {
     position: fixed;
     left: 0;
     top: 0;
     z-index: -1;
+  }
+
+  #main {
+    margin-top: 100px;
   }
 
   .input-task {
@@ -65,10 +65,7 @@
   }
 
   .elements:empty + div {
-    position: absolute;
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .elements + div img {

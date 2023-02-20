@@ -1,4 +1,6 @@
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
 function NavBar() {
     return (
@@ -14,7 +16,7 @@ function NavBar() {
             </div>
             
             <div>
-                <i className="fa-solid fa-magnifying-glass"></i>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
                 <input
                     id="sort-input"
                     type="text"

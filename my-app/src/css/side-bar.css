@@ -1,11 +1,9 @@
   #side-bar {
-    top: 100px;
-    position: absolute;
+    margin-top: 70px;
     transition: all .5s;
     background-color: var(--tertiary);
-    z-index: 2;
     width: 275px;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 70px);
     box-shadow: var(--shadow);
   }
 

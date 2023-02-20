@@ -13,6 +13,8 @@
     display: flex;
     justify-content: center;
     transition: all .5s;
+    margin-top: 70px;
+    height: calc(100vh - 70px);
   }
 
   #main button i {
@@ -81,7 +83,7 @@
     position: relative;
     --color: BLACK;
   }
-  /* CALENDAR */
+  /*------------ CALENDAR ------------*/
 
   #calendar {
     margin: auto 0px;
@@ -226,22 +228,19 @@
     transform: scale(0.9);
   }
 
-  /* CALENDAR DONE  */
+  /*------------ CALENDAR DONE  ------------*/
 
   #daily-quests {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    right: 0px;
+    margin: 100px 0px;
     background-color: var(--span);
-    top: 92.5px;
-    width: 442.5px;
+    width: 550px;
     border: 7.5px solid var(--tertiary);
-    --daily-height: calc(100vh - 100px);
+    --daily-height: calc(100vh - 70px);
     min-height: var(--daily-height);
     transition: all .5s;
     overflow: hidden;
-    z-index: 2;
     text-align: center;
     box-shadow: var(--shadow);
   }
@@ -260,9 +259,9 @@
     position: absolute;
     background-color: transparent;
     width: 50px;
-    height: calc(100vh - 100px);
-    margin-top: 100px;
-    margin-left: calc(100vw - 500px);
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+    margin-left: calc(100vw - 475px);
     display: flex;
     align-items: center;
     z-index: 0;
@@ -282,27 +281,8 @@
     width: 0px;
     border: 0px solid;
   }
-
-  body[data-menu="false"][data-quests="false"] #main {
-    left: 85px;
-    width: calc(100vw - 85px);
-  }
   
-  body[data-menu="true"][data-quests="false"] #main {
-    left: 275px;
-    width: calc(100vw - 275px);
-  }
-
-  body[data-quests="true"][data-menu="false"] #main {
-    width: calc(100vw - 535px);
-    left: 85px;
-  }
-  
-  body[data-quests="true"][data-menu="true"] #main {
-    left: -45px;
-  }
-  
-  /* QUEST */
+  /*------------ QUEST ------------*/
 
   #daily-quests ul {
     height: 550px;
@@ -401,9 +381,9 @@
     color: var(--t-cross)
   }
 
-  /* QUEST DONE */
+  /*------------ QUEST DONE ------------*/
 
-  /* SELECTOR */
+  /*------------ SELECTOR ------------*/
   
   .quest-select {
     animation: shaking .8s;
@@ -496,9 +476,9 @@
     }
   }
 
-  /* SELECTOR DONE */
+  /*------------ SELECTOR DONE ------------*/
 
-  /* BUTTON */
+  /*------------ BUTTON ------------*/
 
   #buttons {
     display: flex;
@@ -676,4 +656,4 @@
     }
   }
 
-  /* BUTTONS DONE */
+  /*------------ BUTTONS DONE ------------*/

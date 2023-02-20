@@ -1,0 +1,561 @@
+  body { 
+    --side-header: #2986d6;
+    --side-background: #0065af;
+    --chat-list-svg: #8dceff;
+  }
+
+  #main {
+    display: flex;
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+  }
+
+/* ------------ MESSAGE ------------*/
+
+    #messages__list {
+    display: flex;
+    margin-top: auto;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
+  .msg {
+    background: var(--secondary);
+    margin: 10px 100px 0px auto;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+  }
+
+  .msg p {
+    word-break: break-word;
+  }
+
+  .messages {
+    margin: auto 0px 0px auto;
+    width: 100%;
+    max-height: calc(100vh - 266px);
+    overflow: scroll;
+  }
+
+  .messages > div {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    z-index: -1;
+  }
+
+  .messages .sended:has(svg) .msg:after {
+    content: "";
+    position: absolute;
+    background-color: var(--secondary);
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid var(--background);
+    border-left: 10px solid var(--secondary);
+    width: 0px;
+    height: 0px;
+    right: -5px;
+    bottom: -5px;
+    rotate: -90deg;
+  }
+
+  .messages svg {
+    font-size: 50px;
+    color: var(--tertiary);
+    margin: 0px 25px;
+  }
+
+  .messages .received .msg {
+    margin-right: auto;
+    margin-left: 100px;
+  }
+
+  .messages .received:has(svg) .msg:after {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid var(--secondary);
+    border-left: 10px solid var(--secondary);
+    background-color: transparent;
+    left: -5px;
+    rotate: -90deg;
+  }
+
+  .messages .received:has(svg) .msg {
+    margin-left: 0px !important;
+  }
+
+  .messages .sended:has(svg) .msg {
+    margin-right: 0px;
+  }
+
+  .msg__sender {
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: medium;
+    color: var(--tertiary);
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /*------------ DONE MESSAGE ------------*/
+
+
+  /*------------ FORM ------------*/
+
+  .form-msg {
+    background-color: var(--primary);
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+  }
+
+  .form-msg input {
+    width: 75%;
+    margin: auto;
+    margin-left: 50px;
+    border: none;
+    padding: 10px;
+    border-radius: 25px;
+  }
+
+  .form-msg input:focus {
+    outline: none;
+  }
+
+  .form-msg button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 0px 100px;
+    background-color: var(--background);
+    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    transition: all .3s;
+  }
+
+  .form-msg button:hover {
+    transform: scale(1.1);
+  }
+
+  .form-msg button:active {
+    transform: scale(0.95);
+  }
+
+  .form-msg button * {
+    transition: all .3s;
+    color: var(--tertiary);
+    font-size: 40px;
+  }
+
+  .form-msg button:hover * {
+    transform: scale(1.05) translateX(-0.5px) translateY(-1px);
+  }
+  
+  .form-msg button:active * {
+    transform: scale(0.9) translateX(2.5px) translateY(2px);
+  }
+
+  /*------------ DONE FORM ------------*/
+
+  /*------------ CHAT LIST ------------*/
+
+  #side {
+    display: flex;
+    flex-direction: column;
+    min-width: 450px;
+    background-color: var(--side-background);
+  }
+
+  #side > div {
+    height: calc(100vh - 176px);
+  }
+
+  #side > header {
+    background-color: var(--side-header);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #side svg {
+    font-size: 20px;
+    color: var(--background);
+  }
+
+  #side > header div:has(.profile__photo) {
+    margin-right: auto;
+  }
+
+  .profile__photo {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile__photo svg {
+    font-size: 40px !important;
+  }
+
+  .chat__options {
+    display: flex;
+  }
+
+  .chat__options div {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0px 6px 0px 8px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .3s;
+  }
+
+  .chat__options div:hover {
+    background-color: var(--quart-bright);
+  }
+
+  #search__bar {
+    padding: 10px;
+  }
+
+  #search__bar > div {
+    background-color: var(--side-header);
+    border-radius: 10px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+  }
+
+  #search__bar input {
+    background-color: transparent;
+    color: WHITE;
+    font-size: 15px;
+    border: none;
+    height: 25px;
+    width: 100%;
+  }
+
+  #search__bar input:focus {
+    outline: none;
+  }
+
+  #search__bar input::placeholder {
+    color: var(--chat-list-svg);
+  }
+
+  #search__bar svg {
+    font-size: 15px;
+    color: var(--chat-list-svg);
+    margin: 0px 20px;
+    cursor: pointer;
+  }
+
+  #chat__list > div {
+    margin: 5px 0px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+    transition: all .3s;
+  }
+  
+  #chat__list > div svg {
+    font-size: 40px;
+  }
+
+  #chat__list > div > div:first-child {
+    height: 75px;
+    min-width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #chat__list > div > div:last-child {
+    margin-right: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid var(--side-header);
+  }
+
+  #chat__list > div:hover {
+    background-color: var(--quart-bright);
+  }
+
+  #chat__list p {
+    font-size: 15px;
+    color: var(--chat-list-svg);
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #chat__list h3 {
+    margin: 0px;
+    font-size: 20px;
+    color: WHITE;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /*------------ DONE CHAT LIST ------------*/
+
+  /* ------------ GROUPS ------------ */
+
+  .group__options {
+    display: flex;
+    height: calc(100vh - 70px);
+    width: calc(100vw - 82px);
+    position: absolute;
+    transition: all .3s;
+  }
+
+  body[data-menu=true] .group__options {
+    width: calc(100vw - 252px);
+  }
+
+  .group__options[show=false] {
+    height: 0px;
+    width: 0px;
+    overflow: hidden;
+  }
+
+  .group__options[show=false] .modal {
+    display: none;
+  }
+
+  .modal {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    background-color: #00000035;
+    z-index: 0;
+  }
+
+  .group__options > div:first-child {
+    margin: auto;
+    height: 75%;
+    width: 350px;
+    background-color: var(--tertiary);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    z-index: 1;
+  }
+
+  .group__options input {
+    appearance: none;
+    padding-left: 5px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: WHITE;
+  }
+  
+  .group__options input::placeholder {
+    color: var(--quart-bright);
+    font-size: 20px;
+  }
+  
+  .group__options input:focus {
+    outline: none;
+  }
+
+  .group__options button {
+    margin: auto 0px 0px auto;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary);
+    font-size: 20px;
+    padding: 7px;
+    color: WHITE;
+    cursor: pointer;
+    transition: transform .1s, background-color .3s;
+  }
+
+  .group__options button.incomplete {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .group__options button:not(.incomplete):active {
+    transform: scale(0.9);
+  }
+
+  .group__options button:not(.incomplete):hover {
+    background-color: var(--side-background);
+  }
+
+  .group__info {
+    display: flex;
+    padding-bottom: 15px;
+    border-bottom: 1px solid WHITE;
+    align-items: center;
+    width: 100%;
+  }
+
+  .group__info div:has(svg)  {
+    height: 50px;
+    width: 50px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .group__info form  {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .group__info form:has(.incomplete)::after,
+  .group__search__bar:has(.incomplete)::after {
+    content: "";
+    margin-left: 10px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: relative;
+    background-color: var(--error);
+  }
+
+  .group__info form:has(.incomplete)::before {
+    content: "This slot cannot be empty !";
+  }
+
+  .group__info form:has(.incomplete)::before,
+  .group__search__bar:has(.incomplete)::before {
+    transition: all .3s;
+    font-size: 15px;
+    color: WHITE;
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    right: 0;
+    overflow: hidden;
+    opacity: 0;
+    background-color: BLACK;
+    border-radius: 15px;
+    padding: 0.5em;
+  }
+
+  .group__add__members {
+    margin: 15px 0px 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .group__search__bar:has(.incomplete)::before {
+    content: "You must add at least two people !";
+  }
+  
+  .group__add__members p {
+    color: WHITE;
+    margin-left: 25px;
+    font-weight: 100;
+    font-family: Helvetica;
+  }
+
+  .group__search__bar {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-right: auto;
+    margin-top: 10px;
+    position: relative;
+  }
+
+  .group__add__members svg {
+    font-size: 15px;
+    color: var(--quart-bright);
+    margin: 0 10px;
+  }
+
+  .group__members__found {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .group__members__found::-webkit-scrollbar {
+    display: none;
+  }
+
+  .group__members__found > li {
+    display: flex;
+    align-items: center;
+    transition: all .3s;
+    cursor: default;
+    color: WHITE;
+    overflow: hidden;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid WHITE;
+    border-radius: 20px;
+    background-color: var(--quart-bright);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  }
+
+  .group__members__found > li:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    box-shadow: rgba(255, 255, 255, 0.4) 0px 30px 90px;
+  }
+
+  .group__members__found > li svg {
+    height: 0px;
+    width: 0px;
+    transition: all .3s;
+    transform: translateX(50px);
+  }
+  
+  .group__members__found > li:hover svg {
+    transform: translateX(0px);
+    margin-left: 15px;
+    height: 20px;
+    width: 20px;
+  }
+
+  .incomplete {
+    border-bottom: 2px var(--error) solid !important;
+  }
+
+  .group__info form:has(.incomplete):hover::before,
+  .group__search__bar:has(.incomplete):hover::before {
+    top: -5em;
+    right: -3em;
+    width: 6em;
+    height: 4em;
+    opacity: 1;
+  }
+
+  /* ------------ DONE GROUPS ------------ */

@@ -1,90 +1,67 @@
 import React from "react"
-import { nanoid } from "nanoid"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons"
 
-var peer = new Peer(null, {debug: 2})
-var conn
-
-function Form(prop) {
-    const [inputRemotePeerId, setRemoteValue] = React.useState("")
-
-    peer.on('open', () => {
-        console.log("ID: " + peer.id)
-    })
+function Form(props) {
+    if (props.chat?.group) {
+        var groupConn
+        var groupPeer = new Peer(props.chat.name, {debug: 0})
+        var groupSenderPeer = new Peer(`${props.chat.name}-helper`, {debug: 0})
     
-    peer.on('connection', (c) => {
-        conn = c
-        console.log("conected to: " + c.peer)
-    
-        c.on('data', (data) => {
-            const newMessage = {id: `msg-${nanoid()}`, name: data, received: "true"}
-            prop.sendMessage(newMessage)
-            console.log("Data received: " + data)
+        groupPeer.on('open', () => {
+            props.chat.members.map((e) => {
+                groupConn = groupPeer.connect(e, {receiver: true})
+                
+                groupConn.on('open', () => {
+                    console.log("connected to: " + groupConn.peer)
+                })
+                
+                groupConn.on('data', (data) => {
+                    const newMessage = {string: data.string, sender: data.sender, receiver: props.chat.name, group: true, helper: true}
+                    
+                    props.chat.members.map((e) => {
+                        let newConn
+                        newConn = groupSenderPeer.connect(e, {receiver: true})
+                        
+                        newConn.on('open', () => {
+                            newConn.send(newMessage)
+                        })
+                        
+                        newConn.on('close', () => {
+                            console.log("connection closed: " + newConn.peer)
+                        })
+                    })
+                })
+            })
         })
-    })
-
+        groupSenderPeer.on('open', () => console.log("group open sender: " + groupSenderPeer.id))
+    }
+    
     const handleSubmit = (e) => {
         e.preventDefault()
-        const name = e.target[0].value
-
-        if (name === "") return
         
-        const newMessage = {id: `msg-${nanoid()}`, name, received: "false"}
-        prop.sendMessage(newMessage)
-        console.log("Sent: " + name)
-        conn.send(name)
+        if (e.target[0].value === "") return
+        
+        const newMessage = {string: e.target[0].value, group: props.chat?.group}
+        
+        props.send(newMessage)
 
         e.target[0].value = ""
     }
 
-    const connect = () => {
-        conn = peer.connect(inputRemotePeerId, {reliable: true})
-        
-        conn.on('open', () => {
-            console.log("connected to: " + conn.peer)
-        })
-
-        conn.on('data', (data) => {
-            console.log("Data received: " + data)
-            
-            const newMessage = {id: `msg-${nanoid()}`, name: data, received: "true"}
-            prop.sendMessage(newMessage)
-        })
-    }
-
-    const handleOnChange = (elem) => {
-        setRemoteValue(elem.target.value)
-    }
-
     return (
-        <div>
-            <div>
-                <p>Connect to: </p>
-                <input 
-                    value={inputRemotePeerId}
-                    onChange={handleOnChange}
-                />
-
-                <button
-                    onClick={connect}
-                >
-                    Connect
-                </button>
-            </div>
-            <form onSubmit={handleSubmit} className="form-msg">
-                <input
-                    className="input-msg"
-                    type="text"
-                    autoComplete="off"
-                    placeholder="Write a message..."
-                />
-                
-                <button type="submit" className="btn-msg">
-                    <FontAwesomeIcon icon={faCircleRight} />
-                </button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit} className="form-msg">
+            <input
+                className="input-msg"
+                type="text"
+                autoComplete="off"
+                placeholder="Write a message..."
+            />
+            
+            <button type="submit" className="btn-msg">
+                <FontAwesomeIcon icon={faCircleRight} />
+            </button>
+        </form>
     )
 }
 

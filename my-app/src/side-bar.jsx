@@ -1,15 +1,15 @@
 import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCalendarDay, faCalendarDays, faMessage, faAddressBook, faGear } from "@fortawesome/free-solid-svg-icons"
+import { faFolderOpen, faCalendarDays, faMessage, faAddressBook, faGear } from "@fortawesome/free-solid-svg-icons"
 
 function SideBar() {
     return (
         <span id="side-bar">
             <menu>
                 <li>
-                    <a href="today.html"><div>
-                        <FontAwesomeIcon icon={faCalendarDay} />
-                        <h3>Today</h3>
+                    <a href="works.html"><div>
+                        <FontAwesomeIcon icon={faFolderOpen} />
+                        <h3>Works</h3>
                     </div></a>
                     <a href="calendar.html"><div>
                         <FontAwesomeIcon icon={faCalendarDays} />
